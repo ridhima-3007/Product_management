@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-const userSchema=mongoose.schema({
+const userSchema=mongoose.Schema({
     name:{
         type:String,
         required:true
@@ -21,7 +21,7 @@ const userSchema=mongoose.schema({
     },
     Status:{
         type:String,
-        default:active
+        default:"active"
     }
 })
 
