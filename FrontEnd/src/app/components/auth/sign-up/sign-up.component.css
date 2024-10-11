@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");
 
 * {
   margin: 0;
@@ -7,7 +8,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
+.body {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -106,7 +107,7 @@ background: linear-gradient(90deg, rgba(28,195,190,1) 0%, rgba(38,95,237,1) 35%,
   width: 100%;
   outline: none;
   border: none;
-  padding: 0 30px;
+  padding: 0 20px;
   font-size: 16px;
   font-weight: 500;
   border-bottom: 2px solid rgba(0, 0, 0, 0.2);
@@ -137,21 +138,6 @@ background: linear-gradient(90deg, rgba(28,195,190,1) 0%, rgba(38,95,237,1) 35%,
 
 .forms .form-content .button input:hover {
   background: #5b13b9;
-}
-
-.fp {
-    font-size: 15px;
-    color: rgb(37, 82, 231);
-    text-decoration: none;
-    margin-bottom: 20px;
-}
-
-.newUser {
-    font-size: 15px;
-    color: rgb(37, 82, 231);
-    text-decoration: none;
-    margin-bottom: 20px;
-    text-align: center;
 }
 
 @media (max-width: 680px) {
