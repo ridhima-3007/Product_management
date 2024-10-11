@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { NgForm } from '@angular/forms';
 import{UserService} from 'src/app/Services/user.service'
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -9,7 +11,23 @@ import {Router} from '@angular/router'
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
+
+signupForm:FormGroup;
+
+  constructor(private userService: UserService,private router:Router,private fb:FormBuilder) {}
+
+  ngOnInit(): void {
+    // this.signupForm = this.fb.group({
+    //   name: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[a-zA-Z]+$')]],
+
+    //   email: ['', [Validators.required, Validators.email]],
+
+    //   mobile: ['', [Validators.required, Validators.pattern('^[6-9][0-9]{10}$')]],
+
+    //   password: ['', [Validators.required, Validators.minLength(8)]],
+    // });
+  }
  
   user = {
     name: '',
@@ -17,8 +35,6 @@ export class SignUpComponent {
     mobile: null,
     password: ''
 };
-
-constructor(private userService: UserService,private router:Router) {}
 
 onSignup(form: NgForm) {
     if (form.invalid) {
@@ -35,4 +51,9 @@ onSignup(form: NgForm) {
         }
     );
 }
+
+// get f() {
+//   return this.signupForm.controls;
+// }
+
 }

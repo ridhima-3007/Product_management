@@ -155,3 +155,8 @@ background: linear-gradient(90deg, rgba(28, 195, 190, 0.918) 0%, rgba(38, 94, 23
     padding: 20px;
   }
 }
+
+.error-message {
+  color: red; 
+  font-size: 0.875rem; 
+}
