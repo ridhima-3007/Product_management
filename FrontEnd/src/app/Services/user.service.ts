@@ -14,4 +14,9 @@ export class UserService {
     signup(userData: any): Observable<any> {
         return this.http.post(`${this.apiUrl}/signup`, userData);
     }
+
+    login(userData: any): Observable<any> {
+        console.log(userData);
+        return this.http.post(`${this.apiUrl}/login`, userData, {withCredentials: true});
+    }
 }

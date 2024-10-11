@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NgForm } from '@angular/forms';
 import{UserService} from 'src/app/Services/user.service'
-import { AppRoutingModule } from 'src/app/app-routing.module';
+
 import {Router} from '@angular/router'
 
 @Component({
