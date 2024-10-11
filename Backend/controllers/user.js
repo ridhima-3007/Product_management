@@ -2,21 +2,27 @@ const user = require('../models/user')
 const bcrypt = require('bcryptjs')
 const {setUser} = require('../service/auth')
 
-async function handleUserLogin(req, res) {
-    const {email, password} = req.body;
-    const curUser = await user.findOne({email});
-    if(!curUser) {
-        return res.json({msg: "invalid email"});
+async function handleUserLogin(req, res, next) {
+    try {
+        const {email, password} = req.body;
+        const curUser = await user.findOne({email});
+        if(!curUser) {
+            res.status(400).json({msg: "Invalid Email"});
+        }
+
+        const result = await bcrypt.compare(password, curUser.password)
+
+        if(!result) {
+            res.status(400).json({msg: "Invalid Password"});
+        }
+
+        const token = setUser(curUser);
+        res.cookie("authToken", token, SameSite='None');
+        return res.json({token});
     }
-
-    const result = await bcrypt.compare(password, curUser.password)
-
-    if(!result) {
-        return res.json({msg: "invalid password"});
+    catch(error) {
+        next(error);
     }
-
-    const token = setUser(curUser);
-    return res.json({token});
 }
 
 module.exports = {

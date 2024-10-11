@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { UserService } from 'src/app/Services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,4 +10,36 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  user = {
+    email: '',
+    password: '',
+  };
+
+  errorMessage = ''
+
+  constructor(private userService: UserService, private router: Router) {}
+
+  onLogin(form: NgForm) {
+    if(form.invalid) {
+      console.log("invalid form ");
+      return;
+    }
+    console.log(this.user);
+    this.userService.login(this.user).subscribe(
+      response => {
+        console.log("User login successful", response);
+        this.router.navigate(['/home']);
+      },
+      error => {
+        this.errorMessage = error.error?.msg;
+        this.user.email = '';
+        this.user.password = ''
+        this.router.navigate(['/login']);
+      }
+    )
+  }
+
+  removeError() {
+    this.errorMessage = ''
+  }
 }
