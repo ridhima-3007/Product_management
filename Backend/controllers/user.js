@@ -17,7 +17,7 @@ async function handleUserLogin(req, res, next) {
         }
 
         const token = setUser(curUser);
-        res.cookie("authToken", token, SameSite='None');
+        // res.cookie("authToken", token, SameSite='None');
         return res.json({token});
     }
     catch(error) {
