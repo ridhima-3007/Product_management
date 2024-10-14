@@ -27,9 +27,9 @@ const userSchema=mongoose.Schema({
     refreshToken: {
         type: String,
     },
-    resetPasswordToken:{
-        type:String
-    },
+    resetToken:{
+        type:String,
+    }
 })
 
 userSchema.pre("save",async function(next){
@@ -51,3 +51,5 @@ userSchema.pre("save",async function(next){
 const user = new mongoose.model("user",userSchema);
 
 module.exports = user;
+
+
