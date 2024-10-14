@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: center;
   background: rgb(28,195,190);
-background: linear-gradient(90deg, rgba(28, 195, 190, 0.918) 0%, rgba(38, 94, 237, 0.808) 35%, rgba(0, 213, 255, 0.877) 100%);
+  background: linear-gradient(90deg, rgba(28, 195, 190, 0.918) 0%, rgba(38, 94, 237, 0.808) 35%, rgba(0, 213, 255, 0.877) 100%);
   padding: 30px;
 }
 
@@ -154,4 +154,9 @@ background: linear-gradient(90deg, rgba(28, 195, 190, 0.918) 0%, rgba(38, 94, 23
     width: 100%;
     padding: 20px;
   }
+}
+
+.error-message {
+  color: red; 
+  font-size: 0.875rem; 
 }
