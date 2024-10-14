@@ -23,6 +23,12 @@ const userSchema=mongoose.Schema({
     Status:{
         type:String,
         default:"active"
+    },
+    resetPasswordToken:{
+        type:String
+    },
+    createId:{
+        type:mongoose.type.O
     }
 })
 
@@ -38,7 +44,7 @@ userSchema.pre("save",async function(next){
    const hashPassword=await bcrypt.hash(user.password,saltRound);
    user.password=hashPassword;
     }catch(err){
-        next(error)
+        next(err)
     }
 })
 

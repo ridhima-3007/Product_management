@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { TextComponent } from './text/text.component';
+import { ForgotPasswordComponent } from './components/auth/forgotpassword/forgotpassword.component';
+import { ResetPasswordComponent } from './components/auth/resetpassword/resetpassword.component';
+import { ProductuploadComponent } from './components/Products/productupload/productupload.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,9 @@ import { TextComponent } from './text/text.component';
     LoginComponent,
     SignUpComponent,
     TextComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    ProductuploadComponent,
   ],
   imports: [
     BrowserModule,
