@@ -19,6 +19,7 @@
 
                 <input type="text" placeholder="Enter your name" name="name" required  maxlength="20" pattern="^[a-zA-Z\s]+$" [(ngModel)]="user.name" #name="ngModel">
         
+                
               </div>
               <div *ngIf="name.invalid && name.touched" class="error-message">
                 <small *ngIf="name.errors?.['pattern']">Name must contain only letters and spaces.</small>
