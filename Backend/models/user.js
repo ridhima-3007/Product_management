@@ -24,12 +24,12 @@ const userSchema=mongoose.Schema({
         type:String,
         default:"active"
     },
+    refreshToken: {
+        type: String,
+    },
     resetPasswordToken:{
         type:String
     },
-    createId:{
-        type:mongoose.type.O
-    }
 })
 
 userSchema.pre("save",async function(next){
@@ -40,11 +40,11 @@ userSchema.pre("save",async function(next){
     }
 
     try{
-   const saltRound=await bcrypt.genSalt(10);
-   const hashPassword=await bcrypt.hash(user.password,saltRound);
-   user.password=hashPassword;
+        const saltRound=await bcrypt.genSalt(10);
+        const hashPassword=await bcrypt.hash(user.password,saltRound);
+        user.password=hashPassword;
     }catch(err){
-        next(err)
+        next(error)
     }
 })
 

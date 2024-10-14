@@ -21,10 +21,9 @@ export class LoginComponent {
 
   onLogin(form: NgForm) {
     if(form.invalid) {
-      console.log("invalid form ");
       return;
     }
-    console.log(this.user);
+    
     this.userService.login(this.user).subscribe(
       response => {
         console.log("User login successful", response);
