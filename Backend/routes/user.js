@@ -1,21 +1,14 @@
 const express=require('express');
 const router=express.Router();
-const user=require('../models/user')
-const {handleUserLogin} = require('../controllers/user')
+const {handleUserLogin, handleUserLogout, handleUserSignUp, refreshAccessToken} = require('../controllers/user');
+const { checkAuth } = require('../middlewares/auth');
 
-router.post('/signup',async(req,res)=>{
-    const { name, email, mobile, password } = req.body;
-
-   await user.create({
-    name,
-    email,
-    mobile,
-    password
-   })
-
-   return res.json({msg:"user Created"});
-})
+router.post('/signup', handleUserSignUp)
 
 router.post('/login', handleUserLogin);
+
+router.post('/logout', checkAuth, handleUserLogout);
+
+router.post('/refresh-token', refreshAccessToken);
 
 module.exports=router;

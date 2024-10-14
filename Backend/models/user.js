@@ -23,6 +23,9 @@ const userSchema=mongoose.Schema({
     Status:{
         type:String,
         default:"active"
+    },
+    refreshToken: {
+        type: String,
     }
 })
 
@@ -34,9 +37,9 @@ userSchema.pre("save",async function(next){
     }
 
     try{
-   const saltRound=await bcrypt.genSalt(10);
-   const hashPassword=await bcrypt.hash(user.password,saltRound);
-   user.password=hashPassword;
+        const saltRound=await bcrypt.genSalt(10);
+        const hashPassword=await bcrypt.hash(user.password,saltRound);
+        user.password=hashPassword;
     }catch(err){
         next(error)
     }

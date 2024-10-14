@@ -1,12 +1,25 @@
 const jwt = require('jsonwebtoken');
 const secret = "abc@123";
 
-function setUser(user) {
+function generateAccessToken(user) {
     const payload = {
         _id: user._id,
         email: user.email
     }
-    return jwt.sign(payload, secret);
+    const expiry = {
+        expiresIn: "1d",
+    }
+    return jwt.sign(payload, secret, expiry);
+}
+
+function generateRefreshToken(user) {
+    const payload = {
+        _id: user._id,
+    }
+    const expiry = {
+        expiresIn: "10d",
+    }
+    return jwt.sign(payload, secret, expiry);
 }
 
 function getUser(token) {
@@ -20,5 +33,7 @@ function getUser(token) {
 }
 
 module.exports = {
-    setUser, getUser
+    generateAccessToken,
+    generateRefreshToken,
+    getUser,
 }

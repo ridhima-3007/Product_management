@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { TextComponent } from './text/text.component';
+import { LogoutComponent } from './components/auth/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { TextComponent } from './text/text.component';
     LoginComponent,
     SignUpComponent,
     TextComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
