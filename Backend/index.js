@@ -79,9 +79,8 @@ app.post('/forgotPassword', async (req, res) => {
       if (!user1) {
         return res.status(404).send({ message: 'User not found' });
       }
-  
-      const hashedPassword = await bcrypt.hash(newPassword, 12);
-      user1.password = hashedPassword;
+
+      user1.password = newPassword;
       user1.resetPasswordToken = undefined; 
       await user1.save();
   

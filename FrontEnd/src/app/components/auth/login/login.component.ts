@@ -23,6 +23,8 @@ export class LoginComponent {
     if(form.invalid) {
       return;
     }
+
+    console.log(this.user);
     
     this.userService.login(this.user).subscribe(
       response => {
