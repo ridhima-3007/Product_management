@@ -12,8 +12,6 @@ const UserRoute=require('./routes/user')
 const jwt=require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 
-const JWT_SECRET = '$rrr%';  
-
 app.use(cors({
     origin: "http://localhost:4200",
     credentials: true,

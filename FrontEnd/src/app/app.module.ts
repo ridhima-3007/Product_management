@@ -14,6 +14,8 @@ import { ProductuploadComponent } from './components/Products/productupload/prod
 import { HomeComponent } from './components/Products/home/home.component';
 import { NavbarComponent } from './components/Products/navbar/navbar.component';
 import { CategoryListComponent } from './components/Products/category-list/category-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { CategoryListComponent } from './components/Products/category-list/categ
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

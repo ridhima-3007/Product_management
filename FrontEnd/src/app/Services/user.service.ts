@@ -23,4 +23,8 @@ export class UserService {
     logout(): Observable<any> {
         return this.http.post(`${this.apiUrl}/logout`, {}, {withCredentials: true});
     }
+
+    refreshAccessToken(): Observable<any> {
+        return this.http.post(`${this.apiUrl}/refresh-token`, {}, {withCredentials: true});
+    }
 }
