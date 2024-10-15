@@ -7,22 +7,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
-import { TextComponent } from './text/text.component';
 import { LogoutComponent } from './components/auth/logout/logout.component';
 import { ForgotPasswordComponent } from './components/auth/forgotpassword/forgotpassword.component';
 import { ResetPasswordComponent } from './components/auth/resetpassword/resetpassword.component';
 import { ProductuploadComponent } from './components/Products/productupload/productupload.component';
+import { HomeComponent } from './components/Products/home/home.component';
+import { NavbarComponent } from './components/Products/navbar/navbar.component';
+import { CategoryListComponent } from './components/Products/category-list/category-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    TextComponent,
     LogoutComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ProductuploadComponent,
+    HomeComponent,
+    NavbarComponent,
+    CategoryListComponent,
   ],
   imports: [
     BrowserModule,
