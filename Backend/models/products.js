@@ -18,9 +18,13 @@ const ProductSchema = mongoose.Schema({
     type: Number,
     required: true
   },
+  
+  coverImage:{
+    type:String,
+    required:true,
+  },
   images: {
     type: [String], 
-    required: true
   },
   discount: {
     type: Number,
