@@ -48,7 +48,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
                   <path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0"/>
                 </svg>
-                <input type="text" placeholder="Enter your mobile number" name="mobile" required [(ngModel)]="user.mobile" #mobile="ngModel" maxlength="10" pattern="^[6-9][0-9]+$">
+                <input type="text" placeholder="Enter your mobile number" name="mobile" required [(ngModel)]="user.mobile" #mobile="ngModel" maxlength="10" pattern="^[6-9]\d{9}">
                 
               </div>
 
@@ -65,11 +65,12 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
                   <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
                 </svg>
-                <input type="password" placeholder="Enter your password" name="password" required [(ngModel)]="user.password" #password="ngModel" minlength="8">
+                <input type="password" placeholder="Enter your password" name="password" required [(ngModel)]="user.password" #password="ngModel" minlength="8" pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$'>
                 
               </div>
               <div *ngIf="password.invalid && password.touched" class="error-message">
                 <small *ngIf="password.errors?.['required']">Password is required.</small>
+                <small *ngIf="password.errors?.['pattern']">Password must contain uppercase ,lowercase and special characters.</small>
                 <small *ngIf="password.errors?.['minlength']">Password must be at least 8 characters long.</small>
               </div>
               
@@ -81,6 +82,7 @@
 
             </div>
           </form>
+
         </div>
       </div>
     </div>

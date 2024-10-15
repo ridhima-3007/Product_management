@@ -1,0 +1,47 @@
+<div class="container">
+    <h2>Create Product</h2>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" required />
+      </div>
+  
+      <div>
+        <label for="price">Price</label>
+        <input id="price" formControlName="price" required />
+      </div>
+  
+      <div>
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" required></textarea>
+      </div>
+  
+      <div>
+        <label for="category">Category</label>
+        <input id="category" formControlName="category" required />
+      </div>
+  
+      <div>
+        <label for="discount">Discount</label>
+        <input id="discount" formControlName="discount" required />
+      </div>
+  
+      <div>
+        <label for="coverImage">Cover Image (required)</label>
+        <input type="file" (change)="onCoverFileSelected($event)" required />
+      </div>
+  
+      <div>
+        <label for="images">Additional Images (optional)</label>
+        <input type="file" (change)="onFileSelected($event)" multiple />
+      </div>
+  
+      <button type="submit" [disabled]="productForm.invalid">Submit</button>
+    </form>
+  </div>
+
+
+
+
+  
+  
