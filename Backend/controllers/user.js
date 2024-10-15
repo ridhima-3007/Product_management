@@ -25,6 +25,7 @@ async function handleUserLogin(req, res, next) {
 
         const result = await bcrypt.compare(password, curUser.password)
 
+
         if(!result) {
             return res.status(400).json({msg: "Invalid Password"});
         }
