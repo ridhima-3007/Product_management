@@ -16,6 +16,8 @@ import { NavbarComponent } from './components/Products/navbar/navbar.component';
 import { CategoryListComponent } from './components/Products/category-list/category-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ProfileComponent } from './components/auth/profile/profile.component';
+import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     HomeComponent,
     NavbarComponent,
     CategoryListComponent,
+    ProfileComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

@@ -170,6 +170,39 @@ async function handleResetPassword(req, res) {
     }
 }
 
+async function handleChangePassword(req, res, next) {
+    try {
+        const {oldPassword, newPassword, confirmPassword} = req.body;
+        const accessToken = req.cookies?.accessToken;
+        console.log("access Token: ", accessToken);
+        let data = getUser(accessToken);
+        const _id = data.curUser._id;
+        console.log(_id);
+        const curUser = await user.findOne({_id});
+        console.log(curUser);
+        if(!curUser) {
+            return res.status(400).json({msg: "You are not loggedIn!"});
+        }
+
+        const result = await bcrypt.compare(oldPassword, curUser.password);
+
+        if(!result) {
+            return res.status(400).json({msg : "Old Password is wrong!"});
+        }
+
+        if(newPassword !== confirmPassword) {
+            return res.status(400).json({msg: "Confirm Password does not match"});
+        }
+
+        curUser.password = newPassword;
+        await curUser.save();
+        return res.json({msg: "Password changed successfully!"});
+
+    }catch(error) {
+        next(error);
+    }
+}
+
 module.exports = {
     handleUserSignUp,
     handleUserLogin, 
@@ -177,4 +210,5 @@ module.exports = {
     refreshAccessToken,
     handleForgotPassword,
     handleResetPassword,
+    handleChangePassword,
 }

@@ -3,8 +3,12 @@ const secret = "abc@123";
 
 function generateAccessToken(user) {
     const payload = {
-        _id: user._id,
-        email: user.email
+        curUser : {
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+            mobile: user.mobile,
+        }
     }
     const expiry = {
         expiresIn: "1d",

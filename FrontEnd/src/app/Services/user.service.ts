@@ -27,4 +27,8 @@ export class UserService {
     refreshAccessToken(): Observable<any> {
         return this.http.post(`${this.apiUrl}/refresh-token`, {}, {withCredentials: true});
     }
+
+    changePassword(data: any): Observable<any> {
+        return this.http.post(`${this.apiUrl}/changePassword`, data, {withCredentials: true});
+    }
 }
