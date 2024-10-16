@@ -19,6 +19,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MylistingsComponent } from './components/Products/mylistings/mylistings.component';
 import { ProfileComponent } from './components/auth/profile/profile.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
+import { ItemModel,DropDownButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    DropDownButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
