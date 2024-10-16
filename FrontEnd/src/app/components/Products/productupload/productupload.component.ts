@@ -16,10 +16,12 @@ export class ProductuploadComponent {
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
-      price: ['', Validators.required],
+      price: ['', Validators.required,Validators.pattern('^[0-9]+$')],
       description: ['', Validators.required],
       category: ['', Validators.required],
-      discount: ['', Validators.required]
+      discount: ['', Validators.required,Validators.pattern('^[0-9]+$')],
+      coverImage:[null,Validators.required],
+      images:[null]
     });
   }
 
