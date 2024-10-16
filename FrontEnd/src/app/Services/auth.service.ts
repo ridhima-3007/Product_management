@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private cookieService : CookieService, private http: HttpClient, 
     private userService: UserService, private matSnackBar: MatSnackBar, private router: Router) { }
 
-  isLoggedIn() : boolean {
+  isLoggedIn() {
     const token = this.getAccessToken();
     if(token) {
       return !this.isTokenExpired(token);
@@ -33,28 +33,16 @@ export class AuthService {
   }
 
   checkAndRefreshToken(): void {
-    const accessToken = this.getAccessToken();
-    if(!accessToken) {
-      this.router.navigate(['/login']);
-      this.matSnackBar.open("You are not logged In", "Close", {
-        verticalPosition: 'top',
-      });
-    }
-    else if(accessToken && this.isTokenExpired(accessToken)) {
-      this.userService.refreshAccessToken().subscribe(
-        response => {
-          this.router.navigate(['/login'])
-        },
-        error => {
-          this.router.navigate(['/login']);
-          this.matSnackBar.open(error.error?.msg, "Close", {
-            verticalPosition: 'top',
-          });
-  
-        }
-      )
-    } else {
-      this.router.navigate(['/login']);
-    }
+    this.userService.refreshAccessToken().subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        this.router.navigate(['/login']);
+        this.matSnackBar.open(error.error?.msg, "Close", {
+          verticalPosition: 'top',
+        });
+      }
+    )
   }
 }

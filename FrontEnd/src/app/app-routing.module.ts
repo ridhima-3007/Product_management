@@ -6,6 +6,7 @@ import { ForgotPasswordComponent } from './components/auth/forgotpassword/forgot
 import { ResetPasswordComponent } from './components/auth/resetpassword/resetpassword.component';
 import { ProductuploadComponent } from './components/Products/productupload/productupload.component';
 import { HomeComponent } from './components/Products/home/home.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -34,7 +35,7 @@ const routes: Routes = [
     component:ResetPasswordComponent
   },
   {
-    path:'uploadProduct',
+    path:'uploadProduct', canActivate : [authGuard],
     component:ProductuploadComponent
   }
 ];
