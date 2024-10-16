@@ -1,0 +1,10 @@
+.myList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 2vh;
+}
+
+.list{
+    margin: 0.5rem;
+}

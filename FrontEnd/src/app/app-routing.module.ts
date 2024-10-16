@@ -7,6 +7,7 @@ import { ResetPasswordComponent } from './components/auth/resetpassword/resetpas
 import { ProductuploadComponent } from './components/Products/productupload/productupload.component';
 import { HomeComponent } from './components/Products/home/home.component';
 import { authGuard } from './guards/auth.guard';
+import {MylistingsComponent} from './components/Products/mylistings/mylistings.component'
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path:'uploadProduct', canActivate : [authGuard],
     component:ProductuploadComponent
+  },
+  {
+    path:'myListings', canActivate : [authGuard],
+    component:MylistingsComponent
   }
 ];
 

@@ -16,6 +16,7 @@ import { NavbarComponent } from './components/Products/navbar/navbar.component';
 import { CategoryListComponent } from './components/Products/category-list/category-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MylistingsComponent } from './components/Products/mylistings/mylistings.component';
 import { ProfileComponent } from './components/auth/profile/profile.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 
@@ -32,6 +33,7 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
     HomeComponent,
     NavbarComponent,
     CategoryListComponent,
+    MylistingsComponent,
     ProfileComponent,
     ChangePasswordComponent,
   ],

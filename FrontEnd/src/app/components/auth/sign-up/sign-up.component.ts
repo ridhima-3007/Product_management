@@ -37,12 +37,11 @@ onSignup(form: NgForm) {
             this.router.navigate(['/login']);
         },
         error => {
-          this.router.navigate(['/signup']);
             console.error('Error signing up:', error);
             this.snackbar.open("User already exists","Close",{
               verticalPosition:'top', 
             });
-           
+           this.signupForm.reset();
         }
     );
 }

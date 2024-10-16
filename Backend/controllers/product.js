@@ -1,13 +1,17 @@
 const products=require('../models/products')
 const multer=require('multer');
 const path=require('path')
+const {getUser}=require('../service/auth')
+
 
 async function uploadProducts(req,res){
     try {
+        const currUser=getUser(req.cookies.refreshToken);
+
         if (!req.files.coverImage || req.files.coverImage.length === 0) {
             return res.status(400).json({ error: 'Cover image is required.' });
         }
-  
+
         const coverImagePath = req.files.coverImage[0].path; 
         const imagePaths = req.files.images ? req.files.images.map(file => file.path) : []; 
   
@@ -16,9 +20,12 @@ async function uploadProducts(req,res){
             price: req.body.price,
             description: req.body.description,
             category: req.body.category,
+            quantity:req.body.Quantity,
+            subcategory:req.body.subcategory,
             coverImage: coverImagePath,
             images: imagePaths, 
-            discount: req.body.discount
+            discount: req.body.discount,
+            createdBy:currUser._id,
         });
   
         await product.save(); 
