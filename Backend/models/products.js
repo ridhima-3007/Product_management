@@ -10,6 +10,10 @@ const ProductSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  subcategory: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true
@@ -29,6 +33,10 @@ const ProductSchema = mongoose.Schema({
   discount: {
     type: Number,
     default: 0 
+  },
+  quantity:{
+    type:Number,
+    default:1
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,

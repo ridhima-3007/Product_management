@@ -16,6 +16,7 @@ import { NavbarComponent } from './components/Products/navbar/navbar.component';
 import { CategoryListComponent } from './components/Products/category-list/category-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MylistingsComponent } from './components/Products/mylistings/mylistings.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     HomeComponent,
     NavbarComponent,
     CategoryListComponent,
+    MylistingsComponent,
   ],
   imports: [
     BrowserModule,

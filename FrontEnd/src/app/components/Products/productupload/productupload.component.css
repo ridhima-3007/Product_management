@@ -120,6 +120,19 @@ margin-top: 2vh;
     font-size: 1.2rem;
 }
 
+.options{
+    padding: 1rem;
+  
+}
+
+.drop{
+    padding: 0.5rem;
+}
+
+.text1{
+    font-size: 1.1rem;
+}
+
 
 .drop-container{
     /* background-color: #58595c; */
