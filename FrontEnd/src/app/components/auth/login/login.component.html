@@ -24,7 +24,13 @@
                   required
                   [(ngModel)]="user.email"
                   (input)="removeError()"
+                  #email = "ngModel"
+                  [email]="true"
                 />
+              </div>
+              <div *ngIf="email.invalid && email.touched" class="error-message">
+                <small *ngIf="email.errors?.['required']">Email is required.</small>
+                <small *ngIf="email.errors?.['email']">Please enter a valid email address.</small>
               </div>
               
               <div class="input-box">
@@ -38,7 +44,14 @@
                   required
                   [(ngModel)]="user.password"
                   (input)="removeError()"
+                  minlength="8" pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$'
+                  #password = "ngModel"
                 />
+              </div>
+              <div *ngIf="password.invalid && password.touched" class="error-message">
+                <small *ngIf="password.errors?.['required']">Password is required.</small>
+                <small *ngIf="password.errors?.['pattern']">Password must contain uppercase ,lowercase and special characters.</small>
+                <small *ngIf="password.errors?.['minlength']">Password must be at least 8 characters long.</small>
               </div>
 
               <a routerLink="/forgotPassword" href="#" class="fp">Forgot Password? </a>

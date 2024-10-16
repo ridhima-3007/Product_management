@@ -44,7 +44,7 @@ async function handleUserLogin(req, res, next) {
         res
         .cookie('accessToken', accessToken, SameSite='None', options)
         .cookie('refreshToken', refreshToken, SameSite='None', options);
-        return res.json({accessToken, refreshToken});
+        return res.json({curUser});
     }
     catch(error) {
         next(error);
@@ -70,13 +70,17 @@ async function handleUserLogout(req, res, next) {
 }
 
 async function refreshAccessToken(req, res) {
+    console.log("request for new Access Token");
     const incomingRefreshToken = req.cookies?.refreshToken || req.body?.refreshToken;
+    console.log(incomingRefreshToken);
     if(!incomingRefreshToken) {
         return res.status(400).json({msg: "You are not loggedIn"});
     }
 
     const userId = getUser(incomingRefreshToken)._id;
+    console.log("userId: ", userId);
     const curUser = await user.findById(userId);
+    console.log("cur user", curUser);
 
     if(!curUser) {
         return res.status(400).json({msg: "You was logged out! Login Again"});
@@ -94,6 +98,8 @@ async function refreshAccessToken(req, res) {
     curUser.refreshToken = refreshToken;
     curUser.save();
 
+    console.log("tokens updated");
+
     const options = {
         httpOnly: true,
         secure: true,
@@ -102,7 +108,7 @@ async function refreshAccessToken(req, res) {
     res
     .cookie('accessToken', accessToken, SameSite='None', options)
     .cookie('refreshToken', refreshToken, SameSite='None', options);
-    return res.json({accessToken, refreshToken});
+    return res.json({msg : "successful"});
 }
 
 async function handleForgotPassword(req, res) {
