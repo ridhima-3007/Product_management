@@ -13,7 +13,7 @@ export class ForgotPasswordComponent {
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.forgotPasswordForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email,]],
     });
   }
 

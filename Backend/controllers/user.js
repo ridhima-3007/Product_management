@@ -1,6 +1,7 @@
 const user = require('../models/user')
 const bcrypt = require('bcryptjs')
 const {generateAccessToken, generateRefreshToken, getUser} = require('../service/auth')
+const JWT_SECRET = '$rrr%';  
 
 async function handleUserSignUp(req, res) {
     const { name, email, mobile, password } = req.body;
@@ -43,7 +44,7 @@ async function handleUserLogin(req, res, next) {
         res
         .cookie('accessToken', accessToken, SameSite='None', options)
         .cookie('refreshToken', refreshToken, SameSite='None', options);
-        return res.json({accessToken, refreshToken});
+        return res.json({curUser});
     }
     catch(error) {
         next(error);
@@ -52,7 +53,6 @@ async function handleUserLogin(req, res, next) {
 
 async function handleUserLogout(req, res, next) {
     try {
-        console.log(typeof(req.user._id));
         const newUser = await user.findByIdAndUpdate(
             req.user._id,
             {
@@ -60,8 +60,6 @@ async function handleUserLogout(req, res, next) {
             },
             { new: true } 
         );
-        
-        console.log(newUser);
         res.clearCookie('accessToken', SameSite='None');
         res.clearCookie('refreshToken', SameSite='None');
         return res.json({msg : "logout successful"});
@@ -72,29 +70,35 @@ async function handleUserLogout(req, res, next) {
 }
 
 async function refreshAccessToken(req, res) {
+    console.log("request for new Access Token");
     const incomingRefreshToken = req.cookies?.refreshToken || req.body?.refreshToken;
+    console.log(incomingRefreshToken);
     if(!incomingRefreshToken) {
-        return res.status(400).json({msg: "unauthorized request"});
+        return res.status(400).json({msg: "You are not loggedIn"});
     }
 
     const userId = getUser(incomingRefreshToken)._id;
+    console.log("userId: ", userId);
     const curUser = await user.findById(userId);
+    console.log("cur user", curUser);
 
     if(!curUser) {
-        return res.status(400).json({msg: "invalid refresh token"});
+        return res.status(400).json({msg: "You was logged out! Login Again"});
     }
 
     if(curUser.refreshToken !== incomingRefreshToken) {
         console.log(curUser);
         console.log(curUser.refreshToken);
         console.log(incomingRefreshToken);
-        return res.status(400).json({msg: "refresh token is expired"});
+        return res.status(400).json({msg: "You was logged out! Login Again."});
     }
 
     const accessToken = generateAccessToken(curUser);
     const refreshToken = generateRefreshToken(curUser);
     curUser.refreshToken = refreshToken;
     curUser.save();
+
+    console.log("tokens updated");
 
     const options = {
         httpOnly: true,
@@ -104,7 +108,7 @@ async function refreshAccessToken(req, res) {
     res
     .cookie('accessToken', accessToken, SameSite='None', options)
     .cookie('refreshToken', refreshToken, SameSite='None', options);
-    return res.json({accessToken, refreshToken});
+    return res.json({msg : "successful"});
 }
 
 async function handleForgotPassword(req, res) {
