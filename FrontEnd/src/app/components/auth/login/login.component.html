@@ -24,8 +24,15 @@
                   required
                   [(ngModel)]="user.email"
                   (input)="removeError()"
+                  #email = "ngModel"
+                  [email]="true"
                 />
               </div>
+              <div *ngIf="email.invalid && email.touched" class="error-message">
+                <small *ngIf="email.errors?.['required']">Email is required.</small>
+                <small *ngIf="email.errors?.['email']">Please enter a valid email address.</small>
+              </div>
+              
               <div class="input-box">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
                   <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
@@ -37,16 +44,24 @@
                   required
                   [(ngModel)]="user.password"
                   (input)="removeError()"
+                  minlength="8" pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$'
+                  #password = "ngModel"
                 />
               </div>
-              <a href="#" class="fp">Forgot Password? </a>
+              <div *ngIf="password.invalid && password.touched" class="error-message">
+                <small *ngIf="password.errors?.['required']">Password is required.</small>
+                <small *ngIf="password.errors?.['pattern']">Password must contain uppercase ,lowercase and special characters.</small>
+                <small *ngIf="password.errors?.['minlength']">Password must be at least 8 characters long.</small>
+              </div>
+
+              <a routerLink="/forgotPassword" href="#" class="fp">Forgot Password? </a>
   
               <div class="button input-box">
                 <input type="submit" value="Login" />
               </div>
   
               <div class="text-center">
-                <a href="" class="newUser">New User? Create an Account</a>
+                <a routerLink="/signup" href="" class="newUser">New User? Create an Account</a>
               </div>
             </div>
           </form>

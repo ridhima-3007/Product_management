@@ -1,34 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NgForm } from '@angular/forms';
 import{UserService} from 'src/app/Services/user.service'
 
 import {Router} from '@angular/router'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['./sign-up.component.css'],
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent {
 
 signupForm:FormGroup;
 
-  constructor(private userService: UserService,private router:Router,private fb:FormBuilder) {}
+  constructor(private userService: UserService,private router:Router,private fb:FormBuilder,private snackbar:MatSnackBar) {}
 
-  ngOnInit(): void {
-    // this.signupForm = this.fb.group({
-    //   name: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[a-zA-Z]+$')]],
 
-    //   email: ['', [Validators.required, Validators.email]],
-
-    //   mobile: ['', [Validators.required, Validators.pattern('^[6-9][0-9]{10}$')]],
-
-    //   password: ['', [Validators.required, Validators.minLength(8)]],
-    // });
-  }
- 
   user = {
     name: '',
     email: '',
@@ -47,13 +37,15 @@ onSignup(form: NgForm) {
             this.router.navigate(['/login']);
         },
         error => {
+          this.router.navigate(['/signup']);
             console.error('Error signing up:', error);
+            this.snackbar.open("User already exists","Close",{
+              verticalPosition:'top', 
+            });
+           
         }
     );
 }
 
-// get f() {
-//   return this.signupForm.controls;
-// }
 
 }
