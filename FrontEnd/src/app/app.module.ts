@@ -16,10 +16,14 @@ import { NavbarComponent } from './components/Products/navbar/navbar.component';
 import { CategoryListComponent } from './components/Products/category-list/category-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import { MylistingsComponent } from './components/Products/mylistings/mylistings.component';
 import { ProfileComponent } from './components/auth/profile/profile.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 import { ToastrModule } from 'ngx-toastr';
+import { SearchComponent } from './components/Products/search/search.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,7 @@ import { ToastrModule } from 'ngx-toastr';
     MylistingsComponent,
     ProfileComponent,
     ChangePasswordComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +50,10 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
