@@ -5,13 +5,16 @@ ul {
     justify-content: center;
     margin-top: 2vh;
 }
+
+img{
+  border-radius: 70%;
+}
+
 .dropbtn {
-    background-color: #000000b9;
-    color: white;
+    color: #000;
     padding: 16px;
     font-size: 16px;
     border: none;
-    border-radius: 5px;
   }
   
   .dropdown {
@@ -39,4 +42,4 @@ ul {
   
   .dropdown:hover .dropdown-content {display: block;}
   
-  .dropdown:hover .dropbtn {background-color: #3e8e41;}
+  .dropdown:hover .dropbtn {background-color: #746767;}
