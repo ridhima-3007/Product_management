@@ -45,8 +45,9 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.changePasswordForm.valid && this.changePasswordForm.value.newPassword === this.changePasswordForm.value.confirmPasssword) {
-      this.userService.changePassword(this.data).subscribe(
+    if(this.changePasswordForm.valid && this.changePasswordForm.value.newPassword === this.changePasswordForm.value.confirmPassword) {
+      const data: Passwords = { ... this.changePasswordForm.value}
+      this.userService.changePassword(data).subscribe(
         response => {
           this.toastr.showSuccess(response.msg, "Success")
           this.changePasswordForm.reset();
@@ -59,6 +60,7 @@ export class ChangePasswordComponent implements OnInit {
     } 
     else {
       this.toastr.showError("New and Confirm Password should match.","Something Went Wrong")
+      this.changePasswordForm.reset();
     }
   }
 }

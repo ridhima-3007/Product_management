@@ -7,9 +7,6 @@
       <div class="form-content">
         <div class="signup-form">
           <div class="title">Login</div>
-          <div *ngIf="errorMessage !== ''" class="alert alert-danger py-2 px-2" role="alert">
-            {{errorMessage}}
-          </div>
           <form [formGroup]="loginForm" (ngSubmit)="onLogin()"  action="#">
             <div class="input-boxes">
               <div class="input-box">
@@ -21,16 +18,12 @@
                   type="email"
                   placeholder="Enter your email"
                   name="email"
-                  required
-                  [(ngModel)]="user.email"
-                  (input)="removeError()"
-                  #email = "ngModel"
-                  [email]="true"
+                  formControlName="email"
                 />
               </div>
-              <div *ngIf="email.invalid && email.touched" class="error-message">
-                <small *ngIf="email.errors?.['required']">Email is required.</small>
-                <small *ngIf="email.errors?.['email']">Please enter a valid email address.</small>
+              <div *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched" class="error-message">
+                <small *ngIf="loginForm.get('email').errors?.['required']">Email is required.</small>
+                <small *ngIf="loginForm.get('email').errors?.['email']">Please enter a valid email address.</small>
               </div>
               
               <div class="input-box">
@@ -41,17 +34,13 @@
                   type="password"
                   placeholder="Enter your password"
                   name="password"
-                  required
-                  [(ngModel)]="user.password"
-                  (input)="removeError()"
-                  minlength="8" pattern='^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$'
-                  #password = "ngModel"
+                  formControlName="password"
                 />
               </div>
-              <div *ngIf="password.invalid && password.touched" class="error-message">
-                <small *ngIf="password.errors?.['required']">Password is required.</small>
-                <small *ngIf="password.errors?.['pattern']">Password must contain uppercase ,lowercase and special characters.</small>
-                <small *ngIf="password.errors?.['minlength']">Password must be at least 8 characters long.</small>
+              <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched" class="error-message">
+                <small *ngIf="loginForm.get('password').errors?.['required']">Password is required.</small>
+                <small *ngIf="loginForm.get('password').errors?.['pattern']">Password must contain uppercase ,lowercase and special characters.</small>
+                <small *ngIf="loginForm.get('password').errors?.['minlength']">Password must be at least 8 characters long.</small>
               </div>
 
               <a routerLink="/forgotPassword" href="#" class="fp">Forgot Password? </a>

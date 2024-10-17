@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
+import { ToasterService } from 'src/app/sharedServices/toastr.service';
 
 @Component({
   selector: 'app-logout',
@@ -9,16 +10,16 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class LogoutComponent {
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private toaster: ToasterService) {}
 
   onLogout() {
     this.userService.logout().subscribe(
       response => {
-        console.log("User logged out", response);
+        this.toaster.showSuccess("Login again to continue", "Logout Out Successfully")
         this.router.navigate(['/login']);
       },
       error => {
-        console.log("Error logging out: ", error.error?.msg);
+        this.toaster.showError("Error logging out", "Something Went Wrong")
         this.router.navigate(['/login']);
       }
     );

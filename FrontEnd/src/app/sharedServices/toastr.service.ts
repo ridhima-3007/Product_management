@@ -10,21 +10,21 @@ export class ToasterService {
 
   showSuccess(message, title) {
     this.toastr.success(message, title, {
-      timeOut: 5000,
+      timeOut: 3000,
       positionClass: 'toast-top-right',
     });
   }
 
   showError(message, title) {
     this.toastr.error(message, title, {
-      timeOut: 5000,
+      timeOut: 3000,
       positionClass: 'toast-top-right',
     })
   }
 
   showWarning(message, title) {
     this.toastr.warning(message, title, {
-      timeOut: 5000,
+      timeOut: 3000,
       positionClass: 'toast-top-right',
     })
   }

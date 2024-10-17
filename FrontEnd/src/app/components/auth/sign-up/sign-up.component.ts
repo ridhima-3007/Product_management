@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/Services/user.service';
 
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from 'src/app/models/user';
+import { ToasterService } from 'src/app/sharedServices/toastr.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,7 +20,7 @@ export class SignUpComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private fb: FormBuilder,
-    private snackbar: MatSnackBar
+    private toaster: ToasterService,
   ) {}
 
   ngOnInit(): void { this.signupForm = this.fb.group({
@@ -60,14 +60,12 @@ export class SignUpComponent implements OnInit {
 
     this.userService.signup(user).subscribe(
       (response) => {
-        console.log('User signed up successfully:', response);
+        this.toaster.showSuccess("Now Login to access your Products", "Signed Up Successfully")
         this.router.navigate(['/login']);
       },
       (error) => {
         console.error('Error signing up:', error);
-        this.snackbar.open('User already exists', 'Close', {
-          verticalPosition: 'top',
-        });
+        this.toaster.showError(error.error?.msg, "Something Went Wrong");
         this.signupForm.reset();
       }
     );

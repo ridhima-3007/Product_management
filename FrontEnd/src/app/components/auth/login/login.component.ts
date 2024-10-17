@@ -1,50 +1,51 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
+import { UserLogin } from 'src/app/models/user';
+import { ToasterService } from 'src/app/sharedServices/toastr.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   loginForm : FormGroup
+  user: UserLogin;
 
-  user = {
-    email: '',
-    password: '',
-  };
+  constructor(private userService: UserService, private router: Router, private authService: AuthService, private fb: FormBuilder, private toastr: ToasterService) {}
 
-  errorMessage = ''
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$'),
+          Validators.minLength(8),
+        ],
+      ],
+    })
+  }
 
-  constructor(private userService: UserService, private router: Router, private authService: AuthService) {}
+  onLogin() {
 
-  onLogin(form: NgForm) {
-    if(form.invalid) {
-      return;
-    }
+    const user: UserLogin = { ...this.loginForm.value };
 
-    console.log(this.user);
-    
-    this.userService.login(this.user).subscribe(
-      response => {
-        console.log("User login successful", response);
+    this.userService.login(user).subscribe(
+      (response) => {
+        this.toastr.showSuccess("Redirected to Home Page", "Login Successful")
         this.router.navigate(['/home']);
       },
-      error => {
-        this.errorMessage = error.error?.msg;
-        this.user.email = '';
-        this.user.password = ''
+      (error) => {
+        this.toastr.showError(error.error?.msg, "Something Went Wrong");
+        this.loginForm.reset();
         this.router.navigate(['/login']);
       }
     )
-  }
-
-  removeError() {
-    this.errorMessage = ''
   }
 }
