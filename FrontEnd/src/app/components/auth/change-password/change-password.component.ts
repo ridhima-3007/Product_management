@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
 import { Router } from '@angular/router';
@@ -8,7 +8,8 @@ import { Passwords } from 'src/app/models/user';
 @Component({
   selector: 'change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  styleUrls: ['./change-password.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ChangePasswordComponent implements OnInit {
 

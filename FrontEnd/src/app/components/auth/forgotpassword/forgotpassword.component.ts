@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/Services/fp.service';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgotpassword.component.html',
-  styleUrls: ['./forgotpassword.component.css']
+  styleUrls: ['./forgotpassword.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ForgotPasswordComponent {
   forgotPasswordForm: FormGroup;
