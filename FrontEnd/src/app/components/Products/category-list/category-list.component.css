@@ -6,11 +6,12 @@ ul {
     margin-top: 2vh;
 }
 .dropbtn {
-    background-color: #04AA6D;
+    background-color: #000000b9;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
+    border-radius: 5px;
   }
   
   .dropdown {
