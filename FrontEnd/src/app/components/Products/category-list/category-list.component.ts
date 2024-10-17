@@ -18,12 +18,6 @@ export class CategoryListComponent implements OnInit{
     this.categoryservice.getCategories().subscribe(
       (data)=>{
         this.categories=data;
-        this.categories.forEach((category) => {
-          if (category.subcategories && category.subcategories.length) {
-            this.subcategories.push(...category.subcategories);
-          }
-        });
-
       },
       (error)=>{
         console.log("Error occured",error)
