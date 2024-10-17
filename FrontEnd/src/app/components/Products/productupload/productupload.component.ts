@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CategoryService } from 'src/app/Services/category.service';
@@ -12,14 +12,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./productupload.component.css']
 })
 
-export class ProductuploadComponent {
+export class ProductuploadComponent implements OnInit{
   productForm: FormGroup;
   selectedCoverFile: File | null = null;
   selectedFiles: File[] = [];
   categories: any[] = [];
   subcategories: any[] = []
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private categoryservice: CategoryService, private router: Router,private snackbar:MatSnackBar) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private categoryservice: CategoryService, private router: Router,private snackbar:MatSnackBar) {}
+
+  ngOnInit(): void {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       price: ['', Validators.required, Validators.pattern('^[0-9]+$')],
