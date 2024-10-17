@@ -4,10 +4,11 @@
 <div class="myList" >
     <div *ngFor="let prod of allData" class="card list" style="width: 18rem;">
         <img class="card-img-top" [src]="getImageUrl(prod.coverImage)" alt="Card image cap">
+        <hr class="my-1">
         <div class="card-body">
-          <h5 class="card-title">{{prod.name}}</h5>
+          <p class="card-title">{{prod.name}}</p>
           <p class="card-text">{{prod.description}}</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <a href="#" class="btn btn-primary">Buy</a>
         </div>
       </div>
      
