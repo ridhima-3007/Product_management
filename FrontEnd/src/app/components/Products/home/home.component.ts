@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AllProductService } from 'src/app/Services/allproduct.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,7 @@ export class HomeComponent {
   }
 
   getImageUrl(imagePath: string): string {
-    return `http://localhost:8000/${imagePath}`;
+    return environment.APIURL+`/${imagePath}`;
   }
   
 
