@@ -19,8 +19,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MylistingsComponent } from './components/Products/mylistings/mylistings.component';
 import { ProfileComponent } from './components/auth/profile/profile.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
-import { ItemModel,DropDownButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
-
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -46,7 +45,7 @@ import { ItemModel,DropDownButtonModule } from '@syncfusion/ej2-angular-splitbut
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
-    DropDownButtonModule
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
