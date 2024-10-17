@@ -1,2 +1,13 @@
 <app-navbar></app-navbar>
+<app-category-list></app-category-list>
 
+<div class="product-list">
+    <div *ngFor="let prod of allData" class="card list" style="width: 18rem;">
+        <img class="card-img-top" [src]="getImageUrl(prod.coverImage)" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{prod.name}}</h5>
+          <p class="card-text">{{prod.description}}</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+</div>
