@@ -1,8 +1,11 @@
 <ul>
-    <div *ngFor="let category of categories" class="dropdown">
-        <button class="dropbtn">{{category.name}}</button>
-        <div class="dropdown-content">
-          <a *ngFor="let subcategory of category.subcategories"  href="#">{{subcategory}}</a>
-        </div>
-      </div>
+  <div *ngFor="let category of categories; let i = index" class="dropdown">
+    <img class="ct" [src]="imagepaths[i]" width="100px" height="80px" alt="{{category.name}}">
+    <button class="dropbtn">{{category.name}}</button>
+    <div class="dropdown-content">
+      <a *ngFor="let subcategory of category.subcategories" href="#">
+        {{subcategory}}
+      </a>
+    </div>
+  </div>
 </ul>
