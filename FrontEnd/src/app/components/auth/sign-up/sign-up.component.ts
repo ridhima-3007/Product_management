@@ -1,36 +1,29 @@
 import { Component, OnInit,inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { NgForm } from '@angular/forms';
 import{UserService} from 'src/app/Services/user.service'
 
 import {Router} from '@angular/router'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {User} from 'src/app/models/user'
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
 
 signupForm:FormGroup;
 
   constructor(private userService: UserService,private router:Router,private fb:FormBuilder,private snackbar:MatSnackBar) {}
 
+ngOnInit(): void {
+  
+}
+  user:User;
 
-  user = {
-    name: '',
-    email: '',
-    mobile: null,
-    password: ''
-};
-
-onSignup(form: NgForm) {
-    if (form.invalid) {
-        return; 
-    }
-
+onSignup() {
     this.userService.signup(this.user).subscribe(
         response => {
             console.log('User signed up successfully:', response);
