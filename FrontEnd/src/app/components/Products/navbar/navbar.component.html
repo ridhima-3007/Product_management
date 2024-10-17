@@ -1,0 +1,12 @@
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a class="navbar-brand ms-4" href="#">ProductApp</a>
+      <div>
+        <app-logout *ngIf="isUserLoggedIn()" class="me-2 ms-2"></app-logout>
+        <app-profile *ngIf="isUserLoggedIn()"></app-profile>
+        <button *ngIf="!isUserLoggedIn()" class="btn btn-primary me-2" routerLink="/login">Login</button>
+        <button *ngIf="!isUserLoggedIn()" class="btn btn-primary ms-2" 
+        routerLink="/signup">Signup</button>
+      </div>
+    </div>
+</nav>

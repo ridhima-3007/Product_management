@@ -1,0 +1,15 @@
+.product-list {
+    width: 90%;
+    margin: auto;
+}
+
+.prod-img {
+    width: 30px;
+    height: 30px;
+}
+
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
