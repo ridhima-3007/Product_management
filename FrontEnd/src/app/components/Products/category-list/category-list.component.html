@@ -1,10 +1,8 @@
 <ul>
-    <div class="dropdown">
-        <button class="dropbtn">Dropdown</button>
+    <div *ngFor="let category of categories" class="dropdown">
+        <button class="dropbtn">{{category.name}}</button>
         <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+          <a *ngFor="let subcategory of subcategories"  href="#">{{subcategory}}</a>
         </div>
       </div>
 </ul>
