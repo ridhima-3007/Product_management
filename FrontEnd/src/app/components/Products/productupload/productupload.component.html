@@ -1,89 +1,117 @@
 <app-navbar></app-navbar>
 <div class="body">
-    <div class="container">
+  <div class="container">
 
-      <div class="forms">
-        <div class="form-content">
-          <div class="signup-form">
-            <div class="title">Upload Your Product</div>
-            <div class="input-boxes">
+    <div class="forms">
+      <div class="form-content">
+        <div>
+          <div class="title">Upload Your Product</div>
+          <div class="input-boxes">
             <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
 
-                <div class="input-box">
-                    <input placeholder="Category" id="category" formControlName="category" required />
+              <div class="drop">
+                <label class="text1" for="category">Category</label><br><br>
+                <select id="category" formControlName="category" class="form-control options">
+                  <option value="" disabled>Select Category</option>
+                  <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+                </select>
+                <div *ngIf="productForm.get('category').invalid && productForm.get('category').touched">
+                  <small class="error-message">Please select a category.</small>
                 </div>
-                <div *ngIf="productForm.get('category').invalid && productForm.get('category').touched" class="error-message" >
-                    <small *ngIf="productForm.get('category').errors?.['required']">Category is required.</small>
-                  </div>
+              </div>
 
-                <div class=input-box>
-                    <input placeholder="Product Name" id="name" formControlName="name" required />
+              <!-- Subcategory -->
+              <div class="drop">
+                <label class="text1" for="subcategory">Subcategory</label><br><br>
+                <select id="subcategory" formControlName="subcategory" class="form-control options">
+                  <option value="" disabled>Select Subcategory</option>
+                  <option *ngFor="let subcategory of subcategories" [value]="subcategory">{{ subcategory}}</option>
+                </select>
+                <div *ngIf="productForm.get('subcategory').invalid && productForm.get('subcategory').touched">
+                  <small class="error-message">Please select a subcategory.</small>
                 </div>
-                <div *ngIf="productForm.get('name').invalid && productForm.get('name').touched" class="error-message" >
-                  <small *ngIf="productForm.get('name').errors?.['required']">Name is required.</small>
-                </div>
-
-        <div class="input-box">
-        <input placeholder="Price" id="price" formControlName="price" required />
-            </div>
-            <div *ngIf="productForm.get('price').invalid && productForm.get('price').touched" class="error-message" >
-              <small *ngIf="productForm.get('price').errors?.['required']">Price is required.</small>
-              <small *ngIf="productForm.get('price').errors?.['pattern']">Price should be in digits</small>
               </div>
 
 
-            <div class="input-box">
+              <div class=input-box>
+                <input placeholder="Product Name" id="name" formControlName="name" required />
+              </div>
+              <div *ngIf="productForm.get('name').invalid && productForm.get('name').touched" class="error-message">
+                <small *ngIf="productForm.get('name').errors?.['required']">Name is required.</small>
+                <small *ngIf="productForm.get('name').errors?.['pattern']">Name should not exceed 20 characters and should not contain only numbers</small>
+              </div>
+
+              <div class="input-box">
+                <input placeholder="Price" id="price" formControlName="price" required />
+              </div>
+              <div *ngIf="productForm.get('price').invalid && productForm.get('price').touched" class="error-message">
+                <small *ngIf="productForm.get('price').errors?.['required']">Price is required.</small>
+                <small *ngIf="productForm.get('price').errors?.['pattern']">Price should be in digits</small>
+              </div>
+
+
+              <div class="input-box">
                 <input placeholder="Discount" id="discount" formControlName="discount" required />
-            </div>
-            <div *ngIf="productForm.get('discount').invalid && productForm.get('discount').touched" class="error-message" >
-              <small *ngIf="productForm.get('discount').errors?.['required']">Discount is required.</small>
-              <small *ngIf="productForm.get('discount').errors?.['pattern']">Discount should be in digits.</small>
-            </div>
+              </div>
+              <div *ngIf="productForm.get('discount').invalid && productForm.get('discount').touched"
+                class="error-message">
+                <small *ngIf="productForm.get('discount').errors?.['required']">Discount is required.</small>
+                <small *ngIf="productForm.get('discount').errors?.['pattern']">Discount should be in digits.</small>
+                
+              </div>
 
-            <div class="input-box">
-                <input placeholder="Descripton" id="description" formControlName="description" required/>
-            </div>
-            <div *ngIf="productForm.get('description').invalid && productForm.get('description').touched" class="error-message" >
-              <small *ngIf="productForm.get('description').errors?.['required']">Description is required.</small>
-            </div>
-            
-            <br>
-            
-            <label class="text">Cover Image</label>
-            <div class="upload-images">
-                <label for="coverImage" class="drop-container">
-                <input id="coverImage" type="file" (change)="onCoverFileSelected($event)" required accept="images/*" /> 
-               </label>   
-             </div>
-             <div *ngIf="productForm.get('coverImage').touched || productForm.get('coverImage').invalid" class="error-message" >
-              <small *ngIf="productForm.get('coverImage').errors?.['required']">Cover image is required.</small>
-            </div> 
-    <br>
 
-             <label class="text">Additonal Images</label>
-             <div class="upload-images">
- 
+              <div class="input-box">
+                <input type="number" min="0" placeholder="Quantity" id="Quantity" formControlName="Quantity" required />
+              </div>
+              <div *ngIf="productForm.get('Quantity').invalid && productForm.get('Quantity').touched"
+                class="error-message">
+                <small *ngIf="productForm.get('Quantity').errors?.['required']">Quantity is required.</small>
+                <small *ngIf="productForm.get('Quantity').errors?.['pattern']">Quantity should be a whole number.</small>
+              </div>
+
+              <div class="input-box">
+                <input placeholder="Descripton (atleast 30 characters are required)" id="description" formControlName="description" required />
+              </div>
+              <div *ngIf="productForm.get('description').invalid && productForm.get('description').touched"
+                class="error-message">
+                <small *ngIf="productForm.get('description').errors?.['required']">Description is required.</small>
+                <small *ngIf="productForm.get('description').errors?.['minlength']">Description should contain atleast 30 characters.</small>
+
+              </div>
+
+              <br>
+
+              <label for="coverImage" class="text">Cover Image (Max size:5MB)</label>
+              <div class="upload-images">
+                <label class="drop-container">
+                  <input id="coverImage" type="file" (change)="onCoverFileSelected($event)" formControlName="coverImage"/>
+                </label>
+              </div>
+              <div *ngIf="productForm.get('coverImage').touched && productForm.get('coverImage').invalid"
+                class="error-message">
+                <small *ngIf="productForm.get('coverImage').errors?.['required']">Cover image is required.</small>
+              </div>
+              <br>
+
+              <label class="text">Additonal Images(Max size:5MB)</label>
+              <div class="upload-images">
+
                 <label for="images" class="drop-container">
-               
-                <input id="images" type="file" (change)="onFileSelected($event)" multiple accept="images/*" />     
-                </label>     
-             </div>
-    
-          <div class="button input-box">
-                <input type="submit" [disabled]="productForm.invalid" value="Submit">
-            </div>
 
-              </form>
-           </div>
+                  <input id="images" type="file" (change)="onFileSelected($event)" multiple accept="images/*" />
+                </label>
+              </div>
+
+              <div class="button input-box">
+                <input type="submit" [disabled]="productForm.invalid" value="Submit">
+              </div>
+
+            </form>
           </div>
         </div>
       </div>
     </div>
-    
   </div>
 
-
-
-
-  
-  
+</div>

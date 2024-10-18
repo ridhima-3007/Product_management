@@ -1,0 +1,66 @@
+.myList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2vw;
+    margin-top: 2vh;
+}
+
+.list{
+    margin: 0.5rem;
+}
+
+.card-img-top {
+    height: 15rem;
+    width: 15rem;
+    margin: 1vh auto;
+}
+
+.card {
+    box-shadow: 4px 6px 10px 4px rgba(197, 195, 195, 0.2);
+}
+
+.prodname{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.myimg{
+   width: 15rem;
+}
+
+.des{
+white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.price{
+    text-decoration: line-through;
+}
+
+.discount{
+    color: rgb(19, 110, 19);
+    margin-right: 0.5rem;
+}
+
+.allprice{
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.price{
+    color: rgb(114, 109, 109);
+    margin-right: 0.5rem;
+}
+
+.sell{
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.mybut{
+   width: 70%;
+   background-color: rgb(66, 65, 65);
+   margin-left: 15%;
+}

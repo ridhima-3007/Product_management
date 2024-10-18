@@ -1,51 +1,74 @@
-import { Component, OnInit,inject } from '@angular/core';
+import { Component, OnInit, inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { NgForm } from '@angular/forms';
-import{UserService} from 'src/app/Services/user.service'
+import { UserService } from 'src/app/Services/user.service';
 
-import {Router} from '@angular/router'
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { ToasterService } from 'src/app/sharedServices/toastr.service';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
-export class SignUpComponent {
-
-signupForm:FormGroup;
-
-  constructor(private userService: UserService,private router:Router,private fb:FormBuilder,private snackbar:MatSnackBar) {}
+export class SignUpComponent implements OnInit {
+  signupForm: FormGroup;
 
 
-  user = {
-    name: '',
-    email: '',
-    mobile: null,
-    password: ''
-};
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private fb: FormBuilder,
+    private toaster: ToasterService,
+  ) {}
 
-onSignup(form: NgForm) {
-    if (form.invalid) {
-        return; 
-    }
-
-    this.userService.signup(this.user).subscribe(
-        response => {
-            console.log('User signed up successfully:', response);
-            this.router.navigate(['/login']);
-        },
-        error => {
-          this.router.navigate(['/signup']);
-            console.error('Error signing up:', error);
-            this.snackbar.open("User already exists","Close",{
-              verticalPosition:'top', 
-            });
-           
-        }
-    );
+  ngOnInit(): void { this.signupForm = this.fb.group({
+    name: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern('^[a-zA-Zs]+$'),
+        Validators.maxLength(20),
+      ],
+    ],
+    email: ['', [Validators.required, Validators.email]],
+    mobile: [
+      '',
+      [
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern('^[6-9][0-9]{9}$'),
+      ],
+    ],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$'),
+        Validators.minLength(8),
+      ],
+    ],
+  });
 }
+  
+
+  onSignup() {
+
+    const user: User = { ...this.signupForm.value };
 
 
+    this.userService.signup(user).subscribe(
+      (response) => {
+        this.toaster.showSuccess("Now Login to access your Products", "Signed Up Successfully")
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Error signing up:', error);
+        this.toaster.showError(error.error?.msg, "Something Went Wrong");
+        this.signupForm.reset();
+      }
+    );
+  }
 }

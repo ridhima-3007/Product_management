@@ -14,11 +14,20 @@ export class AuthService {
   constructor(private cookieService : CookieService, private http: HttpClient, 
     private userService: UserService, private matSnackBar: MatSnackBar, private router: Router) { }
 
+  private userInfo : any = null;
+
   isLoggedIn() {
     const token = this.getAccessToken();
     if(token) {
-      return !this.isTokenExpired(token);
+      const notExpired = !this.isTokenExpired(token);
+      if(notExpired) {
+        this.setUserInfo(token);
+      } else {
+        this.userInfo = null;
+      }
+      return notExpired;
     }
+    this.userInfo = null;
     return false;
   }
 
@@ -30,6 +39,15 @@ export class AuthService {
     const decodedToken: any = jwtDecode(token);
     const currentTime = Math.floor(Date.now() / 1000);
     return decodedToken.exp < currentTime;
+  }
+
+  setUserInfo(token) {
+    const decodedToken: any = jwtDecode(token);
+    this.userInfo = decodedToken?.curUser || null;
+  }
+
+  getUserInfo() {
+    return this.userInfo;
   }
 
   checkAndRefreshToken(): void {
