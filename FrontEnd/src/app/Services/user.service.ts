@@ -19,4 +19,12 @@ export class UserService {
         console.log(userData);
         return this.http.post(`${this.apiUrl}/login`, userData, {withCredentials: true});
     }
+
+    logout(): Observable<any> {
+        return this.http.post(`${this.apiUrl}/logout`, {}, {withCredentials: true});
+    }
+
+    refreshAccessToken(): Observable<any> {
+        return this.http.post(`${this.apiUrl}/refresh-token`, {}, {withCredentials: true});
+    }
 }
