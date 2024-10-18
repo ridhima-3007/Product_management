@@ -53,8 +53,8 @@ export class ProductuploadComponent implements OnInit {
           Validators.minLength(30)
         ]
       ],
-      category: ['', Validators.required],
-      subcategory: ['', Validators.required],
+      category: ['', [Validators.required]],
+      subcategory: ['', [Validators.required]],
       Quantity: [
         '',
         [
@@ -69,7 +69,7 @@ export class ProductuploadComponent implements OnInit {
           Validators.pattern('^[0-9]\\d{0,9}(\\.\\d{1,3})?$')
         ]
       ],
-      coverImage: [null, Validators.required],
+      coverImage: [null, [Validators.required]],
       images: [null],
     });
     
@@ -116,8 +116,9 @@ export class ProductuploadComponent implements OnInit {
     if (files && files.length > 0) {
       const file = files[0]; 
       this.validateFile(file); 
+      this.selectedCoverFile = event.target.files[0];
     }
-    this.selectedCoverFile = event.target.files[0];
+   
   }
 
   onFileSelected(event: any): void {
@@ -127,8 +128,9 @@ export class ProductuploadComponent implements OnInit {
     if (files && files.length > 0) {
       const file = files[0]; 
       this.validateFile(file); 
+      this.selectedFiles = Array.from(event.target.files);
+
     }
-    this.selectedFiles = Array.from(event.target.files);
   }
 
   validateFile(file: File): void {
