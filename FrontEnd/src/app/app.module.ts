@@ -16,7 +16,7 @@ import { CategoryListComponent } from './components/Products/category-list/categ
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule} from '@angular/material/paginator';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MylistingsComponent } from './components/Products/mylistings/mylistings.component';
