@@ -17,6 +17,7 @@
 }
 
 .container {
+    margin-top: 10vh;
     max-width: 700px;
     width: 100%;
     background: #fff;
@@ -41,6 +42,11 @@
     color: #333;
     margin-bottom: 20px;
     text-align: center;
+    background-color: #333;
+    color: #fff;
+    margin: -2.5rem;
+    padding: 2rem;
+    font-weight: 700;
 }
 
 .forms .form-content .input-boxes {
@@ -70,20 +76,19 @@
 
 .forms .form-content .input-box input:focus,
 .forms .form-content .input-box input:valid {
-    border-color: #7d2ae8;
+    border-color: #141314;
 }
 
 .forms .form-content .input-box i {
     position: absolute;
-    color: #7d2ae8;
+    color: #211f24;
     font-size: 17px;
 }
 
 .forms .form-content .button input {
     width: 100%;
     height: 45px;
-    background: rgb(28, 195, 190);
-    background: linear-gradient(90deg, rgba(28, 195, 190, 1) 0%, rgba(38, 95, 237, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    background: rgb(88, 100, 99);
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -92,7 +97,7 @@
 }
 
 .forms .form-content .button input:hover {
-    background: #5b13b9;
+    background: #151516;
 }
 
 .fp {
@@ -103,7 +108,7 @@
 }
 
 .upload-images{
-    background-color: #1c212e;
+    background-color: #31343b;
     /* border: 1px solid rgb(159, 159, 159); */
     border-radius: 7px;
     /* padding: 2rem 0.7rem 0.7rem 0.7rem; */
@@ -153,7 +158,7 @@ margin-top: 2vh;
 }
 
 .drop-container:hover{
-    background: #646784;
+    background: #5c5d63;
 }
 
 .drop-title{
@@ -174,7 +179,7 @@ margin-top: 2vh;
 }
 
 #file-input::file-selector-button{
-    background:#084cdf;
+    background:#1b1b1b;
     margin-right: 10px;
     border: none;
     padding: 5px 5px;
@@ -185,7 +190,7 @@ margin-top: 2vh;
 }
 
 #file-input::file-selector-button:hover{
-    background-color: #0d45a5;
+    background-color: #323538;
 }
 
 .newUser {

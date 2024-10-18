@@ -2,7 +2,6 @@ import { Component, OnInit, inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from 'src/app/Services/user.service';
-
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
@@ -58,15 +57,13 @@ export class SignUpComponent implements OnInit {
 
     const user: User = { ...this.signupForm.value };
 
-
     this.userService.signup(user).subscribe(
       (response) => {
-        this.toaster.showSuccess("Now Login to access your Products", "Signed Up Successfully")
-        this.router.navigate(['/login']);
+        this.toaster.showSuccess("Check your mail for verification", "Signed Up Successfully")
+        this.router.navigate(['/login'])
       },
       (error) => {
-        console.error('Error signing up:', error);
-        this.toaster.showError(error.error?.msg, "Something Went Wrong");
+        this.toaster.showError("Something Went Wrong",error.error?.msg);
         this.signupForm.reset();
       }
     );

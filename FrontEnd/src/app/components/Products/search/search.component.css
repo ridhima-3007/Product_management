@@ -3,3 +3,9 @@
     margin: auto;
     margin-top: 12vh;
 }
+
+.searchicon{
+    position: relative;
+    right: 2rem;
+    top: 0.8rem;
+}
