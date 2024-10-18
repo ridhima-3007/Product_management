@@ -45,8 +45,7 @@ export class LoginComponent implements OnInit {
       (error) => {
         this.toastr.showError(error.error?.msg, "Something Went Wrong");
         this.loginForm.reset();
-        this.router.navigate(['/login']);
-      }
+       }
     )
   }
 }

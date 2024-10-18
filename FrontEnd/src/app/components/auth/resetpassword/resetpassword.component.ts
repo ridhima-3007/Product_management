@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/Services/fp.service';
 import { Router } from '@angular/router';
 
@@ -8,22 +7,18 @@ import { Router } from '@angular/router';
   selector: 'app-reset-password',
   templateUrl: './resetpassword.component.html',
   styleUrls: ['./resetpassword.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
-  token: string = '';
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.token = this.route.snapshot.queryParams['token'];
     this.resetPasswordForm = this.fb.group({
       password: [
         '',
@@ -33,8 +28,8 @@ export class ResetPasswordComponent implements OnInit {
           Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$'),
         ],
       ],
-      confirmpasssword: [
-        '',
+      confirmpassword: [
+        '', // Fixed the typo
         [
           Validators.required,
           Validators.minLength(8),
@@ -47,20 +42,18 @@ export class ResetPasswordComponent implements OnInit {
   onSubmit() {
     if (
       this.resetPasswordForm.valid &&
-      this.resetPasswordForm.value.password ==
-        this.resetPasswordForm.value.confirmpasssword
+      this.resetPasswordForm.value.password === this.resetPasswordForm.value.confirmpassword
     ) {
-      this.authService
-        .resetPassword(this.token, this.resetPasswordForm.value.password)
-        .subscribe({
-          next: () => {
-            alert('Password reset successful!');
-            this.router.navigate(['/login']);
-          },
-          error: (err) => alert('Error: ' + err.error.message),
-        });
+      // Call the authService to reset the password
+      this.authService.resetPassword(this.resetPasswordForm.value.password).subscribe({
+        next: () => {
+          alert('Password reset successful!');
+          this.router.navigate(['/login']);
+        },
+        error: (err) => alert('Error: ' + err.error.message),
+      });
     } else {
-      alert('TRY AGAIN');
+      alert('Passwords do not match or form is invalid.');
     }
   }
 }
