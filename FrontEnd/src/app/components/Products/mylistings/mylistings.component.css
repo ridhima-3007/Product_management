@@ -1,7 +1,7 @@
 .product-list {
     width: 90%;
     margin: auto;
-    margin-top: 4vh;
+    margin-top: 14vh;
 }
 
 .prod-img {
@@ -16,4 +16,36 @@
 
 table {
     width: 100%;
+}
+
+.filter {
+    display: flex;
+}
+
+.add-icon {
+    margin-top: 2vh;
+    margin-left: 1vw;
+    width: 40px;
+    height: 40px;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: blue;
+}
+
+.mat-mdc-header-row {
+    background-color: rgb(66, 65, 65);
+    color: white;
+}
+
+td {
+    font-size: 16px;
+}
+
+.search-input {
+    width: 20vw;
 }

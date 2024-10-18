@@ -20,4 +20,8 @@ export class AllProductService{
     return this.http.get(`${this.apiUrl}/myProducts`, {withCredentials: true})
   }
 
+  deleteProduct(productId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/myProducts/${productId}`, {withCredentials: true});
+  }
+
 }

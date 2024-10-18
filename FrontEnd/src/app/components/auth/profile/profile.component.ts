@@ -29,12 +29,11 @@ export class ProfileComponent {
     this.userService.logout().subscribe(
       response => {
         this.toaster.showSuccess("Login again to continue", "Logout Out Successfully")
-        this.router.navigate(['/login']);
       },
       error => {
         this.toaster.showError("Error logging out", "Something Went Wrong")
-        this.router.navigate(['/login']);
       }
     );
+    this.router.navigate(['/login']);
   }
 }

@@ -30,8 +30,8 @@ export class ToasterService {
     })
   }
 
-  confirBox() {
-    Swal.fire({
+  confirmBox(): Promise<any> {
+    return Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to recover this Product",
       icon: "warning",
@@ -39,14 +39,6 @@ export class ToasterService {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success"
-        });
-      }
     });
   }
 }
