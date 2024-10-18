@@ -38,7 +38,7 @@
               </div>
               <div *ngIf="productForm.get('name').invalid && productForm.get('name').touched" class="error-message">
                 <small *ngIf="productForm.get('name').errors?.['required']">Name is required.</small>
-                <small *ngIf="productForm.get('name').errors?.['pattern']">Name should not exceed 20 characters</small>
+                <small *ngIf="productForm.get('name').errors?.['pattern']">Name should not exceed 20 characters and should not contain only numbers</small>
               </div>
 
               <div class="input-box">
@@ -82,11 +82,10 @@
 
               <br>
 
-              <label class="text">Cover Image (Max size:5MB)</label>
+              <label for="coverImage" class="text">Cover Image (Max size:5MB)</label>
               <div class="upload-images">
-                <label for="coverImage" class="drop-container">
-                  <input id="coverImage" type="file" (change)="onCoverFileSelected($event)" required
-                    accept="images/*" />
+                <label class="drop-container">
+                  <input id="coverImage" type="file" (change)="onCoverFileSelected($event)" formControlName="coverImage"/>
                 </label>
               </div>
               <div *ngIf="productForm.get('coverImage').touched && productForm.get('coverImage').invalid"
