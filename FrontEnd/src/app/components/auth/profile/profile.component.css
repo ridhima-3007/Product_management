@@ -19,7 +19,8 @@
 
 .profile-card {
     width: 20rem;
-    background-color: rgb(227, 240, 245);
+    background-color: rgb(66, 65, 65);
+    color: white;
 }
 
 .changeModal {

@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
-import { LogoutComponent } from './components/auth/logout/logout.component';
 import { ForgotPasswordComponent } from './components/auth/forgotpassword/forgotpassword.component';
 import { ResetPasswordComponent } from './components/auth/resetpassword/resetpassword.component';
 import { ProductuploadComponent } from './components/Products/productupload/productupload.component';
@@ -19,6 +18,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import { MylistingsComponent } from './components/Products/mylistings/mylistings.component';
 import { ProfileComponent } from './components/auth/profile/profile.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
@@ -30,7 +30,6 @@ import { SearchComponent } from './components/Products/search/search.component';
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    LogoutComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ProductuploadComponent,
@@ -54,6 +53,7 @@ import { SearchComponent } from './components/Products/search/search.component';
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

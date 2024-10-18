@@ -85,8 +85,7 @@
               <label class="text">Cover Image (Max size:5MB)</label>
               <div class="upload-images">
                 <label for="coverImage" class="drop-container">
-                  <input id="coverImage" type="file" (change)="onCoverFileSelected($event)" required
-                    accept="images/*" />
+                  <input id="coverImage" type="file" (change)="onCoverFileSelected($event)" formControlName="coverImage"/>
                 </label>
               </div>
               <div *ngIf="productForm.get('coverImage').touched && productForm.get('coverImage').invalid"

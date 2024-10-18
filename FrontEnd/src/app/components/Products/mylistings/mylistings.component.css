@@ -1,6 +1,7 @@
 .product-list {
     width: 90%;
     margin: auto;
+    margin-top: 4vh;
 }
 
 .prod-img {
@@ -8,8 +9,11 @@
     height: 30px;
 }
 
-
 .mat-mdc-form-field {
     font-size: 14px;
     width: 100%;
-  }
+}
+
+table {
+    width: 100%;
+}
