@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CategoryService } from 'src/app/Services/category.service';
 import { Router } from '@angular/router';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
+import { AllProductService } from 'src/app/Services/allproduct.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-productform',
@@ -13,17 +16,16 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductuploadComponent implements OnInit {
 
-  isEditing : boolean = false;
-
   productForm: FormGroup;
   selectedCoverFile: File | null = null;
   selectedFiles: File[] = [];
   categories: any[] = [];
   subcategories: any[] = [];
   allowedTypes: string[] = ['image/jpeg', 'image/png', 'image/gif','image/jpg','image/webp','image/svg'];
-   errorMessage:string|null=null;
-   maxFileSize=5*1024*1024;
-
+  errorMessage:string|null=null;
+  maxFileSize=5*1024*1024;
+  isEditingProduct : boolean = false;
+  product_id : string
 
   constructor(
     private fb: FormBuilder,
@@ -31,9 +33,21 @@ export class ProductuploadComponent implements OnInit {
     private categoryservice: CategoryService,
     private router: Router,
     private toasterservice:ToasterService,
+    private route:ActivatedRoute,
+    private allProductService: AllProductService,
   ) {}
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const productId = params.get('id');
+      const isEditing = params.get('isEditing') === 'true';
+      if(isEditing && productId) {
+        this.isEditingProduct = true;
+        this.product_id = productId;
+        this.getProduct(productId);
+      }
+    })
+
     this.productForm = this.fb.group({
       name: [
         '',
@@ -75,7 +89,6 @@ export class ProductuploadComponent implements OnInit {
       coverImage: [null, [Validators.required]],
       images: [null],
     });
-    
 
     this.categoryservice.getCategories().subscribe(
       (data) => {
@@ -91,6 +104,32 @@ export class ProductuploadComponent implements OnInit {
       .valueChanges.subscribe((selectedCategory) => {
         this.updateSubcategories(selectedCategory);
       });
+  }
+
+  getProduct(productId) {
+    this.allProductService.getProductById(productId).subscribe(
+      (product: Product) => {
+        this.productForm.patchValue({
+          name: product.name,
+          price: product.price,
+          discount: product.discount,
+          Quantity: product.quantity,
+          description: product.description,
+          category: product.category,
+          subcategory: product.subcategory,
+          images: product.images,
+        });
+        this.updateSubcategories(product.category);
+        this.productForm.patchValue({
+          subcategory: product.subcategory,
+        })
+        this.selectedCoverFile = null
+        this.selectedFiles = []
+      },
+      (error) => {
+        this.toasterservice.showError(error.error?.msg, "Something went wrong")
+      }
+    )
   }
 
   updateSubcategories(selectedCategory: string): void {
@@ -150,7 +189,6 @@ export class ProductuploadComponent implements OnInit {
     }
 
   }
-  
 
   onSubmit(): void {
     const formData: FormData = new FormData();
@@ -174,7 +212,20 @@ export class ProductuploadComponent implements OnInit {
       formData.append('images', file, file.name);
     });
 
-    this.http
+    if(this.isEditingProduct) {
+      console.log(formData);
+      this.allProductService.updateProduct(formData, this.product_id).subscribe(
+        (response)=> {
+          this.toasterservice.showSuccess("View Your product", response.msg);
+          this.router.navigate(['/myListings']);
+        },
+        (error) => {
+          this.toasterservice.showError(error.error?.msg, "Something went wrong");
+        }
+      )
+    }else {
+      console.log(formData);
+      this.http
       .post( environment.APIURL+'/api/products', formData, {
         withCredentials: true,
       })
@@ -189,5 +240,6 @@ export class ProductuploadComponent implements OnInit {
           this.toasterservice.showError('','Error Occured')
         }
       );
+    }
   }
 }

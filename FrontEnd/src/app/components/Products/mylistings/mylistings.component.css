@@ -49,3 +49,17 @@ td {
 .search-input {
     width: 20vw;
 }
+
+.mat-column-description {
+    max-width: 20vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+td.mat-column-description {
+    max-width: 20vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

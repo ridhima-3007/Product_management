@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
 import Swal from 'sweetalert2';
 import { MatPaginator } from '@angular/material/paginator';
+import { Product} from 'src/app/models/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mylistings',
@@ -12,11 +14,12 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./mylistings.component.css']
 })
 export class MylistingsComponent implements OnInit {
-  
 
-  allData:any[]=[];
-  
-  constructor(private allproductsservice:AllProductService, private toaster: ToasterService){}
+  allData:Product[]=[];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(private allproductsservice:AllProductService, private toaster: ToasterService, private router: Router){}
 
   ngOnInit(): void {
     this.allproductsservice.getMyProducts().subscribe(
@@ -25,13 +28,8 @@ export class MylistingsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.allData);
         this.dataSource.paginator = this.paginator;
       },
-      (error)=>{
-        console.log(error);
-      }
      )
   }
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -50,7 +48,8 @@ export class MylistingsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  editProduct(product) {
+  editProduct(product: Product) {
+    this.router.navigate(['/uploadProduct', {id: product._id, isEditing: true}])
   }
 
   deleteProduct(product) {
