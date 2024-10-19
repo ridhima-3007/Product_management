@@ -177,13 +177,11 @@ export class ProductuploadComponent implements OnInit {
       })
       .subscribe(
         (response) => {
-          console.log('Product created successfully!', response);
          this.toasterservice.showSuccess('','Product Created Successfully')
           this.router.navigate(['/myListings']);
         },
         (error) => {
-          console.error('Error creating product', error);
-          this.toasterservice.showError('','Error Occured')
+          this.toasterservice.showError(error.error?.msg,'Error Occured')
         }
       );
   }

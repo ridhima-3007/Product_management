@@ -9,6 +9,7 @@
 }
 
 .body {
+    background-color: rgb(196, 215, 233); 
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -28,6 +29,7 @@
 
 
 .container .forms {
+    /* background-color: rgb(196, 215, 233); */
     width: 100%;
     padding: 40px 30px;
 }
@@ -127,7 +129,7 @@ margin-top: 2vh;
 
 .options{
     padding: 1rem;
-  
+   
 }
 
 .drop{

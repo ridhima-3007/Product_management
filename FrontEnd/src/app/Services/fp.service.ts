@@ -16,9 +16,10 @@ export class AuthService {
 
   resetPassword(password: string): Observable<any> {
     return this.http.post(
-      'http://localhost:8000/user/resetPassword', // Backend API URL
-      { password },  // Only sending the new password
-      { withCredentials: true }  // Send cookies with the request
+      'http://localhost:8000/user/resetPassword', 
+      { password },  
+      { withCredentials: true } 
     );
   }
+  
 }
