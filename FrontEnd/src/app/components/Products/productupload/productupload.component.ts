@@ -12,6 +12,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./productupload.component.css'],
 })
 export class ProductuploadComponent implements OnInit {
+
+  isEditing : boolean = false;
+
   productForm: FormGroup;
   selectedCoverFile: File | null = null;
   selectedFiles: File[] = [];

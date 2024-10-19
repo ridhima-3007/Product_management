@@ -24,4 +24,8 @@ export class AllProductService{
     return this.http.delete(`${this.apiUrl}/myProducts/${productId}`, {withCredentials: true});
   }
 
+  updateProduct(data, productId): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/myProducts/${productId}`, data, {withCredentials: true});
+  }
+
 }
