@@ -20,4 +20,8 @@ export class AllProductService{
     return this.http.get(`${this.apiUrl}/myProducts`, {withCredentials: true})
   }
 
+  getProductsWithCategories(parameter):Observable<any>{
+    return this.http.get(`${this.apiUrl}/searchproductWRTcategories`, {withCredentials: true})
+  }
+
 }

@@ -16,4 +16,5 @@ export class CategoryService {
   getCategories(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
+
 }

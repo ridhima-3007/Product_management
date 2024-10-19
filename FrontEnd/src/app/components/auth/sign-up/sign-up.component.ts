@@ -12,6 +12,7 @@ import { ToasterService } from 'src/app/sharedServices/toastr.service';
   styleUrls: ['./sign-up.component.css'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class SignUpComponent implements OnInit {
   signupForm: FormGroup;
 
