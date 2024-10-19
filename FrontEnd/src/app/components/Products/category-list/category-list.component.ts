@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { CategoryService } from 'src/app/Services/category.service';
+import { AllProductService } from 'src/app/Services/allproduct.service';
 
 @Component({
   selector: 'app-category-list',
@@ -18,7 +19,13 @@ export class CategoryListComponent implements OnInit {
     '/assets/images/6.png',
   ];
 
-  constructor(private categoryservice: CategoryService) {}
+  constructor(private categoryservice: CategoryService,private allproductservice:AllProductService) {}
+  @Output() subcategorySelected: EventEmitter<string> = new EventEmitter();
+
+  selectSubcategory(subcategory: string) {
+    console.log("Subcategory Selected",subcategory);
+    this.subcategorySelected.emit(subcategory);
+  }
 
   ngOnInit(): void {
     this.categoryservice.getCategories().subscribe(
@@ -30,4 +37,7 @@ export class CategoryListComponent implements OnInit {
       }
     );
   }
+
+  
+
 }

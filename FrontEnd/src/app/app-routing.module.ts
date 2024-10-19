@@ -7,16 +7,17 @@ import { ResetPasswordComponent } from './components/auth/resetpassword/resetpas
 import { ProductuploadComponent } from './components/Products/productupload/productupload.component';
 import { HomeComponent } from './components/Products/home/home.component';
 import { authGuard } from './guards/auth.guard';
-import {MylistingsComponent} from './components/Products/mylistings/mylistings.component'
+import { MylistingsComponent } from './components/Products/mylistings/mylistings.component';
+import { VerifyUserComponent } from './components/auth/verify-user/verify-user.component';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'signup',
-    component: SignUpComponent
+    component: SignUpComponent,
   },
   {
     path: '',
@@ -25,28 +26,34 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
-    path:'forgotPassword',
-    component:ForgotPasswordComponent
+    path: 'forgotPassword',
+    component: ForgotPasswordComponent,
   },
   {
-    path:'resetPassword',
-    component:ResetPasswordComponent
+    path: 'resetPassword',
+    component: ResetPasswordComponent,
   },
   {
-    path:'uploadProduct', canActivate : [authGuard],
-    component:ProductuploadComponent
+    path: 'uploadProduct',
+    canActivate: [authGuard],
+    component: ProductuploadComponent,
   },
   {
-    path:'myListings', canActivate : [authGuard],
-    component:MylistingsComponent
-  }
+    path: 'myListings',
+    canActivate: [authGuard],
+    component: MylistingsComponent,
+  },
+  {
+    path: 'verify-email',
+    component: VerifyUserComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

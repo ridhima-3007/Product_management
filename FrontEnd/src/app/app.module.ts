@@ -24,6 +24,7 @@ import { ProfileComponent } from './components/auth/profile/profile.component';
 import { ChangePasswordComponent } from './components/auth/change-password/change-password.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SearchComponent } from './components/Products/search/search.component';
+import { VerifyUserComponent } from './components/auth/verify-user/verify-user.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { SearchComponent } from './components/Products/search/search.component';
     ProfileComponent,
     ChangePasswordComponent,
     SearchComponent,
+    VerifyUserComponent,
   ],
   imports: [
     BrowserModule,

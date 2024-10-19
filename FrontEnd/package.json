@@ -20,7 +20,6 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
-    "@fortawesome/angular-fontawesome": "^0.11.0",
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@syncfusion/ej2-angular-splitbuttons": "^27.1.50",
     "bootstrap": "^5.3.3",
@@ -29,6 +28,7 @@
     "ngx-cookie-service": "^16.1.0",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
+    "sweetalert": "^2.1.2",
     "sweetalert2": "^11.14.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
