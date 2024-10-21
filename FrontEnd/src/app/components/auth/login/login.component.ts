@@ -9,7 +9,7 @@ import { ToasterService } from 'src/app/sharedServices/toastr.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router, private authService: AuthService, private fb: FormBuilder, private toastr: ToasterService) {}
 
   ngOnInit(): void {
+   this.loginFormInit();
+  }
+
+  loginFormInit(){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: [

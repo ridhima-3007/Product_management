@@ -1,0 +1,27 @@
+<div class="myFilter">
+  <h2><span>FILTERS</span></h2>
+
+
+  <div class="filter">
+    <p class="Text">Price</p>
+    <ul *ngFor="let price of priceArray">
+      <li (click)="filter(price, 'PRICE')">{{ price }}</li>
+    </ul>
+  </div>
+  <hr />
+
+  <div class="filter">
+    <p class="Text">Seller</p>
+    <ul *ngFor="let sellerdata of uniqueSellers">
+      <li (click)="filter(sellerdata, 'SELLER')">{{ sellerdata }}</li>
+    </ul>
+  </div>
+  <hr />
+
+  <div class="filter">
+    <p class="Text">Discount</p>
+    <ul *ngFor="let discount of discountArray">
+      <li (click)="filter(discount, 'DISCOUNT')">{{ discount }}</li>
+    </ul>
+  </div>
+</div>

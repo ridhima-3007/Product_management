@@ -16,7 +16,7 @@ export class AuthService {
 
   resetPassword(password: string): Observable<any> {
     return this.http.post(
-      'http://localhost:8000/user/resetPassword', 
+      environment.APIURL+'/user/resetPassword', 
       { password },  
       { withCredentials: true } 
     );

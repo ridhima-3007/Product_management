@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,30 +7,44 @@ import { ToasterService } from 'src/app/sharedServices/toastr.service';
 @Component({
   selector: 'app-mylistings',
   templateUrl: './mylistings.component.html',
-  styleUrls: ['./mylistings.component.css']
+  styleUrls: ['./mylistings.component.scss'],
 })
-export class MylistingsComponent {
-  
+export class MylistingsComponent implements OnInit {
+  allData: any[] = [];
 
-  allData:any[]=[];
-  
-  constructor(private allproductsservice:AllProductService, private toaster: ToasterService){
-   this.allproductsservice.getMyProducts().subscribe(
-    (data)=>{
-      this.allData=data;
-      console.log(data);
-    },
-    (error)=>{
-      console.log(error);
-    }
-   )
+  constructor(
+    private allproductsservice: AllProductService,
+    private toaster: ToasterService
+  ) {}
+
+  ngOnInit(): void {
+    this.myCategoriesInit();
+  }
+
+  myCategoriesInit() {
+    this.allproductsservice.getMyProducts().subscribe(
+      (data) => {
+        this.allData = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getImageUrl(imagePath: string): string {
-    return environment.APIURL+`/${imagePath}`;
+    return environment.APIURL + `/${imagePath}`;
   }
 
-  displayedColumns: string[] = ['image','name', 'price', 'discount', 'quantity', 'description', 'action'];
+  displayedColumns: string[] = [
+    'image',
+    'name',
+    'price',
+    'discount',
+    'quantity',
+    'description',
+    'action',
+  ];
 
   dataSource = new MatTableDataSource(this.allData);
 
@@ -39,11 +53,9 @@ export class MylistingsComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  editProduct(product) {
-  }
+  editProduct(product) {}
 
   deleteProduct(product) {
     this.toaster.confirBox();
-    
   }
 }

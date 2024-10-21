@@ -1,6 +1,12 @@
 <app-navbar></app-navbar>
 <app-search (searchingData)="searchMyData($event)"></app-search>
-<app-category-list (subcategorySelected)="onSubcategorySelected($event)"></app-category-list>
+<app-category-list
+  (subcategorySelected)="onSubcategorySelected($event)"
+></app-category-list>
+<app-sidenav
+  [data]="originalData"
+  (filterProducts)="FilterMyProducts($event)"
+></app-sidenav>
 
 <div class="myList">
   <div *ngFor="let prod of allData" class="card list" style="width: 18rem">
@@ -10,19 +16,84 @@
       alt="Card image cap"
     />
     <hr class="my-1" />
-    <div class="card-body">
+    <div
+      class="card-body cb"
+      (click)="displayChangePasswordModal(); showTitle(prod)"
+    >
       <p class="card-title prodname">{{ prod.name }}</p>
       <p class="card-text des">{{ prod.description }}</p>
 
       <p class="card-text allprice">
-        <span style="color: rgb(19, 110, 19) ;"><i class="fa-solid fa-arrow-down"></i></span
-        ><span *ngIf="prod.discount > 0" class="discount">{{ prod.discount }}%</span
-        ><span *ngIf="prod.discount > 0" class="price">{{ prod.price }}</span
-        ><span *ngIf="prod.discount > 0" class="totalprice">{{ prod.price - (prod.price * (prod.discount/100)) }}</span>
+        <span style="color: rgb(19, 110, 19)"
+          ><i class="fa-solid fa-arrow-down"></i></span
+        ><span *ngIf="prod.discount > 0" class="discount"
+          >{{ prod.discount }}%</span
+        ><span *ngIf="prod.discount > 0" class="price"
+          >&#8377;{{ prod.price }}</span
+        ><span *ngIf="prod.discount > 0" class="totalprice"
+          >&#8377;{{
+            prod.price - getDiscountedPrice(prod.price, prod.discount)
+          }}</span
+        >
       </p>
 
-      <p class="sell">Sold by: {{prod.seller}}</p>
+      <p class="sell">Sold by: {{ prod.seller }}</p>
       <a href="#" class="btn btn-primary mybut">Buy</a>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="message">
+  <h2>{{ message }}</h2>
+</div>
+
+<div *ngIf="show_modal" class="changeModal">
+  <div class="card change-card">
+    <div class="header">
+      <h2 class="title">{{ showProduct.title }}</h2>
+      <button
+        type="button"
+        class="closebtn"
+        (click)="displayChangePasswordModal()"
+      >
+        &times;
+      </button>
+    </div>
+    <hr class="mt-0" />
+    <div class="body px-2 py-2">
+      <img
+        class="card-img-top showImg"
+        [src]="getImageUrl(showProduct.prodimg)"
+        alt="Card image cap"
+      />
+      <p class="card-text">
+        <span class="off">
+          Extra &#8377;
+          {{ getDiscountedPrice(showProduct.price, showProduct.discount) }} Off
+        </span>
+      </p>
+      <p>
+        <span *ngIf="showProduct.discount > 0" class="prodprice"
+          >&#8377;{{
+            showProduct.price -
+              getDiscountedPrice(showProduct.price, showProduct.discount)
+          }}</span
+        >
+        <span *ngIf="showProduct.discount > 0" class="myprice"
+          >&#8377;{{ showProduct.price }}</span
+        >
+        <span *ngIf="showProduct.discount > 0" class="mydiscount"
+          >{{ showProduct.discount }}% Off</span
+        >
+      </p><hr>
+      <h3>Description</h3>
+      <p class="card-text mydes">{{ showProduct.description }}</p><hr>
+      <p>
+        <span class="mycategory">Category: <span class="mytitle">{{ showProduct.category }}</span></span>
+      </p>
+      <p>
+        <span class="mycategory">Subcategory: <span class="mytitle">{{ showProduct.subcategory }}</span></span>
+      </p>
     </div>
   </div>
 </div>

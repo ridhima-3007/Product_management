@@ -8,35 +8,34 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-verify-user',
   templateUrl: './verify-user.component.html',
-  styleUrls: ['./verify-user.component.css'],
+  styleUrls: ['./verify-user.component.scss'],
 })
-
 export class VerifyUserComponent implements OnInit {
-  message: string = 'Verifying...';
-
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private toasterservice: ToasterService,
-    private router:Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    this.verifyUserFormInit();
+  }
+
+  verifyUserFormInit() {
     const token = this.route.snapshot.queryParamMap.get('token');
     if (token) {
       this.http
-        .post(environment.APIURL + '/api/verify-email', { token })
+        .post(environment.APIURL + '/user/verify-email', { token })
         .subscribe(
           (response) => {
             this.toasterservice.showSuccess('You can login now', 'Verifed');
-            this.router.navigate(['/login'])
+            this.router.navigate(['/login']);
           },
           (error) => {
-           this.toasterservice.showError("Try Again","Verification Failed")
+            this.toasterservice.showError('Try Again', 'Verification Failed');
           }
         );
     }
   }
-
-
 }

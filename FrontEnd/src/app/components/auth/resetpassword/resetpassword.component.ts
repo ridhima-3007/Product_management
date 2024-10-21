@@ -7,7 +7,7 @@ import { ToasterService } from 'src/app/sharedServices/toastr.service';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './resetpassword.component.html',
-  styleUrls: ['./resetpassword.component.css'],
+  styleUrls: ['./resetpassword.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class ResetPasswordComponent implements OnInit {
@@ -21,6 +21,10 @@ export class ResetPasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.resetFormInit();
+  }
+
+  resetFormInit() {
     this.resetPasswordForm = this.fb.group({
       password: [
         '',
@@ -45,7 +49,7 @@ export class ResetPasswordComponent implements OnInit {
   onSubmit() {
     if (
       this.resetPasswordForm.value.password ===
-        this.resetPasswordForm.value.confirmpasssword
+      this.resetPasswordForm.value.confirmpasssword
     ) {
       this.authService
         .resetPassword(this.resetPasswordForm.value.password)
@@ -57,8 +61,7 @@ export class ResetPasswordComponent implements OnInit {
             ),
               this.router.navigate(['/login']);
           },
-          error: (err) =>{
-            console.log(err);
+          error: (err) => {
             this.toasterservice.showError('Error occured', err.error?.msg);
           },
         });

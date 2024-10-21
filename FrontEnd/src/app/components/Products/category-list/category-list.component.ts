@@ -1,11 +1,11 @@
-import { Component, OnInit,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CategoryService } from 'src/app/Services/category.service';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
-  styleUrls: ['./category-list.component.css'],
+  styleUrls: ['./category-list.component.scss'],
 })
 export class CategoryListComponent implements OnInit {
   categories: any[] = [];
@@ -19,15 +19,22 @@ export class CategoryListComponent implements OnInit {
     '/assets/images/6.png',
   ];
 
-  constructor(private categoryservice: CategoryService,private allproductservice:AllProductService) {}
+  constructor(
+    private categoryservice: CategoryService,
+    private allproductservice: AllProductService
+  ) {}
   @Output() subcategorySelected: EventEmitter<string> = new EventEmitter();
 
   selectSubcategory(subcategory: string) {
-    console.log("Subcategory Selected",subcategory);
+    console.log('Subcategory Selected', subcategory);
     this.subcategorySelected.emit(subcategory);
   }
 
   ngOnInit(): void {
+    this.categoryComponentInit();
+  }
+
+  categoryComponentInit() {
     this.categoryservice.getCategories().subscribe(
       (data) => {
         this.categories = data;
@@ -37,7 +44,4 @@ export class CategoryListComponent implements OnInit {
       }
     );
   }
-
-  
-
 }

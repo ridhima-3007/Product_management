@@ -1,0 +1,38 @@
+.myFilter {
+  margin-left: 2vh;
+  float: left;
+  width: 20%;
+  box-shadow: 1px 1px 1px 1px rgb(199, 193, 193);
+  border: 1px solid gray;
+  position: sticky;
+  border-radius: 5px;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 1.2rem;
+  background-color: rgb(66, 65, 65);
+  color: white;
+  text-align: center;
+  padding: 0.2rem;
+}
+
+.filter {
+  margin-left: 1rem;
+}
+
+.Text {
+  font-size: 1.1rem;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+ul {
+  margin-left: 1rem;
+  list-style: square;
+  font-weight: 500;
+
+  li {
+    cursor: pointer;
+  }
+}

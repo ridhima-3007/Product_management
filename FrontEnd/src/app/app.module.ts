@@ -15,6 +15,8 @@ import { NavbarComponent } from './components/Products/navbar/navbar.component';
 import { CategoryListComponent } from './components/Products/category-list/category-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list'
 import { MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -25,6 +27,8 @@ import { ChangePasswordComponent } from './components/auth/change-password/chang
 import { ToastrModule } from 'ngx-toastr';
 import { SearchComponent } from './components/Products/search/search.component';
 import { VerifyUserComponent } from './components/auth/verify-user/verify-user.component';
+import { SidenavComponent } from './components/Products/sidenav/sidenav.component';
+import { ProductDescriptionComponent } from './components/Products/product-description/product-description.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,8 @@ import { VerifyUserComponent } from './components/auth/verify-user/verify-user.c
     ChangePasswordComponent,
     SearchComponent,
     VerifyUserComponent,
+    SidenavComponent,
+    ProductDescriptionComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +61,9 @@ import { VerifyUserComponent } from './components/auth/verify-user/verify-user.c
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

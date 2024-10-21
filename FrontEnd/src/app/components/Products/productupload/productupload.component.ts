@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-productform',
   templateUrl: './productupload.component.html',
-  styleUrls: ['./productupload.component.css'],
+  styleUrls: ['./productupload.component.scss'],
 })
 export class ProductuploadComponent implements OnInit {
   productForm: FormGroup;
@@ -17,63 +17,32 @@ export class ProductuploadComponent implements OnInit {
   selectedFiles: File[] = [];
   categories: any[] = [];
   subcategories: any[] = [];
-  allowedTypes: string[] = ['image/jpeg', 'image/png', 'image/gif','image/jpg','image/webp','image/svg'];
-   errorMessage:string|null=null;
-   maxFileSize=5*1024*1024;
-
+  allowedTypes: string[] = [
+    'image/jpeg',
+    'image/png',
+    'image/gif',
+    'image/jpg',
+    'image/webp',
+    'image/svg',
+  ];
+  errorMessage: string | null = null;
+  maxFileSize = 5 * 1024 * 1024;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private categoryservice: CategoryService,
     private router: Router,
-    private toasterservice:ToasterService,
+    private toasterservice: ToasterService
   ) {}
 
   ngOnInit(): void {
-    this.productForm = this.fb.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^(?=.*[a-zA-Z])(?![0-9]+)[a-zA-Z0-9 ]{1,20}$')
-        ]
-      ],
-      price: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]\\d{0,9}(\\.\\d{1,3})?$')
-        ]
-      ],
-      description: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(30)
-        ]
-      ],
-      category: ['', [Validators.required]],
-      subcategory: ['', [Validators.required]],
-      Quantity: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]+$')
-        ]
-      ],
-      discount: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]\\d{0,9}(\\.\\d{1,3})?$')
-        ]
-      ],
-      coverImage: [null, [Validators.required]],
-      images: [null],
-    });
-    
+    this.productUploadFormInit();
 
+    this.getCategories();
+  }
+
+  getCategories() {
     this.categoryservice.getCategories().subscribe(
       (data) => {
         this.categories = data;
@@ -88,6 +57,38 @@ export class ProductuploadComponent implements OnInit {
       .valueChanges.subscribe((selectedCategory) => {
         this.updateSubcategories(selectedCategory);
       });
+  }
+
+  productUploadFormInit() {
+    this.productForm = this.fb.group({
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^(?=.*[a-zA-Z])(?![0-9]+)[a-zA-Z0-9 ]{1,20}$'),
+        ],
+      ],
+      price: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]\\d{0,9}(\\.\\d{1,3})?$'),
+        ],
+      ],
+      description: ['', [Validators.required, Validators.minLength(30)]],
+      category: ['', [Validators.required]],
+      subcategory: ['', [Validators.required]],
+      Quantity: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      discount: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]\\d{0,9}(\\.\\d{1,3})?$'),
+        ],
+      ],
+      coverImage: [null, [Validators.required]],
+      images: [null],
+    });
   }
 
   updateSubcategories(selectedCategory: string): void {
@@ -114,11 +115,10 @@ export class ProductuploadComponent implements OnInit {
     const files = fileInput.files;
 
     if (files && files.length > 0) {
-      const file = files[0]; 
-      this.validateFile(file); 
+      const file = files[0];
+      this.validateFile(file);
       this.selectedCoverFile = event.target.files[0];
     }
-   
   }
 
   onFileSelected(event: any): void {
@@ -126,28 +126,25 @@ export class ProductuploadComponent implements OnInit {
     const files = fileInput.files;
 
     if (files && files.length > 0) {
-      const file = files[0]; 
-      this.validateFile(file); 
+      const file = files[0];
+      this.validateFile(file);
       this.selectedFiles = Array.from(event.target.files);
-
     }
   }
 
   validateFile(file: File): void {
-    this.errorMessage = null; 
+    this.errorMessage = null;
 
     if (!this.allowedTypes.includes(file.type)) {
-      this.toasterservice.showError('','Invalid File Type')
+      this.toasterservice.showError('', 'Invalid File Type');
       return;
     }
 
     if (file.size > this.maxFileSize) {
-      this.toasterservice.showError('','File Exceeds 5MB')
+      this.toasterservice.showError('', 'File Exceeds 5MB');
       return;
     }
-
   }
-  
 
   onSubmit(): void {
     const formData: FormData = new FormData();
@@ -172,16 +169,16 @@ export class ProductuploadComponent implements OnInit {
     });
 
     this.http
-      .post( environment.APIURL+'/api/products', formData, {
+      .post(environment.APIURL + '/api/products', formData, {
         withCredentials: true,
       })
       .subscribe(
         (response) => {
-         this.toasterservice.showSuccess('','Product Created Successfully')
+          this.toasterservice.showSuccess('', 'Product Created Successfully');
           this.router.navigate(['/myListings']);
         },
         (error) => {
-          this.toasterservice.showError(error.error?.msg,'Error Occured')
+          this.toasterservice.showError(error.error?.msg, 'Error Occured');
         }
       );
   }
