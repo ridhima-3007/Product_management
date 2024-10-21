@@ -1,31 +1,38 @@
-<img class="profile-icon" src="assets/images/default_user.png" alt="" (click)="displayProfile()">
+<img
+  class="profile-icon"
+  src="assets/images/default_user.png"
+  alt=""
+  (click)="displayProfile()"
+/>
 <div *ngIf="show_profile" class="profile-bar">
-    <div class="card profile-card text-center">
-        <img class="profile-icon1" src="assets/images/default_user.png" alt="">
-        <h1>{{user.name}}</h1>
-        <p>{{user.email}}</p>
-        <p>{{user.mobile}}</p>
-        <hr>
-        <a (click)="displayChangePasswordModal()">Change Password</a>
-        <hr>
-        <a (click)="onLogout()">Logout</a>
-        <!-- <a routerLink="/myListings">My Products</a> -->
-        <!-- <a routerLink="/uploadProduct">Add New Product</a> -->
-        <hr>
-    </div>
+  <div class="card profile-card text-center">
+    <img class="profile-icon1" src="assets/images/default_user.png" alt="" />
+    <h1>{{ user.name }}</h1>
+    <p>{{ user.email }}</p>
+    <p>{{ user.mobile }}</p>
+    <hr />
+    <a (click)="displayChangePasswordModal()">Change Password</a>
+    <hr />
+    <a (click)="onLogout()">Logout</a>
+    <hr />
+  </div>
 </div>
 
 <div *ngIf="show_modal" class="changeModal">
-    <div class="card change-card">
-        <div class="header">
-            <h2 class="title">Change Password</h2>
-            <button type="button" class="closebtn" (click)="displayChangePasswordModal()">
-                &times;
-            </button>
-        </div>
-        <hr class="mt-0">
-        <div class="body px-2 py-2">
-            <change-password></change-password>
-        </div>
+  <div class="card change-card">
+    <div class="header">
+      <h2 class="title">Change Password</h2>
+      <button
+        type="button"
+        class="closebtn"
+        (click)="displayChangePasswordModal()"
+      >
+        &times;
+      </button>
     </div>
+    <hr class="mt-0" />
+    <div class="body px-2 py-2">
+      <change-password></change-password>
+    </div>
+  </div>
 </div>

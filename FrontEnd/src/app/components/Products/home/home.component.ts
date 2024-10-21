@@ -5,27 +5,24 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  allData: any[] = [];
 
-  allData:any[]=[];
-  
-  constructor(private allproductsservice:AllProductService){
-   this.allproductsservice.getProducts().subscribe(
-    (data)=>{
-      this.allData=data;
-      console.log(data);
-    },
-    (error)=>{
-      console.log(error);
-    }
-   )
+  constructor(private allproductsservice: AllProductService) {
+    this.allproductsservice.getProducts().subscribe(
+      (data) => {
+        this.allData = data;
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getImageUrl(imagePath: string): string {
-    return environment.APIURL+`/${imagePath}`;
+    return environment.APIURL + `/${imagePath}`;
   }
-  
-
 }

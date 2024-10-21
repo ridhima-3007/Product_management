@@ -5,11 +5,10 @@ import { environment } from 'src/environments/environment';
 import { Product } from '../models/product';
 
 @Injectable({
-    providedIn: 'root'
-  })
-
-export class AllProductService{
-    private apiUrl = environment.APIURL+'/api'; 
+  providedIn: 'root',
+})
+export class AllProductService {
+  private apiUrl = environment.APIURL + '/api';
 
   constructor(private http: HttpClient) {}
 
@@ -18,19 +17,26 @@ export class AllProductService{
   }
 
   getMyProducts(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/myProducts`, {withCredentials: true})
+    return this.http.get(`${this.apiUrl}/myProducts`, {
+      withCredentials: true,
+    });
   }
 
   getProductById(productId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/myProducts/${productId}`, {withCredentials: true});
+    return this.http.get(`${this.apiUrl}/myProducts/${productId}`, {
+      withCredentials: true,
+    });
   }
 
   deleteProduct(productId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/myProducts/${productId}`, {withCredentials: true});
+    return this.http.delete(`${this.apiUrl}/myProducts/${productId}`, {
+      withCredentials: true,
+    });
   }
 
-  updateProduct(data, productId): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/myProducts/${productId}`, data, {withCredentials: true});
+  updateProduct(data, productId: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/myProducts/${productId}`, data, {
+      withCredentials: true,
+    });
   }
-
 }

@@ -10,8 +10,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(28,195,190);
-background: linear-gradient(90deg, rgba(28,195,190,1) 0%, rgba(38,95,237,1) 35%, rgba(0,212,255,1) 100%);
+  background: rgb(28, 195, 190);
+  background: linear-gradient(90deg, rgba(28, 195, 190, 1) 0%, rgba(38, 95, 237, 1) 35%, rgba(0, 212, 255, 1) 100%);
   padding: 30px;
 }
 
@@ -50,7 +50,7 @@ background: linear-gradient(90deg, rgba(28,195,190,1) 0%, rgba(38,95,237,1) 35%,
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4); 
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .container .cover .text .text-1,
@@ -125,8 +125,9 @@ background: linear-gradient(90deg, rgba(28,195,190,1) 0%, rgba(38,95,237,1) 35%,
 .forms .form-content .button input {
   width: 100%;
   height: 45px;
-  background: rgb(28,195,190);
-  background: linear-gradient(90deg, rgba(28,195,190,1) 0%, rgba(38,95,237,1) 35%, rgba(0,212,255,1) 100%);  color: #fff;
+  background: rgb(28, 195, 190);
+  background: linear-gradient(90deg, rgba(28, 195, 190, 1) 0%, rgba(38, 95, 237, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  color: #fff;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -138,23 +139,23 @@ background: linear-gradient(90deg, rgba(28,195,190,1) 0%, rgba(38,95,237,1) 35%,
 }
 
 .fp {
-    font-size: 15px;
-    color: rgb(37, 82, 231);
-    text-decoration: none;
-    margin-bottom: 20px;
+  font-size: 15px;
+  color: rgb(37, 82, 231);
+  text-decoration: none;
+  margin-bottom: 20px;
 }
 
 .newUser {
-    font-size: 15px;
-    color: rgb(37, 82, 231);
-    text-decoration: none;
-    margin-bottom: 20px;
-    text-align: center;
+  font-size: 15px;
+  color: rgb(37, 82, 231);
+  text-decoration: none;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .error-message {
-  color: red; 
-  font-size: 0.875rem; 
+  color: red;
+  font-size: 0.875rem;
 }
 
 @media (max-width: 680px) {
@@ -171,4 +172,8 @@ background: linear-gradient(90deg, rgba(28,195,190,1) 0%, rgba(38,95,237,1) 35%,
     width: 100%;
     padding: 20px;
   }
+}
+
+a {
+  cursor: pointer;
 }

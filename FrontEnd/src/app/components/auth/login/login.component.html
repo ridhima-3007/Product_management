@@ -7,7 +7,7 @@
       <div class="form-content">
         <div>
           <div class="title">Login</div>
-          <form [formGroup]="loginForm" (ngSubmit)="onLogin()"  action="#">
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()" action="#">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fa-solid fa-envelope"></i>
@@ -19,11 +19,16 @@
                   formControlName="email"
                 />
               </div>
-              <div *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched" class="error-message">
-                <small *ngIf="loginForm.get('email').errors?.['required']">Email is required.</small>
-                <small *ngIf="loginForm.get('email').errors?.['email']">Please enter a valid email address.</small>
+              <div
+                *ngIf="
+                  loginForm.get('email').invalid &&
+                  loginForm.get('email').touched
+                "
+                class="error-message"
+              >
+                <small>{{ getErrors("email") }}</small>
               </div>
-              
+
               <div class="input-box">
                 <i class="fa-solid fa-lock"></i>
                 <input
@@ -34,20 +39,28 @@
                   class="ms-2"
                 />
               </div>
-              <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched" class="error-message">
-                <small *ngIf="loginForm.get('password').errors?.['required']">Password is required.</small>
-                <small *ngIf="loginForm.get('password').errors?.['pattern']">Password must contain uppercase ,lowercase and special characters.</small>
-                <small *ngIf="loginForm.get('password').errors?.['minlength']">Password must be at least 8 characters long.</small>
+              <div
+                *ngIf="
+                  loginForm.get('password').invalid &&
+                  loginForm.get('password').touched
+                "
+                class="error-message"
+              >
+                <small>{{ getErrors("password") }}</small>
               </div>
 
-              <a routerLink="/forgotPassword" href="#" class="fp">Forgot Password? </a>
-  
+              <a (click)="navigate('/forgotPassword')" class="fp"
+                >Forgot Password?
+              </a>
+
               <div class="button input-box">
                 <input type="submit" value="Login" />
               </div>
-  
+
               <div class="text-center">
-                <a routerLink="/signup" href="" class="newUser">New User? Create an Account</a>
+                <a (click)="navigate('/signup')" class="newUser"
+                  >New User? Create an Account</a
+                >
               </div>
             </div>
           </form>

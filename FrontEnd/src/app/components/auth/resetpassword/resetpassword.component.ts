@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-reset-password',
   templateUrl: './resetpassword.component.html',
   styleUrls: ['./resetpassword.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
@@ -19,8 +19,7 @@ export class ResetPasswordComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.token = this.route.snapshot.queryParams['token'];
@@ -42,6 +41,17 @@ export class ResetPasswordComponent implements OnInit {
         ],
       ],
     });
+  }
+
+  getErrors(field: string) {
+    const PasswordControl = this.resetPasswordForm.get(field);
+    if (PasswordControl?.hasError('required')) {
+      return 'Password is required';
+    }
+    if (PasswordControl?.hasError('pattern')) {
+      return 'Password must contain uppercase,lowercase,numbers and special characters.';
+    }
+    return '';
   }
 
   onSubmit() {
