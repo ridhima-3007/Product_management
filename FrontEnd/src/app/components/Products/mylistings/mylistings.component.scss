@@ -17,3 +17,68 @@
 table {
     width: 100%;
 }
+
+.filter {
+  display: flex;
+  gap: 10px;
+}
+
+.add-icon {
+  margin-top: 2vh;
+  margin-left: 1vw;
+  width: 40px;
+  height: 40px;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.purple {
+  color: rgb(66, 65, 65);
+}
+
+.mat-mdc-header-row {
+  background-color: rgb(66, 65, 65);
+  color: white;
+}
+
+td {
+  font-size: 16px;
+
+  .mat-column-description {
+    max-width: 20vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.search-input {
+  width: 20vw;
+}
+
+.mat-column-description {
+  max-width: 20vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: white;
+}
+
+.select-filters {
+  display: flex;
+  gap: 2rem;
+
+  select {
+    width: 10rem;
+    height: 4rem;
+  }
+}

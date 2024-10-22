@@ -7,6 +7,7 @@ import { ResetPasswordComponent } from './components/auth/resetpassword/resetpas
 import { ProductuploadComponent } from './components/Products/productupload/productupload.component';
 import { HomeComponent } from './components/Products/home/home.component';
 import { authGuard } from './guards/auth.guard';
+import { ViewProductComponent } from './components/Products/view-product/view-product.component';
 import { MylistingsComponent } from './components/Products/mylistings/mylistings.component';
 import { VerifyUserComponent } from './components/auth/verify-user/verify-user.component';
 
@@ -45,6 +46,11 @@ const routes: Routes = [
     path: 'myListings',
     canActivate: [authGuard],
     component: MylistingsComponent,
+  },
+  {
+    path: 'viewProduct',
+    canActivate: [authGuard],
+    component: ViewProductComponent,
   },
   {
     path: 'verify-email',

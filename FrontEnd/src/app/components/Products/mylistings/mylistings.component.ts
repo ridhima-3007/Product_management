@@ -88,6 +88,10 @@ export class MylistingsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  viewProduct(product: Product) {
+    this.router.navigate(['/viewProduct', { id: product._id }]);
+  }
+
   editProduct(product: Product) {
     this.router.navigate([
       '/uploadProduct',
