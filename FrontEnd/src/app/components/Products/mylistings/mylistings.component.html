@@ -82,8 +82,9 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let prod">
+          <i class="fa-solid fa-eye black me-2" (click)="viewProduct(prod)"></i>
           <i
-            class="fa-solid fa-pen-to-square me-4 blue"
+            class="fa-solid fa-pen-to-square me-2 blue"
             (click)="editProduct(prod)"
           ></i>
           <i class="fa-solid fa-trash red" (click)="deleteProduct(prod)"></i>
