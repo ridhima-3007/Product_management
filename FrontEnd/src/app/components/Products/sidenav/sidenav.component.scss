@@ -36,3 +36,32 @@ ul {
     cursor: pointer;
   }
 }
+
+.myoptions {
+  border-radius: 0;
+}
+
+.showFilters {
+  list-style: none;
+}
+
+.listt {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.mylist {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+  box-shadow: 1px 1px 1px 1px rgb(199, 193, 193);
+  margin-left: -2rem;
+  margin-bottom: 0.5rem;
+  background-color: rgb(236, 232, 232);
+}
+
+.btn {
+  color: red;
+  font-weight: bold;
+}

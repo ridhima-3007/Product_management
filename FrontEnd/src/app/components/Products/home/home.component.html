@@ -3,9 +3,11 @@
 <app-category-list
   (subcategorySelected)="onSubcategorySelected($event)"
 ></app-category-list>
+
 <app-sidenav
   [data]="originalData"
   (filterProducts)="FilterMyProducts($event)"
+  (removeFilterFrom)="RemoveFilter($event)"
 ></app-sidenav>
 
 <div class="myList">
@@ -18,7 +20,7 @@
     <hr class="my-1" />
     <div
       class="card-body cb"
-      (click)="displayChangePasswordModal(); showTitle(prod)"
+      (click)="displayChangePasswordModal(); showFullProduct(prod)"
     >
       <p class="card-title prodname">{{ prod.name }}</p>
       <p class="card-text des">{{ prod.description }}</p>
@@ -61,11 +63,15 @@
     </div>
     <hr class="mt-0" />
     <div class="body px-2 py-2">
+      <div>
+        <i class="fa-solid fa-less-than" class="lessimgicon"></i>
       <img
         class="card-img-top showImg"
-        [src]="getImageUrl(showProduct.prodimg)"
+        [src]="getImageUrl(myImagePath)"
         alt="Card image cap"
       />
+      <i class="fa-solid fa-greater-than imageicon" (click)="showOtherImages(showProduct.otherimg)"></i>
+    </div>
       <p class="card-text">
         <span class="off">
           Extra &#8377;
