@@ -19,6 +19,7 @@ export class ResetPasswordComponent implements OnInit {
     private authService: AuthService,
     private toasterservice: ToasterService
   ) {}
+    
 
   ngOnInit(): void {
     this.resetFormInit();
@@ -44,6 +45,17 @@ export class ResetPasswordComponent implements OnInit {
         ],
       ],
     });
+  }
+
+  getErrors(field: string) {
+    const PasswordControl = this.resetPasswordForm.get(field);
+    if (PasswordControl?.hasError('required')) {
+      return 'Password is required';
+    }
+    if (PasswordControl?.hasError('pattern')) {
+      return 'Password must contain uppercase,lowercase,numbers and special characters.';
+    }
+    return '';
   }
 
   onSubmit() {

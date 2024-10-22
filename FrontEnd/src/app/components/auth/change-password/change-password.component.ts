@@ -53,6 +53,17 @@ export class ChangePasswordComponent implements OnInit {
     });
   }
 
+  getErrors(field: string) {
+    const PasswordControl = this.changePasswordForm.get(field);
+    if (PasswordControl?.hasError('required')) {
+      return 'Password is required';
+    }
+    if (PasswordControl?.hasError('pattern')) {
+      return 'Password must contain uppercase,lowercase,numbers and special characters.';
+    }
+    return '';
+  }
+
   onSubmit() {
     if (
       this.changePasswordForm.valid &&
@@ -60,16 +71,24 @@ export class ChangePasswordComponent implements OnInit {
         this.changePasswordForm.value.confirmPassword
     ) {
       const data: Passwords = { ...this.changePasswordForm.value };
-      this.userService.changePassword(data).subscribe(
-        (response) => {
-          this.toastr.showSuccess(response.msg, 'Success');
-          this.changePasswordForm.reset();
-        },
-        (error) => {
-          this.toastr.showError(error.error?.msg, 'Something Went Wrong');
-          this.changePasswordForm.reset();
-        }
-      );
+      if (
+        this.changePasswordForm.valid &&
+        this.changePasswordForm.value.newPassword ===
+          this.changePasswordForm.value.confirmPassword
+      ) {
+        const data: Passwords = { ...this.changePasswordForm.value };
+        this.userService.changePassword(data).subscribe(
+          (response) => {
+            this.toastr.showSuccess(response.msg, 'Success');
+            this.changePasswordForm.reset();
+          },
+
+          (error) => {
+            this.toastr.showError(error.error?.msg, 'Something Went Wrong');
+            this.changePasswordForm.reset();
+          }
+        );
+      }
     } else {
       this.toastr.showError(
         'New and Confirm Password should match.',

@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CategoryService } from 'src/app/Services/category.service';
 import { Router } from '@angular/router';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
+import { AllProductService } from 'src/app/Services/allproduct.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-productform',
@@ -27,36 +30,23 @@ export class ProductuploadComponent implements OnInit {
   ];
   errorMessage: string | null = null;
   maxFileSize = 5 * 1024 * 1024;
+  isEditingProduct: boolean = false;
+  product_id: string;
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
     private categoryservice: CategoryService,
+    private route: ActivatedRoute,
+    private allProductService: AllProductService,
+    private toasterservice: ToasterService,
     private router: Router,
-    private toasterservice: ToasterService
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
     this.productUploadFormInit();
 
     this.getCategories();
-  }
-
-  getCategories() {
-    this.categoryservice.getCategories().subscribe(
-      (data) => {
-        this.categories = data;
-      },
-      (error) => {
-        console.log('Error Fetching Detais', error);
-      }
-    );
-
-    this.productForm
-      .get('category')
-      .valueChanges.subscribe((selectedCategory) => {
-        this.updateSubcategories(selectedCategory);
-      });
   }
 
   productUploadFormInit() {
@@ -91,6 +81,56 @@ export class ProductuploadComponent implements OnInit {
     });
   }
 
+  getCategories() {
+    this.categoryservice.getCategories().subscribe(
+      (data) => {
+        this.categories = data;
+      },
+      (error) => {
+        console.log('Error Fetching Detais', error);
+      }
+    );
+
+    this.productForm
+      .get('category')
+      .valueChanges.subscribe((selectedCategory) => {
+        this.updateSubcategories(selectedCategory);
+      });
+
+    this.route.paramMap.subscribe((params) => {
+      const productId = params.get('id');
+      const isEditing = params.get('isEditing') === 'true';
+      if (isEditing && productId) {
+        this.isEditingProduct = true;
+        this.product_id = productId;
+        this.removeCoverValidator();
+        this.getProduct(productId);
+      }
+    });
+  }
+
+  getProduct(productId) {
+    this.allProductService.getProductById(productId).subscribe(
+      (product: Product) => {
+        this.productForm.patchValue({
+          name: product.name,
+          price: product.price,
+          discount: product.discount,
+          Quantity: product.quantity,
+          description: product.description,
+          category: product.category,
+          subcategory: product.subcategory,
+        });
+
+        this.selectedCoverFile = null;
+        this.selectedFiles = [];
+      },
+      (error) => {
+        this.toasterservice.showError(error.error?.msg, 'Something went wrong');
+      }
+    );
+  }
+
   updateSubcategories(selectedCategory: string): void {
     if (!selectedCategory) {
       this.subcategories = [];
@@ -107,6 +147,14 @@ export class ProductuploadComponent implements OnInit {
       this.subcategories = category.subcategories;
     } else {
       this.subcategories = [];
+    }
+  }
+
+  removeCoverValidator() {
+    const coverControl = this.productForm.get('coverImage');
+    if (coverControl) {
+      coverControl.clearValidators();
+      coverControl.updateValueAndValidity();
     }
   }
 
@@ -134,16 +182,37 @@ export class ProductuploadComponent implements OnInit {
 
   validateFile(file: File): void {
     this.errorMessage = null;
+    this.errorMessage = null;
 
     if (!this.allowedTypes.includes(file.type)) {
+      this.toasterservice.showError('', 'Invalid File Type');
       this.toasterservice.showError('', 'Invalid File Type');
       return;
     }
 
     if (file.size > this.maxFileSize) {
       this.toasterservice.showError('', 'File Exceeds 5MB');
+      this.toasterservice.showError('', 'File Exceeds 5MB');
       return;
     }
+  }
+
+  getErrors(field: string) {
+    const uploadControl = this.productForm.get(field);
+    if (uploadControl?.hasError('required')) {
+      return `${field.toUpperCase()} is required`;
+    }
+    if (uploadControl?.hasError('pattern')) {
+      if (field === 'name')
+        return 'Name should not exceed 20 characters and should not contain only numbers';
+      else if (field === 'price' || field === 'discount')
+        return `${field.toUpperCase()} should be in digits`;
+      else if (field === 'Quantity') return 'Quantity should be whole number';
+    }
+    if (uploadControl?.hasError('minlength')) {
+      return 'Description should contain at least 30 characters.';
+    }
+    return '';
   }
 
   onSubmit(): void {
@@ -168,6 +237,36 @@ export class ProductuploadComponent implements OnInit {
       formData.append('images', file, file.name);
     });
 
+    if (this.isEditingProduct) {
+      this.allProductService.updateProduct(formData, this.product_id).subscribe(
+        (response) => {
+          this.toasterservice.showSuccess('View Your product', response.msg);
+          this.router.navigate(['/myListings']);
+        },
+        (error) => {
+          this.toasterservice.showError(
+            error.error?.msg,
+            'Something went wrong'
+          );
+        }
+      );
+    } else {
+      this.http
+        .post(environment.APIURL + '/api/products', formData, {
+          withCredentials: true,
+        })
+        .subscribe(
+          (response) => {
+            console.log('Product created successfully!', response);
+            this.toasterservice.showSuccess('', 'Product Created Successfully');
+            this.router.navigate(['/myListings']);
+          },
+          (error) => {
+            console.error('Error creating product', error);
+            this.toasterservice.showError('', 'Error Occured');
+          }
+        );
+    }
     this.http
       .post(environment.APIURL + '/api/products', formData, {
         withCredentials: true,

@@ -1,17 +1,15 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToasterService } from '../sharedServices/toastr.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  const snackBar = inject(MatSnackBar);
+  const toaster = inject(ToasterService);
 
   if (!authService.getAccessToken()) {
-    snackBar.open('You are not logged in', 'Close', {
-      verticalPosition: 'top',
-    });
+    toaster.showError('Login to continue', 'You are not Logged In');
     router.navigate(['/login']);
     return false;
   }

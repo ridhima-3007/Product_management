@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,7 +14,8 @@ import { HomeComponent } from './components/Products/home/home.component';
 import { NavbarComponent } from './components/Products/navbar/navbar.component';
 import { CategoryListComponent } from './components/Products/category-list/category-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list'
 import { MatTableModule} from '@angular/material/table';
@@ -28,7 +29,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { SearchComponent } from './components/Products/search/search.component';
 import { VerifyUserComponent } from './components/auth/verify-user/verify-user.component';
 import { SidenavComponent } from './components/Products/sidenav/sidenav.component';
-import { ProductDescriptionComponent } from './components/Products/product-description/product-description.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,6 @@ import { ProductDescriptionComponent } from './components/Products/product-descr
     SearchComponent,
     VerifyUserComponent,
     SidenavComponent,
-    ProductDescriptionComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,10 +61,12 @@ import { ProductDescriptionComponent } from './components/Products/product-descr
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSortModule,
+    MatInputModule,
     MatSidenavModule,
     MatListModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

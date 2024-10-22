@@ -7,13 +7,17 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent{
-
-  constructor(private authService: AuthService, private userService: UserService, private toaster: ToasterService, private router: Router) {}
-  show_profile : boolean = false;
-  show_modal : boolean = false;
+export class ProfileComponent {
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private toaster: ToasterService,
+    private router: Router
+  ) {}
+  show_profile: boolean = false;
+  show_modal: boolean = false;
 
   user = this.authService.getUserInfo();
 
@@ -29,14 +33,16 @@ export class ProfileComponent{
 
   onLogout() {
     this.userService.logout().subscribe(
-      response => {
-        this.toaster.showSuccess("Login again to continue", "Logout Out Successfully")
-        this.router.navigate(['/login']);
+      (response) => {
+        this.toaster.showSuccess(
+          'Login again to continue',
+          'Logout Out Successfully'
+        );
       },
-      error => {
-        this.toaster.showError("Error logging out", "Something Went Wrong")
-        this.router.navigate(['/login']);
+      (error) => {
+        this.toaster.showError('Error logging out', 'Something Went Wrong');
       }
     );
+    this.router.navigate(['/login']);
   }
 }

@@ -22,6 +22,17 @@ export class ForgotPasswordComponent implements OnInit {
     return this.forgotPasswordForm.get('email');
   }
 
+  getErrors(field) {
+    const PasswordControl = this.forgotPasswordForm.get(field);
+    if (PasswordControl?.hasError('required')) {
+      return 'Email is required';
+    }
+    if (PasswordControl?.hasError('email')) {
+      return 'Invalid email address';
+    }
+    return '';
+  }
+
   ngOnInit(): void {
     this.forgotPasswordFormInit();
   }
@@ -33,6 +44,19 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.forgotPasswordForm.valid) {
+      this.authService
+        .forgotPassword(this.forgotPasswordForm.value.email)
+        .subscribe({
+          next: () => {
+            this.message =
+              'Password reset instructions have been sent to your email!';
+          },
+          error: (err) => {
+            this.message = 'Error: ' + err.error.message;
+          },
+        });
+    }
     this.authService
       .forgotPassword(this.forgotPasswordForm.value.email)
       .subscribe(

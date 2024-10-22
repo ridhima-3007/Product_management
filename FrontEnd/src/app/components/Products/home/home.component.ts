@@ -63,6 +63,7 @@ export class HomeComponent implements OnInit {
 
   getImageUrl(imagePath: string): string {
     return environment.APIURL + `/${imagePath}`;
+    return environment.APIURL + `/${imagePath}`;
   }
 
   searchMyData(data: string) {

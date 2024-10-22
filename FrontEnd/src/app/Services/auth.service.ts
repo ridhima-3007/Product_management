@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { jwtDecode } from 'jwt-decode';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from './user.service';
+import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'

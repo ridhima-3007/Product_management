@@ -1,79 +1,111 @@
 <div class="body">
   <div class="container">
     <div class="cover">
-      <img src="assets/images/login.webp" alt="Side Image">
+      <img src="assets/images/login.webp" alt="Side Image" />
     </div>
     <div class="forms">
       <div class="form-content">
         <div>
           <div class="title">Signup</div>
-          <form [formGroup]="signupForm" (ngSubmit)="onSignup()"  action="#">
+          <form [formGroup]="signupForm" (ngSubmit)="onSignup()" action="#">
             <div class="input-boxes">
-
               <!--name-->
               <div class="input-box">
-                <i class="fas fa-check-circle"></i>
+                <i class="fa-solid fa-user"></i>
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  name="name"
+                  formControlName="name"
+                  class="ms-2"
+                />
+              </div>
+              <div
+                *ngIf="
+                  signupForm.get('name').invalid &&
+                  signupForm.get('name').touched
+                "
+                class="error-message"
+              >
+                <small>{{ getErrors("name") }}</small>
+              </div>
 
-                <input type="text" placeholder="Enter your name" name="name" formControlName="name" class="ms-2">
-        
-                
-              </div>
-              <div *ngIf="signupForm.get('name').invalid && signupForm.get('name').touched" class="error-message">
-                <small *ngIf="signupForm.get('name').errors?.['pattern']">Name must contain only letters and spaces.</small>
-                <small *ngIf="signupForm.get('name').errors?.['required']">Name is required.</small>
-                <small *ngIf="signupForm.get('name').errors?.['maxlength']">Name cannot be more than 20 characters long.</small>
-              </div>
-              
               <!--email-->
               <div class="input-box">
                 <i class="fa-solid fa-envelope"></i>
-                <input class="ms-2" type="email" placeholder="Enter your email" name="email" formControlName="email">
-               
+                <input
+                  class="ms-2"
+                  type="email"
+                  placeholder="Enter your email"
+                  name="email"
+                  formControlName="email"
+                />
               </div>
-              <div *ngIf="signupForm.get('email').invalid && signupForm.get('email').touched" class="error-message">
-                <small *ngIf="signupForm.get('email').errors?.['required']">Email is required.</small>
-                <small *ngIf="signupForm.get('email').errors?.['email']">Please enter a valid email address.</small>
+              <div
+                *ngIf="
+                  signupForm.get('email').invalid &&
+                  signupForm.get('email').touched
+                "
+                class="error-message"
+              >
+                <small>{{ getErrors("email") }}</small>
               </div>
-              
 
-
-             <!--mobile-->
+              <!--mobile-->
               <div class="input-box">
                 <i class="fa-solid fa-phone"></i>
-                <input class="ms-2" type="text" placeholder="Enter your mobile number" name="mobile" formControlName="mobile">
-                
+                <input
+                  class="ms-2"
+                  type="text"
+                  placeholder="Enter your mobile number"
+                  name="mobile"
+                  formControlName="mobile"
+                />
               </div>
 
-              <div *ngIf="signupForm.get('mobile').invalid && signupForm.get('mobile').touched" class="error-message">
-                <small *ngIf="signupForm.get('mobile').errors?.['required']">Mobile number is required.</small>
-                <small *ngIf="signupForm.get('mobile').errors?.['pattern']">Invalid Mobile Number.</small>
-                <small *ngIf="signupForm.get('mobile').errors?.['maxlength']">Mobile no cannot contains more than 10 digits.</small>
+              <div
+                *ngIf="
+                  signupForm.get('mobile').invalid &&
+                  signupForm.get('mobile').touched
+                "
+                class="error-message"
+              >
+                <small>{{ getErrors("mobile") }}</small>
               </div>
-              
 
-
-            <!--password-->
+              <!--password-->
               <div class="input-box">
                 <i class="fa-solid fa-lock"></i>
-                <input class="ms-2" type="password" placeholder="Enter your password" name="password" formControlName="password">
+                <input
+                  class="ms-2"
+                  type="password"
+                  placeholder="Enter your password"
+                  name="password"
+                  formControlName="password"
+                />
               </div>
-              <div *ngIf="signupForm.get('password').invalid && signupForm.get('password').touched" class="error-message">
-                <small *ngIf="signupForm.get('password').errors?.['required']">Password is required.</small>
-                <small *ngIf="signupForm.get('password').errors?.['pattern']">Password must contain uppercase ,lowercase and special characters.</small>
-                <small *ngIf="signupForm.get('password').errors?.['minlength']">Password must be at least 8 characters long.</small>
+              <div
+                *ngIf="
+                  signupForm.get('password').invalid &&
+                  signupForm.get('password').touched
+                "
+                class="error-message"
+              >
+                <small>{{ getErrors("password") }}</small>
               </div>
-              
+
               <!--button-->
               <div class="button input-box">
-                <input type="submit" value="Submit">
+                <input
+                  type="submit"
+                  value="Submit"
+                  [disabled]="signupForm.invalid"
+                />
               </div>
-
             </div>
           </form>
-
         </div>
       </div>
     </div>
   </div>
 </div>
-
