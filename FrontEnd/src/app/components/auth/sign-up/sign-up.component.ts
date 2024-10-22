@@ -22,7 +22,6 @@ export class SignUpComponent implements OnInit {
     private toaster: ToasterService
   ) {}
 
- 
   getErrors(field: string) {
     const signupControl = this.signupForm.get(field);
     if (signupControl?.hasError('required')) {
@@ -57,7 +56,7 @@ export class SignUpComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-Zs]+$'),
+          Validators.pattern('^[a-zA-Z\\s]+$'),
           Validators.maxLength(20),
         ],
       ],
@@ -87,18 +86,12 @@ export class SignUpComponent implements OnInit {
     this.userService.signup(user).subscribe(
       (response) => {
         this.toaster.showSuccess(
-          'Now Login to access your Products',
-          'Signed Up Successfully'
-        );
-        this.toaster.showSuccess(
           'Check your mail for verification',
           'Signed Up Successfully'
         );
         this.router.navigate(['/login']);
       },
       (error) => {
-        console.error('Error signing up:', error);
-        this.toaster.showError(error.error?.msg, 'Something Went Wrong');
         this.toaster.showError('Something Went Wrong', error.error?.msg);
         this.signupForm.reset();
       }

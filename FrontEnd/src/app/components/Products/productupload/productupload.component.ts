@@ -58,24 +58,15 @@ export class ProductuploadComponent implements OnInit {
           Validators.pattern('^(?=.*[a-zA-Z])(?![0-9]+)[a-zA-Z0-9 ]{1,20}$'),
         ],
       ],
-      price: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]\\d{0,9}(\\.\\d{1,3})?$'),
-        ],
-      ],
+      price: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]],
       description: ['', [Validators.required, Validators.minLength(30)]],
       category: ['', [Validators.required]],
       subcategory: ['', [Validators.required]],
-      Quantity: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      discount: [
+      Quantity: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]\\d{0,9}(\\.\\d{1,3})?$'),
-        ],
+        [Validators.required, Validators.pattern('^[1-9][0-9]*$')],
       ],
+      discount: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       coverImage: [null, [Validators.required]],
       images: [null],
     });
@@ -257,28 +248,13 @@ export class ProductuploadComponent implements OnInit {
         })
         .subscribe(
           (response) => {
-            console.log('Product created successfully!', response);
-            this.toasterservice.showSuccess('', 'Product Created Successfully');
+            this.toasterservice.showSuccess('', 'Product created successfully');
             this.router.navigate(['/myListings']);
           },
           (error) => {
-            console.error('Error creating product', error);
-            this.toasterservice.showError('', 'Error Occured');
+            this.toasterservice.showError(error.error?.msg, 'Error Occured');
           }
         );
     }
-    this.http
-      .post(environment.APIURL + '/api/products', formData, {
-        withCredentials: true,
-      })
-      .subscribe(
-        (response) => {
-          this.toasterservice.showSuccess('', 'Product Created Successfully');
-          this.router.navigate(['/myListings']);
-        },
-        (error) => {
-          this.toasterservice.showError(error.error?.msg, 'Error Occured');
-        }
-      );
   }
 }

@@ -25,7 +25,7 @@
   <div class="form-group">
     <label class="Text" for="exampleFormControlSelect1">Price</label>
     <select
-      class="form-control myoptions"
+      class="form-select myoptions"
       id="exampleFormControlSelect1"
       [(ngModel)]="selectedPrice"
       (change)="filter(selectedPrice, 'PRICE')"
@@ -40,7 +40,7 @@
   <div class="form-group">
     <label class="Text" for="exampleFormControlSelect1">Seller</label>
     <select
-      class="form-control myoptions"
+      class="form-select myoptions"
       id="exampleFormControlSelect1"
       [(ngModel)]="selectedSeller"
       (change)="filter(selectedSeller, 'SELLER')"
@@ -55,7 +55,7 @@
   <div class="form-group">
     <label class="Text" for="exampleFormControlSelect1">Discount</label>
     <select
-      class="form-control myoptions"
+      class="form-select myoptions"
       id="exampleFormControlSelect1"
       [(ngModel)]="selectedDiscount"
       (change)="filter(selectedDiscount, 'DISCOUNT')"

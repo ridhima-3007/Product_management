@@ -52,7 +52,7 @@
 <div *ngIf="show_modal" class="changeModal">
   <div class="card change-card">
     <div class="header">
-      <h2 class="title">{{ showProduct.title }}</h2>
+      <h2 class="title">{{ showProduct.name }}</h2>
       <button
         type="button"
         class="closebtn"
@@ -65,13 +65,16 @@
     <div class="body px-2 py-2">
       <div>
         <i class="fa-solid fa-less-than" class="lessimgicon"></i>
-      <img
-        class="card-img-top showImg"
-        [src]="getImageUrl(myImagePath)"
-        alt="Card image cap"
-      />
-      <i class="fa-solid fa-greater-than imageicon" (click)="showOtherImages(showProduct.otherimg)"></i>
-    </div>
+        <img
+          class="card-img-top showImg"
+          [src]="getImageUrl(myImagePath)"
+          alt="Card image cap"
+        />
+        <i
+          class="fa-solid fa-greater-than imageicon"
+          (click)="showOtherImages(showProduct.images)"
+        ></i>
+      </div>
       <p class="card-text">
         <span class="off">
           Extra &#8377;
@@ -91,14 +94,22 @@
         <span *ngIf="showProduct.discount > 0" class="mydiscount"
           >{{ showProduct.discount }}% Off</span
         >
-      </p><hr>
+      </p>
+      <hr />
       <h3>Description</h3>
-      <p class="card-text mydes">{{ showProduct.description }}</p><hr>
+      <p class="card-text mydes">{{ showProduct.description }}</p>
+      <hr />
       <p>
-        <span class="mycategory">Category: <span class="mytitle">{{ showProduct.category }}</span></span>
+        <span class="mycategory"
+          >Category:
+          <span class="mytitle">{{ showProduct.category }}</span></span
+        >
       </p>
       <p>
-        <span class="mycategory">Subcategory: <span class="mytitle">{{ showProduct.subcategory }}</span></span>
+        <span class="mycategory"
+          >Subcategory:
+          <span class="mytitle">{{ showProduct.subcategory }}</span></span
+        >
       </p>
     </div>
   </div>

@@ -7,6 +7,7 @@
           <div class="title">
             {{ isEditingProduct ? "Edit Your Product" : "Upload Your Product" }}
           </div>
+
           <div class="input-boxes">
             <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
               <div class="drop">

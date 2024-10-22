@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");
 
 * {
@@ -15,10 +15,11 @@
   align-items: center;
   justify-content: center;
   padding: 30px;
+  margin-top: 8vh;
 }
 
 .container {
-  margin-top: 10vh;
+  margin-top: 4vh;
   max-width: 700px;
   width: 100%;
   background: #fff;
@@ -42,7 +43,8 @@
         background-color: #333;
         color: #fff;
         margin: -2.5rem;
-        padding: 2rem;
+        padding: 1.5rem;
+        margin-bottom: 2vh;
         font-weight: 700;
       }
 
@@ -192,7 +194,7 @@
   }
 }
 
-.error-message {
+small {
   color: red;
   font-size: 0.875rem;
 }

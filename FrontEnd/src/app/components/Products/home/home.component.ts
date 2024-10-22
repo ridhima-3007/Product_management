@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
+import { ToasterService } from 'src/app/sharedServices/toastr.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   allData: any[] = [];
   originalData: any[] = [];
   message = '';
-  myImagePath='';
+  myImagePath = '';
   activeFilters = {
     price: null,
     seller: null,
@@ -24,19 +24,18 @@ export class HomeComponent implements OnInit {
   showProduct = {
     category: '',
     subcategory: '',
-    title: '',
-    prodimg: '',
+    name: '',
+    coverImage: '',
     description: '',
     price: 0,
     discount: 0,
-    otherimg:[],
+    images: [],
   };
   show_modal: boolean = false;
 
   constructor(
     private allproductsservice: AllProductService,
-    private activatedroute: ActivatedRoute,
-    private router: Router
+    private toaster: ToasterService
   ) {}
 
   ngOnInit(): void {
@@ -46,17 +45,12 @@ export class HomeComponent implements OnInit {
   displayChangePasswordModal() {
     this.show_modal = !this.show_modal;
   }
-
   showFullProduct(myProd) {
-    this.myImagePath=myProd.coverImage;
-    this.showProduct.title = myProd.name;
-    this.showProduct.prodimg = myProd.coverImage;
-    this.showProduct.category = myProd.category;
-    this.showProduct.subcategory = myProd.subcategory;
-    this.showProduct.price = myProd.price;
-    this.showProduct.discount = myProd.discount;
-    this.showProduct.description = myProd.description;
-    this.showProduct.otherimg=myProd.images;
+    this.myImagePath = myProd.coverImage;
+    this.showProduct = {
+      ...this.showProduct,
+      ...myProd,
+    };
   }
 
   homeInit() {
@@ -66,13 +60,12 @@ export class HomeComponent implements OnInit {
         this.originalData = data;
       },
       (error) => {
-        console.log(error);
+        this.toaster.showError('', error.error?.msg);
       }
     );
   }
 
   getImageUrl(imagePath: string): string {
-    return environment.APIURL + `/${imagePath}`;
     return environment.APIURL + `/${imagePath}`;
   }
 
@@ -135,6 +128,8 @@ export class HomeComponent implements OnInit {
 
     if (this.allData.length === 0) {
       this.message = 'NO DATA FOUND';
+    } else {
+      this.message = '';
     }
   }
 
@@ -197,8 +192,5 @@ export class HomeComponent implements OnInit {
     return Math.floor(price * (discount / 100));
   }
 
-  showOtherImages(parameter) {
-    
-  }
-
+  showOtherImages(parameter) {}
 }
