@@ -28,7 +28,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { SearchComponent } from './components/Products/search/search.component';
 import { VerifyUserComponent } from './components/auth/verify-user/verify-user.component';
 import { SidenavComponent } from './components/Products/sidenav/sidenav.component';
-import { ProductDescriptionComponent } from './components/Products/product-description/product-description.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +46,6 @@ import { ProductDescriptionComponent } from './components/Products/product-descr
     SearchComponent,
     VerifyUserComponent,
     SidenavComponent,
-    ProductDescriptionComponent,
   ],
   imports: [
     BrowserModule,

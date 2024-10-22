@@ -15,15 +15,38 @@ export class SidenavComponent {
     '30000 and above',
   ];
   discountArray = ['0-20', '20-40', '40-60', '60-80', '80-100'];
+  selectedPrice = '';
+  selectedSeller = '';
+  selectedDiscount = '';
 
   get uniqueSellers() {
     const sellerNames = this.data.map((item) => item.seller);
     return Array.from(new Set(sellerNames));
   }
 
-  @Output() filterProducts: EventEmitter<{parameter:string,basedOn:string}> = new EventEmitter();
+  @Output() filterProducts: EventEmitter<{
+    parameter: string;
+    basedOn: string;
+  }> = new EventEmitter();
+  @Output() removeFilterFrom: EventEmitter<{
+    parameter: string;
+    basedOn: string;
+  }> = new EventEmitter();
 
   filter(parameter: string, basedOn: string) {
     this.filterProducts.emit({ parameter, basedOn });
+  }
+
+  removeFilter(parameter: string, basedOn: string) {
+    if (basedOn == 'PRICE') {
+      this.selectedPrice = '';
+    }
+    if (basedOn == 'SELLER') {
+      this.selectedSeller = '';
+    }
+    if (basedOn == 'DISCOUNT') {
+      this.selectedDiscount = '';
+    }
+    this.removeFilterFrom.emit({ parameter, basedOn });
   }
 }

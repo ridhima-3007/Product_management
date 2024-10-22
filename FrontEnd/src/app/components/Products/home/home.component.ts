@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
@@ -11,18 +11,27 @@ import { environment } from 'src/environments/environment';
 export class HomeComponent implements OnInit {
   allData: any[] = [];
   originalData: any[] = [];
-  message='';
-  showProduct={
-    category:'',
-    subcategory:'',
-    title:'',
-    prodimg:'',
-    description:'',
-    price:0,
-    discount:0,
-  }
-  show_modal:boolean=false;
-  
+  message = '';
+  myImagePath='';
+  activeFilters = {
+    price: null,
+    seller: null,
+    discount: null,
+    category: null,
+    searchTerm: null,
+  };
+
+  showProduct = {
+    category: '',
+    subcategory: '',
+    title: '',
+    prodimg: '',
+    description: '',
+    price: 0,
+    discount: 0,
+    otherimg:[],
+  };
+  show_modal: boolean = false;
 
   constructor(
     private allproductsservice: AllProductService,
@@ -38,15 +47,16 @@ export class HomeComponent implements OnInit {
     this.show_modal = !this.show_modal;
   }
 
-  showTitle(myProd){
-    console.log(myProd)
-    this.showProduct.title=myProd.name;
-    this.showProduct.prodimg=myProd.coverImage;
-    this.showProduct.category=myProd.category;
-    this.showProduct.subcategory=myProd.subcategory;
-    this.showProduct.price=myProd.price;
-    this.showProduct.discount=myProd.discount  
-    this.showProduct.description=myProd.description 
+  showFullProduct(myProd) {
+    this.myImagePath=myProd.coverImage;
+    this.showProduct.title = myProd.name;
+    this.showProduct.prodimg = myProd.coverImage;
+    this.showProduct.category = myProd.category;
+    this.showProduct.subcategory = myProd.subcategory;
+    this.showProduct.price = myProd.price;
+    this.showProduct.discount = myProd.discount;
+    this.showProduct.description = myProd.description;
+    this.showProduct.otherimg=myProd.images;
   }
 
   homeInit() {
@@ -66,80 +76,128 @@ export class HomeComponent implements OnInit {
   }
 
   searchMyData(data: string) {
-    this.allData = this.getAllProductsBySearch(data);
-    if(this.allData.length==0){
-      this.message="NO DATA FOUND";
- }
+    this.activeFilters.searchTerm = data.toLowerCase();
+    this.applyFilters();
   }
 
-  getAllProductsBySearch(searchTerm: string) {
-    const lowerCaseTerm = searchTerm.toLowerCase();
-
-    const filteredData = this.originalData.filter(
-      (prod) =>
-        prod.name.toLowerCase().includes(lowerCaseTerm) ||
-        prod.subcategory.toLowerCase() === lowerCaseTerm ||
-        prod.category.toLowerCase() === lowerCaseTerm ||
-        prod.seller.toLowerCase() == lowerCaseTerm
-    );
-
-    return filteredData;
-  }
-
-  //for searching with category
   onSubcategorySelected(subcategory: string) {
-    this.allData = this.getProductByCategory(subcategory);
-    if(this.allData.length==0){
-      this.message="NO DATA FOUND";
- }
-  }
-
-  getProductByCategory(parameter: string) {
-    return this.originalData.filter((prod) => prod.subcategory == parameter);
+    this.activeFilters.category = subcategory;
+    this.applyFilters();
   }
 
   FilterMyProducts(event: { parameter: string; basedOn: string }) {
-    this.allData = this.filterON(event.parameter, event.basedOn);
-    if(this.allData.length==0){
-         this.message="NO DATA FOUND";
+    if (event.basedOn === 'PRICE') {
+      this.activeFilters.price = event.parameter;
+    } else if (event.basedOn === 'SELLER') {
+      this.activeFilters.seller = event.parameter;
+    } else if (event.basedOn === 'DISCOUNT') {
+      this.activeFilters.discount = event.parameter;
     }
+
+    this.applyFilters();
   }
 
-  filterON(filterParameter: string, filterBasedOn: string) {
-    if (filterBasedOn == 'PRICE') {
-      const rangeString = filterParameter;
+  applyFilters() {
+    this.allData = this.originalData;
 
-      if (rangeString.includes('-')) {
-        const [start, end] = rangeString.split('-').map(Number);
-
-        return this.originalData.filter(
-          (prod) => prod.price >= start && prod.price <= end
-        );
-      } else if (rangeString.includes('and above')) {
-        const minPrice = parseInt(rangeString.split(' ')[0], 10);
-
-        return this.originalData.filter((prod) => prod.price >= minPrice);
-      }
-    }
-
-    if (filterBasedOn == 'SELLER') {
-      return this.originalData.filter((prod) => prod.seller == filterParameter);
-    }
-
-    if (filterBasedOn == 'DISCOUNT') {
-      const rangeString = filterParameter;
-
-      const [start, end] = rangeString.split('-').map(Number);
-
-      return this.originalData.filter(
-        (prod) => prod.discount > start && prod.discount < end
+    if (this.activeFilters.category) {
+      this.allData = this.filterByCategory(
+        this.allData,
+        this.activeFilters.category
       );
     }
 
-    return [];
+    if (this.activeFilters.searchTerm) {
+      this.allData = this.filterBySearchTerm(
+        this.allData,
+        this.activeFilters.searchTerm
+      );
+    }
+
+    if (this.activeFilters.price) {
+      this.allData = this.filterByPrice(this.allData, this.activeFilters.price);
+    }
+
+    if (this.activeFilters.seller) {
+      this.allData = this.filterBySeller(
+        this.allData,
+        this.activeFilters.seller
+      );
+    }
+
+    if (this.activeFilters.discount) {
+      this.allData = this.filterByDiscount(
+        this.allData,
+        this.activeFilters.discount
+      );
+    }
+
+    if (this.allData.length === 0) {
+      this.message = 'NO DATA FOUND';
+    }
+  }
+
+  // Filter by category
+  filterByCategory(data: any[], category: string) {
+    return data.filter((prod) => prod.subcategory === category);
+  }
+
+  // Filter by search term
+  filterBySearchTerm(data: any[], searchTerm: string) {
+    return data.filter(
+      (prod) =>
+        prod.name.toLowerCase().includes(searchTerm) ||
+        prod.subcategory.toLowerCase() === searchTerm ||
+        prod.category.toLowerCase() === searchTerm ||
+        prod.seller.toLowerCase() === searchTerm
+    );
+  }
+
+  // Filter by price range
+  filterByPrice(data: any[], priceRange: string) {
+    if (priceRange.includes('-')) {
+      const [start, end] = priceRange.split('-').map(Number);
+      return data.filter((prod) => prod.price >= start && prod.price <= end);
+    } else if (priceRange.includes('and above')) {
+      const minPrice = parseInt(priceRange.split(' ')[0], 10);
+      return data.filter((prod) => prod.price >= minPrice);
+    }
+    return data;
+  }
+
+  // Filter by seller
+  filterBySeller(data: any[], seller: string) {
+    return data.filter((prod) => prod.seller === seller);
+  }
+
+  // Filter by discount range
+  filterByDiscount(data: any[], discountRange: string) {
+    const [start, end] = discountRange.split('-').map(Number);
+    return data.filter(
+      (prod) => prod.discount >= start && prod.discount <= end
+    );
+  }
+
+  RemoveFilter(event: { parameter: string; basedOn: string }) {
+    if (event.basedOn == 'PRICE') {
+      this.activeFilters.price = null;
+    }
+    if (event.basedOn == 'SELLER') {
+      this.activeFilters.seller = null;
+    }
+    if (event.basedOn == 'DISCOUNT') {
+      this.activeFilters.discount = null;
+    }
+
+    this.applyFilters();
   }
 
   getDiscountedPrice(price: number, discount: number): number {
     return Math.floor(price * (discount / 100));
   }
+
+  showOtherImages(parameter) {
+    
+  }
+
 }
