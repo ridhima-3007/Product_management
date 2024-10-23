@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from 'src/app/Services/user.service';
@@ -10,7 +10,6 @@ import { ToasterService } from 'src/app/sharedServices/toastr.service';
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class SignUpComponent implements OnInit {
   signupForm: FormGroup;

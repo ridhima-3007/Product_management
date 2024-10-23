@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
 import Swal from 'sweetalert2';
 import { MatPaginator } from '@angular/material/paginator';
-import { Product } from 'src/app/models/product';
+import { Category, Product } from 'src/app/models/product';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { CategoryService } from 'src/app/Services/category.service';
@@ -15,11 +15,13 @@ import { CategoryService } from 'src/app/Services/category.service';
   templateUrl: './mylistings.component.html',
   styleUrls: ['./mylistings.component.scss'],
 })
-export class MylistingsComponent implements OnInit {
+export class MylistingsComponent implements OnInit, AfterViewInit {
   allData: Product[] = [];
-  categories: any[] = [];
-  subcategories: any[] = [];
-  selectedCategory: any;
+  categories: Category[] = [];
+  subcategories: string[] = [];
+  categoryName: string;
+  isActive: string;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -34,11 +36,22 @@ export class MylistingsComponent implements OnInit {
     this.myCategoriesInit();
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+    this.sort.active = 'name';
+    this.sort.direction = 'asc';
+  }
+
   myCategoriesInit() {
     this.categoryservice.getCategories().subscribe((data) => {
       this.categories = data;
     });
+    this.getProducts();
+  }
 
+  getProducts() {
     this.allproductsservice.getMyProducts().subscribe((data) => {
       this.allData = data;
       this.dataSource = new MatTableDataSource(this.allData);
@@ -48,10 +61,10 @@ export class MylistingsComponent implements OnInit {
   }
 
   selectCategory(event) {
-    this.selectedCategory = (event.target as HTMLSelectElement).value;
-    this.dataSource.filter = this.selectedCategory;
+    this.categoryName = (event.target as HTMLSelectElement).value;
+    this.dataSource.filter = this.categoryName;
     const category = this.categories.find(
-      (cat) => cat.name === this.selectedCategory
+      (cat) => cat.name === this.categoryName
     );
 
     if (category) {
@@ -65,6 +78,11 @@ export class MylistingsComponent implements OnInit {
   selectSubCategory(event) {
     const subCategory = (event.target as HTMLSelectElement).value;
     this.dataSource.filter = subCategory;
+  }
+
+  selectStatus(event) {
+    this.isActive = (event.target as HTMLSelectElement).value;
+    this.dataSource.filter = this.isActive;
   }
 
   getImageUrl(imagePath: string): string {
@@ -99,18 +117,17 @@ export class MylistingsComponent implements OnInit {
     ]);
   }
 
-  deleteProduct(product) {
+  deleteProduct(product: Product) {
     this.toaster.confirmBox().then((result) => {
       if (result.isConfirmed) {
         this.allproductsservice.deleteProduct(product._id).subscribe(
           (response) => {
             Swal.fire({
-              title: 'Deleted!',
-              text: 'Your file has been deleted.',
+              title: 'Deactivated!',
+              text: 'Your product has been deactivated.',
               icon: 'success',
             });
-            this.allData = this.allData.filter((p) => p._id !== product._id);
-            this.dataSource = new MatTableDataSource(this.allData);
+            this.getProducts();
           },
           (error) => {
             this.toaster.showError(error.error?.msg, 'Something went wrong');
@@ -118,5 +135,17 @@ export class MylistingsComponent implements OnInit {
         );
       }
     });
+  }
+
+  activateProduct(product: Product) {
+    this.allproductsservice.deleteProduct(product._id).subscribe(
+      (response) => {
+        this.toaster.showSuccess('', 'Product has been activated.');
+        this.getProducts();
+      },
+      (error) => {
+        this.toaster.showError(error.error?.msg, 'Something went wrong');
+      }
+    );
   }
 }

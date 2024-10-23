@@ -173,16 +173,13 @@ export class ProductuploadComponent implements OnInit {
 
   validateFile(file: File): void {
     this.errorMessage = null;
-    this.errorMessage = null;
 
     if (!this.allowedTypes.includes(file.type)) {
-      this.toasterservice.showError('', 'Invalid File Type');
       this.toasterservice.showError('', 'Invalid File Type');
       return;
     }
 
     if (file.size > this.maxFileSize) {
-      this.toasterservice.showError('', 'File Exceeds 5MB');
       this.toasterservice.showError('', 'File Exceeds 5MB');
       return;
     }

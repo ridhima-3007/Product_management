@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
@@ -9,7 +9,6 @@ import { ToasterService } from 'src/app/sharedServices/toastr.service';
   selector: 'change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class ChangePasswordComponent implements OnInit {
   changePasswordForm: FormGroup;

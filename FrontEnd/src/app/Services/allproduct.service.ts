@@ -40,10 +40,15 @@ export class AllProductService {
     });
   }
 
-  getProductsWithCategories(parameter):Observable<any>{
-    return this.http.get(`${this.apiUrl}/searchproductWRTcategories`, {withCredentials: true})
+  getProductsWithCategories(parameter): Observable<any> {
+    return this.http.get(`${this.apiUrl}/searchproductWRTcategories`, {
+      withCredentials: true,
+    });
   }
 
+  activateProduct(productId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/myProducts/${productId}`, {
+      withCredentials: true,
+    });
+  }
 }
-
- 

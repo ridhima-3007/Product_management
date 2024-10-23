@@ -25,3 +25,8 @@ export interface Product {
   seller: string;
   isActive: boolean;
 }
+
+export interface Category {
+  name: string;
+  subcategories: string[];
+}

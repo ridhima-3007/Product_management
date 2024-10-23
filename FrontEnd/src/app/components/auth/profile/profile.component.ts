@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
 import { UserService } from 'src/app/Services/user.service';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
@@ -28,8 +28,6 @@ export class ProfileComponent {
   displayChangePasswordModal() {
     this.show_modal = !this.show_modal;
   }
-
- 
 
   onLogout() {
     this.userService.logout().subscribe(
