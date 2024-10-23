@@ -7,7 +7,7 @@ import { ToasterService } from 'src/app/sharedServices/toastr.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { AllProductService } from 'src/app/Services/allproduct.service';
-import { Product } from 'src/app/models/product';
+import { Product,Response } from 'src/app/models/product';
 
 @Component({
   selector: 'app-productform',
@@ -173,16 +173,13 @@ export class ProductuploadComponent implements OnInit {
 
   validateFile(file: File): void {
     this.errorMessage = null;
-    this.errorMessage = null;
 
     if (!this.allowedTypes.includes(file.type)) {
-      this.toasterservice.showError('', 'Invalid File Type');
       this.toasterservice.showError('', 'Invalid File Type');
       return;
     }
 
     if (file.size > this.maxFileSize) {
-      this.toasterservice.showError('', 'File Exceeds 5MB');
       this.toasterservice.showError('', 'File Exceeds 5MB');
       return;
     }
@@ -230,7 +227,7 @@ export class ProductuploadComponent implements OnInit {
 
     if (this.isEditingProduct) {
       this.allProductService.updateProduct(formData, this.product_id).subscribe(
-        (response) => {
+        (response:Response) => {
           this.toasterservice.showSuccess('View Your product', response.msg);
           this.router.navigate(['/myListings']);
         },

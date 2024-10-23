@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { Passwords } from 'src/app/models/user';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
+import { Response } from 'src/app/models/product';
 
 @Component({
   selector: 'change-password',
@@ -78,7 +79,7 @@ export class ChangePasswordComponent implements OnInit {
       ) {
         const data: Passwords = { ...this.changePasswordForm.value };
         this.userService.changePassword(data).subscribe(
-          (response) => {
+          (response:Response) => {
             this.toastr.showSuccess(response.msg, 'Success');
             this.changePasswordForm.reset();
           },

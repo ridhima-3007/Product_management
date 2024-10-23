@@ -25,3 +25,13 @@ export interface Product {
   seller: string;
   isActive: boolean;
 }
+
+export interface Response{
+  msg:string;
+}
+
+export interface CustomError {
+  error?: {
+    msg?: string;
+  };
+}

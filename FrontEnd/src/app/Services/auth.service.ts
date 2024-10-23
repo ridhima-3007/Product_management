@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from './user.service';
+import { ToasterService } from '../sharedServices/toastr.service';
+import {CustomError} from '../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,9 @@ import { UserService } from './user.service';
 export class AuthService {
 
   constructor(private cookieService : CookieService, private http: HttpClient, 
-    private userService: UserService, private matSnackBar: MatSnackBar, private router: Router) { }
+    private userService: UserService, private toasterservice:ToasterService, private router: Router) { }
 
-  private userInfo : any = null;
+  private userInfo = null;
 
   isLoggedIn() {
     const token = this.getAccessToken();
@@ -41,7 +42,7 @@ export class AuthService {
     return decodedToken.exp < currentTime;
   }
 
-  setUserInfo(token) {
+  setUserInfo(token:string) {
     const decodedToken: any = jwtDecode(token);
     this.userInfo = decodedToken?.curUser || null;
   }
@@ -52,14 +53,9 @@ export class AuthService {
 
   checkAndRefreshToken(): void {
     this.userService.refreshAccessToken().subscribe(
-      response => {
-        console.log(response);
-      },
-      error => {
+      (error:CustomError) => {
         this.router.navigate(['/login']);
-        this.matSnackBar.open(error.error?.msg, "Close", {
-          verticalPosition: 'top',
-        });
+       this.toasterservice.showError(error.error?.msg,'Error Occured')
       }
     )
   }

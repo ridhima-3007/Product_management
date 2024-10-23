@@ -10,12 +10,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/user/forgotPassword`, { email },{withCredentials: true});
+  forgotPassword(email: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/user/forgotPassword`, { email },{withCredentials: true});
   }
 
-  resetPassword(password: string): Observable<any> {
-    return this.http.post(
+  resetPassword(password: string): Observable<void> {
+    return this.http.post<void>(
       environment.APIURL+'/user/resetPassword', 
       { password },  
       { withCredentials: true } 

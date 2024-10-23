@@ -4,6 +4,11 @@
   (subcategorySelected)="onSubcategorySelected($event)"
 ></app-category-list>
 
+<div class="sort">
+  <a class="anchor1 sort1" (click)="sortLowToHigh()">Price: Low to high <i class="fa-solid fa-arrow-up uparr"></i></a>
+  <a class="anchor2" (click)="sortHighToLow()">Price: High to low <i class="fa-solid fa-arrow-down downarr"></i></a>
+</div>
+
 <app-sidenav
   [data]="originalData"
   (filterProducts)="FilterMyProducts($event)"
@@ -30,13 +35,13 @@
           ><i class="fa-solid fa-arrow-down"></i></span
         ><span *ngIf="prod.discount > 0" class="discount"
           >{{ prod.discount }}%</span
-        ><span *ngIf="prod.discount > 0" class="price"
-          >&#8377;{{ prod.price }}</span
-        ><span *ngIf="prod.discount > 0" class="totalprice"
-          >&#8377;{{
-            prod.price - getDiscountedPrice(prod.price, prod.discount)
-          }}</span
-        >
+        ><span *ngIf="prod.discount > 0" class="price">{{
+          prod.price | currency : "INR"
+        }}</span
+        ><span *ngIf="prod.discount > 0" class="totalprice">{{
+          prod.price - getDiscountedPrice(prod.price, prod.discount)
+            | currency : "INR"
+        }}</span>
       </p>
 
       <p class="sell">Sold by: {{ prod.seller }}</p>
@@ -64,33 +69,43 @@
     <hr class="mt-0" />
     <div class="body px-2 py-2">
       <div>
-        <i class="fa-solid fa-less-than" class="lessimgicon"></i>
+        <i
+          *ngIf="count > -1 && showProduct.images.length > 0"
+          class="fa-solid fa-less-than lessimgicon"
+          (click)="showPreviousImages(showProduct.images)"
+        ></i>
         <img
           class="card-img-top showImg"
           [src]="getImageUrl(myImagePath)"
           alt="Card image cap"
         />
         <i
+          *ngIf="
+            count < showProduct.images.length && showProduct.images.length > 0
+          "
           class="fa-solid fa-greater-than imageicon"
-          (click)="showOtherImages(showProduct.images)"
+          (click)="showNextImages(showProduct.images)"
         ></i>
       </div>
       <p class="card-text">
         <span class="off">
-          Extra &#8377;
-          {{ getDiscountedPrice(showProduct.price, showProduct.discount) }} Off
+          Extra
+          {{
+            getDiscountedPrice(showProduct.price, showProduct.discount)
+              | currency : "INR"
+          }}
+          Off
         </span>
       </p>
       <p>
-        <span *ngIf="showProduct.discount > 0" class="prodprice"
-          >&#8377;{{
-            showProduct.price -
-              getDiscountedPrice(showProduct.price, showProduct.discount)
-          }}</span
-        >
-        <span *ngIf="showProduct.discount > 0" class="myprice"
-          >&#8377;{{ showProduct.price }}</span
-        >
+        <span *ngIf="showProduct.discount > 0" class="prodprice">{{
+          showProduct.price -
+            getDiscountedPrice(showProduct.price, showProduct.discount)
+            | currency : "INR"
+        }}</span>
+        <span *ngIf="showProduct.discount > 0" class="myprice">{{
+          showProduct.price | currency : "INR"
+        }}</span>
         <span *ngIf="showProduct.discount > 0" class="mydiscount"
           >{{ showProduct.discount }}% Off</span
         >

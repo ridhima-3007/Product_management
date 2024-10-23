@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,11 @@ import { ToasterService } from 'src/app/sharedServices/toastr.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  allData: any[] = [];
-  originalData: any[] = [];
+  allData: Product[] = [];
+  originalData: Product[] = [];
   message = '';
   myImagePath = '';
+  count = -1;
   activeFilters = {
     price: null,
     seller: null,
@@ -44,6 +46,7 @@ export class HomeComponent implements OnInit {
 
   displayChangePasswordModal() {
     this.show_modal = !this.show_modal;
+    this.count=-1;
   }
   showFullProduct(myProd) {
     this.myImagePath = myProd.coverImage;
@@ -175,13 +178,13 @@ export class HomeComponent implements OnInit {
   }
 
   RemoveFilter(event: { parameter: string; basedOn: string }) {
-    if (event.basedOn == 'PRICE') {
+    if (event.basedOn === 'PRICE') {
       this.activeFilters.price = null;
     }
-    if (event.basedOn == 'SELLER') {
+    if (event.basedOn === 'SELLER') {
       this.activeFilters.seller = null;
     }
-    if (event.basedOn == 'DISCOUNT') {
+    if (event.basedOn === 'DISCOUNT') {
       this.activeFilters.discount = null;
     }
 
@@ -192,5 +195,32 @@ export class HomeComponent implements OnInit {
     return Math.floor(price * (discount / 100));
   }
 
-  showOtherImages(parameter) {}
+  showNextImages(parameter) {
+    if (this.count === -1 || this.count === 0) {
+      console.log('count', this.count);
+      this.count++;
+    }
+    console.log(this.count);
+    this.myImagePath = parameter[this.count++];
+  }
+
+  showPreviousImages(parameter) {
+    if (this.count === parameter.length) {
+      this.count = this.count - 2;
+    }
+
+    console.log(this.count);
+    this.myImagePath = parameter[this.count--];
+    if (this.count === -1) {
+      this.count++;
+    }
+  }
+
+  sortLowToHigh() {
+    this.originalData.sort((a, b) => a.price - b.price);
+  }
+
+  sortHighToLow() {
+    this.originalData.sort((a, b) => b.price - a.price);
+  }
 }

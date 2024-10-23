@@ -66,7 +66,7 @@
   color: #fff;
   font-weight: 700;
 
-  &:hover{
+  &:hover {
     background-color: black;
   }
 }
@@ -160,32 +160,32 @@ a {
   font-size: 1rem;
 }
 
-.mydes{
-    font-weight: 500;
-    font-size: 0.9rem;
+.mydes {
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
-.mytitle{
-    font-weight: 500;
-    font-size: 1rem;
-    margin-right: 1rem;
+.mytitle {
+  font-weight: 500;
+  font-size: 1rem;
+  margin-right: 1rem;
 }
 
-h3{
-    font-size: 1.3rem;
-    font-weight: 700;
+h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
-.mycategory{
-    font-size: 1.1rem;
-    font-weight: 700;
+.mycategory {
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
-ul{
+ul {
   list-style: none;
 }
 
-.imageicon{
+.imageicon {
   float: right;
   margin-top: 8rem;
   margin-right: 1rem;
@@ -194,7 +194,44 @@ ul{
   color: rgb(68, 65, 65);
 }
 
-.lessimgicon{
- 
- 
+.lessimgicon {
+  margin-top: 8rem;
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: rgb(68, 65, 65);
+}
+
+.sort {
+  align-items: center;
+  display: flex;
+  gap: 2rem;
+  margin-top: 3vh;
+  box-shadow: 1px 2px 1px 1px rgba(197, 195, 195, 0.2);
+
+  .anchor1 {
+    margin-left: 40%;
+  }
+
+  a {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .sort {
+    .anchor1 {
+      margin-left: 15%;
+    }
+  }
+
+}
+
+@media screen and (max-width: 780px) {
+  .sort {
+    .anchor1 {
+      margin-left:20%;
+    }
+  }
 }

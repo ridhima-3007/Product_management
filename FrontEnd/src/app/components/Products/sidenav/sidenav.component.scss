@@ -65,3 +65,23 @@ ul {
   color: red;
   font-weight: bold;
 }
+
+@media screen and (max-width:800px) {
+  .myFilter{
+    width: 25%;
+  }
+
+  .mylist{
+    width: 26%;
+  }
+}
+
+@media screen and (max-width:600px) {
+  .myFilter{
+    width: 30%;
+  }
+
+  .mylist{
+    width: 32%;
+  }
+}

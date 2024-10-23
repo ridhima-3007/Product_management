@@ -29,8 +29,6 @@ export class ProfileComponent {
     this.show_modal = !this.show_modal;
   }
 
- 
-
   onLogout() {
     this.userService.logout().subscribe(
       (response) => {
