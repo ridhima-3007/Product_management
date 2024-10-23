@@ -26,7 +26,6 @@ export class CategoryListComponent implements OnInit {
   @Output() subcategorySelected: EventEmitter<string> = new EventEmitter();
 
   selectSubcategory(subcategory: string) {
-    console.log('Subcategory Selected', subcategory);
     this.subcategorySelected.emit(subcategory);
   }
 

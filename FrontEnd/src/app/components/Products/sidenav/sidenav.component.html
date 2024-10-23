@@ -1,19 +1,19 @@
 <ul class="showFilters">
   <li class="mylist" *ngIf="selectedPrice">
     <span class="listt">{{ selectedPrice }}</span
-    ><span class="btn" (click)="removeFilter(selectedPrice, 'PRICE')"
+    ><span class="btn" (click)="removeFilters(selectedPrice, 'PRICE')"
       >&times;</span
     >
   </li>
   <li class="mylist" *ngIf="selectedSeller">
     <span class="listt">{{ selectedSeller }}</span
-    ><span class="btn" (click)="removeFilter(selectedSeller, 'SELLER')"
+    ><span class="btn" (click)="removeFilters(selectedSeller, 'SELLER')"
       >&times;</span
     >
   </li>
   <li class="mylist" *ngIf="selectedDiscount">
     <span class="listt">{{ selectedDiscount }}</span
-    ><span class="btn" (click)="removeFilter(selectedDiscount, 'DISCOUNT')"
+    ><span class="btn" (click)="removeFilters(selectedDiscount, 'DISCOUNT')"
       >&times;</span
     >
   </li>

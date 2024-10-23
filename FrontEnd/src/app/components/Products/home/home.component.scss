@@ -75,7 +75,7 @@ h2 {
   font-size: 1.8rem;
   text-align: center;
   color: rgb(102, 99, 99);
-  margin-top: 20%;
+  margin-top: 10%;
   font-weight: 700;
 }
 
@@ -225,13 +225,36 @@ ul {
       margin-left: 15%;
     }
   }
-
 }
 
 @media screen and (max-width: 780px) {
   .sort {
     .anchor1 {
-      margin-left:20%;
+      margin-left: 20%;
+    }
+  }
+}
+
+.pagination {
+  justify-content: center;
+  margin-top: 1rem;
+  border: none;
+
+  .pageno {
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+  }
+
+  .pagebut {
+    font-weight: 700;
+    background-color: rgb(26, 25, 25);
+    padding: -0.5rem;
+    border-radius: 0;
+    margin-bottom: 2rem;
+
+    &:hover {
+      background-color: black;
+      cursor: pointer;
     }
   }
 }

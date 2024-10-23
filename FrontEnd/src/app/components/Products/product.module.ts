@@ -27,7 +27,7 @@ import { SharedModule } from 'src/app/shared.module';
     SidenavComponent,
     ViewProductComponent,
     ProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
   ],
   imports: [
     MatSortModule,
@@ -35,7 +35,7 @@ import { SharedModule } from 'src/app/shared.module';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
-    SharedModule
+    SharedModule,
   ],
   exports: [
     CategoryListComponent,
@@ -47,7 +47,7 @@ import { SharedModule } from 'src/app/shared.module';
     SidenavComponent,
     ViewProductComponent,
     ProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
   ],
 })
 export class ProductModule {}

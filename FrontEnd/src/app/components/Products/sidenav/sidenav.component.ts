@@ -28,25 +28,23 @@ export class SidenavComponent {
     parameter: string;
     basedOn: string;
   }> = new EventEmitter();
-  @Output() removeFilterFrom: EventEmitter<{
-    parameter: string;
-    basedOn: string;
-  }> = new EventEmitter();
+  @Output() removeFilter: EventEmitter<{ parameter: string; basedOn: string }> =
+    new EventEmitter();
 
   filter(parameter: string, basedOn: string) {
     this.filterProducts.emit({ parameter, basedOn });
   }
 
-  removeFilter(parameter: string, basedOn: string) {
-    if (basedOn == 'PRICE') {
+  removeFilters(parameter: string, basedOn: string) {
+    if (basedOn === 'PRICE') {
       this.selectedPrice = '';
     }
-    if (basedOn == 'SELLER') {
+    if (basedOn === 'SELLER') {
       this.selectedSeller = '';
     }
-    if (basedOn == 'DISCOUNT') {
+    if (basedOn === 'DISCOUNT') {
       this.selectedDiscount = '';
     }
-    this.removeFilterFrom.emit({ parameter, basedOn });
+    this.removeFilter.emit({ parameter, basedOn });
   }
 }
