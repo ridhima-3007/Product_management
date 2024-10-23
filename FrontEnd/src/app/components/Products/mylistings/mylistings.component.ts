@@ -1,29 +1,37 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
 import Swal from 'sweetalert2';
-import { MatPaginator } from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
 import { Category, Product } from 'src/app/models/product';
 import { Router } from '@angular/router';
-import { MatSort } from '@angular/material/sort';
 import { CategoryService } from 'src/app/Services/category.service';
+import { HttpParams } from '@angular/common/http';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-mylistings',
   templateUrl: './mylistings.component.html',
   styleUrls: ['./mylistings.component.scss'],
 })
-export class MylistingsComponent implements OnInit, AfterViewInit {
+export class MylistingsComponent implements OnInit {
   allData: Product[] = [];
   categories: Category[] = [];
   subcategories: string[] = [];
   categoryName: string;
   isActive: string;
+  subCategoryName: string;
+  productName: string;
+  pageSize: number = 2;
+  pageNumber: number = 1;
+  sortBy: string = 'name';
+  sortOrder: string = 'asc';
+  searchInput: string;
+  length: number = 10;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  searchParams: HttpParams;
 
   constructor(
     private allproductsservice: AllProductService,
@@ -36,33 +44,70 @@ export class MylistingsComponent implements OnInit, AfterViewInit {
     this.myCategoriesInit();
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
-    this.sort.active = 'name';
-    this.sort.direction = 'asc';
-  }
-
   myCategoriesInit() {
+    console.log('INit method');
     this.categoryservice.getCategories().subscribe((data) => {
       this.categories = data;
     });
     this.getProducts();
   }
 
+  setSearchParams() {
+    this.searchParams = new HttpParams()
+      .set('pageNumber', this.pageNumber.toString())
+      .set('pageSize', this.pageSize.toString())
+      .set('sortBy', this.sortBy)
+      .set('sortOrder', this.sortOrder);
+
+    if (this.categoryName) {
+      this.searchParams = this.searchParams.set(
+        'categoryName',
+        this.categoryName
+      );
+    }
+    if (this.subCategoryName) {
+      this.searchParams = this.searchParams.set(
+        'subCategoryName',
+        this.subCategoryName
+      );
+    }
+    if (this.isActive) {
+      this.searchParams = this.searchParams.set('isActive', this.isActive);
+    }
+    if (this.productName) {
+      this.searchParams = this.searchParams.set(
+        'productName',
+        this.productName
+      );
+    }
+    if (this.searchInput) {
+      this.searchParams = this.searchParams.set(
+        'searchInput',
+        this.searchInput
+      );
+    }
+  }
+
   getProducts() {
-    this.allproductsservice.getMyProducts().subscribe((data) => {
-      this.allData = data;
-      this.dataSource = new MatTableDataSource(this.allData);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+    this.setSearchParams();
+    this.allproductsservice
+      .getMyProducts(this.searchParams)
+      .subscribe((data) => {
+        this.allData = data.product;
+        this.length = data.count;
+        this.dataSource = new MatTableDataSource(this.allData);
+      });
+  }
+
+  onChangedPage(pageData: PageEvent) {
+    this.pageNumber = pageData.pageIndex + 1;
+    this.pageSize = pageData.pageSize;
+    this.getProducts();
   }
 
   selectCategory(event) {
     this.categoryName = (event.target as HTMLSelectElement).value;
-    this.dataSource.filter = this.categoryName;
+    this.getProducts();
     const category = this.categories.find(
       (cat) => cat.name === this.categoryName
     );
@@ -76,13 +121,24 @@ export class MylistingsComponent implements OnInit, AfterViewInit {
   }
 
   selectSubCategory(event) {
-    const subCategory = (event.target as HTMLSelectElement).value;
-    this.dataSource.filter = subCategory;
+    this.subCategoryName = (event.target as HTMLSelectElement).value;
+    this.getProducts();
   }
 
   selectStatus(event) {
     this.isActive = (event.target as HTMLSelectElement).value;
-    this.dataSource.filter = this.isActive;
+    this.getProducts();
+  }
+
+  onSort(sort: Sort) {
+    if (sort.direction === '') {
+      this.sortBy = 'name';
+      this.sortOrder = 'asc';
+    } else {
+      this.sortBy = sort.active;
+      this.sortOrder = sort.direction;
+    }
+    this.getProducts();
   }
 
   getImageUrl(imagePath: string): string {
@@ -103,7 +159,8 @@ export class MylistingsComponent implements OnInit, AfterViewInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.searchInput = filterValue;
+    this.getProducts();
   }
 
   viewProduct(product: Product) {

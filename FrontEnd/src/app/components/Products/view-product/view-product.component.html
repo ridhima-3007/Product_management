@@ -43,8 +43,12 @@
     <p class="green" *ngIf="product.discount > 0">Special Price</p>
     <div class="offer">
       <p class="price">{{ calculateDiscountedPrice() | currency : "INR" }}</p>
-      <p class="original-price gray">{{ product.price | currency : "INR" }}</p>
-      <p class="discount green">{{ product.discount }}% off</p>
+      <p *ngIf="product.discount > 0" class="original-price gray">
+        {{ product.price | currency : "INR" }}
+      </p>
+      <p *ngIf="product.discount > 0" class="discount green">
+        {{ product.discount }}% off
+      </p>
     </div>
     <p class="description">{{ product.description }}</p>
     <div class="category">

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Product } from '../models/product';
@@ -16,8 +16,9 @@ export class AllProductService {
     return this.http.get(`${this.apiUrl}/products`);
   }
 
-  getMyProducts(): Observable<any> {
+  getMyProducts(params: HttpParams): Observable<any> {
     return this.http.get(`${this.apiUrl}/myProducts`, {
+      params,
       withCredentials: true,
     });
   }
