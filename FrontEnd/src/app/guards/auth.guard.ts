@@ -10,7 +10,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if (!authService.getAccessToken()) {
     toaster.showError('Login to continue', 'You are not Logged In');
-    router.navigate(['/login']);
+    router.navigate(['/auth/login']);
     return false;
   }
 

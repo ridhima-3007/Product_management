@@ -6,6 +6,9 @@
     display: flex;
     flex-direction: column;
     margin-left: 2vw;
+    overflow-y: auto;
+    height: 60vh;
+    overflow-x: hidden;
 
     .add-image {
       width: 5rem;
@@ -100,6 +103,15 @@
   }
 
   .info {
-    width: 80%;
+    width: 90%;
+  }
+  .additional-images {
+    width: 6rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .additional-images {
+    width: 8rem;
   }
 }

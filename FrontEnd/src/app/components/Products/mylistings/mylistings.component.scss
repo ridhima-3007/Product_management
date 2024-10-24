@@ -62,7 +62,9 @@ td {
     text-overflow: ellipsis;
   }
 }
-
+tr {
+  cursor: pointer;
+}
 .search-input {
   width: 20vw;
 }

@@ -24,6 +24,7 @@ export interface Product {
   createdBy: string;
   seller: string;
   isActive: boolean;
+  discountedPrice:number
 }
 
 export interface Category {
@@ -31,8 +32,8 @@ export interface Category {
   subcategories: string[];
 }
 
-export interface Response{
-  msg:string;
+export interface Response {
+  msg: string;
 }
 
 export interface CustomError {

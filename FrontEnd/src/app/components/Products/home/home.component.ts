@@ -16,16 +16,7 @@ export class HomeComponent implements OnInit {
   count = -1;
   show_modal: boolean = false;
 
-  showProduct = {
-    category: '',
-    subcategory: '',
-    name: '',
-    coverImage: '',
-    description: '',
-    price: 0,
-    discount: 0,
-    images: [],
-  };
+  showProduct :Product
 
   activeFilters = {
     category: null,
