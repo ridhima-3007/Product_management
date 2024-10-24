@@ -26,6 +26,11 @@ export interface Product {
   isActive: boolean;
 }
 
+export interface Category {
+  name: string;
+  subcategories: string[];
+}
+
 export interface Response{
   msg:string;
 }

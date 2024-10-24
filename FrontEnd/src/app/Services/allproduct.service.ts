@@ -41,8 +41,10 @@ export class AllProductService {
     );
   }
 
-  getMyProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}/myProducts`);
+  getMyProducts(params: HttpParams): Observable<any> {
+    return this.http.get(`${this.apiUrl}/myProducts`, {
+      params,
+    });
   }
 
   getProductById(productId: string): Observable<Product> {
@@ -50,14 +52,18 @@ export class AllProductService {
   }
 
   deleteProduct(productId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/myProducts/${productId}`);
+    return this.http.patch<void>(`${this.apiUrl}/myProducts/${productId}`, {});
   }
 
   updateProduct(data, productId: string): Observable<Response> {
-    return this.http.patch<Response>(
+    return this.http.put<Response>(
       `${this.apiUrl}/myProducts/${productId}`,
       data
     );
+  }
+
+  activateProduct(productId: string): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}/myProducts/${productId}`, {});
   }
 
   getProductsWithCategories(parameter): Observable<Product[]> {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/Services/fp.service';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
   selector: 'app-forgot-password',
   templateUrl: './forgotpassword.component.html',
   styleUrls: ['./forgotpassword.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;

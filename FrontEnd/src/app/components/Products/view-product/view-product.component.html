@@ -1,44 +1,62 @@
 <app-navbar></app-navbar>
 <div class="display-product">
-  <div class="images">
-    <div class="additional-images">
-      <img
-        *ngFor="let image of allImages"
-        class="add-image"
-        [src]="getImageUrl(image)"
-        alt=""
-        (click)="changeImage(image)"
-      />
-    </div>
+  <div class="additional-images">
+    <img
+      *ngFor="let image of allImages"
+      class="add-image"
+      [src]="getImageUrl(image)"
+      alt=""
+      (click)="changeImage(image)"
+    />
+  </div>
+  <div class="container">
     <div>
       <img class="cover-image" [src]="getImageUrl(product.coverImage)" alt="" />
       <div class="buttons">
-        <button class="btn btn-dark" (click)="editProduct(product)">
+        <button
+          *ngIf="product.isActive"
+          class="btn btn-dark"
+          (click)="editProduct(product)"
+        >
           Edit
         </button>
-        <button class="btn btn-dark" (click)="deleteProduct(product)">
+        <button
+          *ngIf="product.isActive"
+          class="btn btn-dark"
+          (click)="deleteProduct(product)"
+        >
           Delete
+        </button>
+        <button
+          *ngIf="!product.isActive"
+          class="btn btn-dark"
+          (click)="activateProduct(product)"
+        >
+          Activate
         </button>
       </div>
     </div>
-  </div>
-
-  <div class="info">
-    <p class="title">{{ product.name }}</p>
-    <p class="green" *ngIf="product.discount > 0">Special Price</p>
-    <div class="offer">
-      <p class="price">&#8377;{{ calculateDiscountedPrice() }}</p>
-      <p class="original-price gray">&#8377;{{ product.price }}</p>
-      <p class="discount green">{{ product.discount }}% off</p>
-    </div>
-    <p class="description">{{ product.description }}</p>
-    <div class="category">
-      <p>
-        Category: <span>{{ product.category }}</span>
-      </p>
-      <p>
-        SubCategory: <span>{{ product.subcategory }}</span>
-      </p>
+    <div class="info">
+      <p class="title">{{ product.name }}</p>
+      <p class="green" *ngIf="product.discount > 0">Special Price</p>
+      <div class="offer">
+        <p class="price">{{ calculateDiscountedPrice() | currency : "INR" }}</p>
+        <p *ngIf="product.discount > 0" class="original-price gray">
+          {{ product.price | currency : "INR" }}
+        </p>
+        <p *ngIf="product.discount > 0" class="discount green">
+          {{ product.discount }}% off
+        </p>
+      </div>
+      <p class="description">{{ product.description }}</p>
+      <div class="category">
+        <p>
+          Category: <span>{{ product.category }}</span>
+        </p>
+        <p>
+          SubCategory: <span>{{ product.subcategory }}</span>
+        </p>
+      </div>
     </div>
   </div>
 </div>

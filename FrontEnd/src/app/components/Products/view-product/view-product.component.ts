@@ -63,10 +63,9 @@ export class ViewProductComponent implements OnInit {
   }
 
   editProduct(product: Product) {
-    this.router.navigate([
-      '/product/uploadProduct',
-      { id: product._id, isEditing: true },
-    ]);
+    this.router.navigate(['/product/uploadProduct'], {
+      queryParams: { id: product._id, isEditing: true },
+    });
   }
 
   deleteProduct(product) {
@@ -75,8 +74,8 @@ export class ViewProductComponent implements OnInit {
         this.allProductService.deleteProduct(product._id).subscribe(
           (response) => {
             Swal.fire({
-              title: 'Deleted!',
-              text: 'Your file has been deleted.',
+              title: 'Deactivated!',
+              text: 'Your product has been deactivated.',
               icon: 'success',
             });
             this.router.navigate(['/product/myListings']);
@@ -87,5 +86,17 @@ export class ViewProductComponent implements OnInit {
         );
       }
     });
+  }
+
+  activateProduct(product: Product) {
+    this.allProductService.deleteProduct(product._id).subscribe(
+      (response) => {
+        this.toaster.showSuccess('', 'Product has been activated.');
+        this.router.navigate(['/product/myListings']);
+      },
+      (error) => {
+        this.toaster.showError(error.error?.msg, 'Something went wrong');
+      }
+    );
   }
 }
