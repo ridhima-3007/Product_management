@@ -19,30 +19,18 @@ export class UserService {
 
   login(userData: any): Observable<void> {
     console.log(userData);
-    return this.http.post<void>(`${this.apiUrl}/login`, userData, {
-      withCredentials: true,
-    });
+    return this.http.post<void>(`${this.apiUrl}/login`, userData);
   }
 
   logout(): Observable<void> {
-    return this.http.post<void>(
-      `${this.apiUrl}/logout`,
-      {},
-      { withCredentials: true }
-    );
+    return this.http.post<void>(`${this.apiUrl}/logout`, {});
   }
 
   refreshAccessToken(): Observable<CustomError> {
-    return this.http.post<CustomError>(
-      `${this.apiUrl}/refresh-token`,
-      {},
-      { withCredentials: true }
-    );
+    return this.http.post<CustomError>(`${this.apiUrl}/refresh-token`, {});
   }
 
   changePassword(data): Observable<Response> {
-    return this.http.post<Response>(`${this.apiUrl}/changePassword`, data, {
-      withCredentials: true,
-    });
+    return this.http.post<Response>(`${this.apiUrl}/changePassword`, data);
   }
 }

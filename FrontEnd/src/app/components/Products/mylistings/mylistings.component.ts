@@ -89,12 +89,12 @@ export class MylistingsComponent implements OnInit {
   }
 
   viewProduct(product: Product) {
-    this.router.navigate(['/viewProduct', { id: product._id }]);
+    this.router.navigate(['/product/viewProduct', { id: product._id }]);
   }
 
   editProduct(product: Product) {
     this.router.navigate([
-      '/uploadProduct',
+      '/product/uploadProduct',
       { id: product._id, isEditing: true },
     ]);
   }

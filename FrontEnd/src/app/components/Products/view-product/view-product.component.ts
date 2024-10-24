@@ -64,7 +64,7 @@ export class ViewProductComponent implements OnInit {
 
   editProduct(product: Product) {
     this.router.navigate([
-      '/uploadProduct',
+      '/product/uploadProduct',
       { id: product._id, isEditing: true },
     ]);
   }
@@ -79,7 +79,7 @@ export class ViewProductComponent implements OnInit {
               text: 'Your file has been deleted.',
               icon: 'success',
             });
-            this.router.navigate(['/myListings']);
+            this.router.navigate(['/product/myListings']);
           },
           (error) => {
             this.toaster.showError(error.error?.msg, 'Something went wrong');

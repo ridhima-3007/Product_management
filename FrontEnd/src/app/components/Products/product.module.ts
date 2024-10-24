@@ -14,8 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ProfileComponent } from '../auth/profile/profile.component';
 import { ChangePasswordComponent } from '../auth/change-password/change-password.component';
-import { SharedModule } from 'src/app/shared.module';
-
+import { SharedModule } from 'src/app/Modules/shared.module';
 @NgModule({
   declarations: [
     CategoryListComponent,

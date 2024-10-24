@@ -71,7 +71,7 @@ export class ResetPasswordComponent implements OnInit {
               'Password Reset',
               'You can Login now'
             ),
-              this.router.navigate(['/login']);
+              this.router.navigate(['/auth/login']);
           },
           error: (err) => {
             this.toasterservice.showError('Error occured', err.error?.msg);

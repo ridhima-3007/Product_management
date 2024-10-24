@@ -1,25 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/auth/login/login.component';
-import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './components/auth/forgotpassword/forgotpassword.component';
-import { ResetPasswordComponent } from './components/auth/resetpassword/resetpassword.component';
-import { ProductuploadComponent } from './components/Products/productupload/productupload.component';
 import { HomeComponent } from './components/Products/home/home.component';
-import { authGuard } from './guards/auth.guard';
-import { ViewProductComponent } from './components/Products/view-product/view-product.component';
-import { MylistingsComponent } from './components/Products/mylistings/mylistings.component';
-import { VerifyUserComponent } from './components/auth/verify-user/verify-user.component';
 
 const routes: Routes = [
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'signup',
-    component: SignUpComponent,
-  },
   {
     path: '',
     redirectTo: '/home',
@@ -30,31 +13,18 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'forgotPassword',
-    component: ForgotPasswordComponent,
+    path: 'auth',
+    loadChildren: () =>
+      import('./components/auth/auth-routing.module').then(
+        (m) => m.AuthRoutingModule
+      ),
   },
   {
-    path: 'resetPassword',
-    component: ResetPasswordComponent,
-  },
-  {
-    path: 'uploadProduct',
-    canActivate: [authGuard],
-    component: ProductuploadComponent,
-  },
-  {
-    path: 'myListings',
-    canActivate: [authGuard],
-    component: MylistingsComponent,
-  },
-  {
-    path: 'viewProduct',
-    canActivate: [authGuard],
-    component: ViewProductComponent,
-  },
-  {
-    path: 'verify-email',
-    component: VerifyUserComponent,
+    path: 'product',
+    loadChildren: () =>
+      import('./components/Products/product-routing.module').then(
+        (m) => m.ProductRoutingModule
+      ),
   },
 ];
 

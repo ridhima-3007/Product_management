@@ -229,7 +229,7 @@ export class ProductuploadComponent implements OnInit {
       this.allProductService.updateProduct(formData, this.product_id).subscribe(
         (response:Response) => {
           this.toasterservice.showSuccess('View Your product', response.msg);
-          this.router.navigate(['/myListings']);
+          this.router.navigate(['/product/myListings']);
         },
         (error) => {
           this.toasterservice.showError(
@@ -246,7 +246,7 @@ export class ProductuploadComponent implements OnInit {
         .subscribe(
           (response) => {
             this.toasterservice.showSuccess('', 'Product created successfully');
-            this.router.navigate(['/myListings']);
+            this.router.navigate(['/product/myListings']);
           },
           (error) => {
             this.toasterservice.showError(error.error?.msg, 'Error Occured');

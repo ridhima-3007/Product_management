@@ -3,15 +3,15 @@
     <a class="navbar-brand ms-4 title" href="#">MyStore</a>
     <div>
       <ng-container *ngIf="isUserLoggedIn(); else notLoggedIn">
-        <a routerLink="/myListings" class="list-item me-4">My Products</a>
+        <a routerLink="/product/myListings" class="list-item me-4">My Products</a>
         <app-profile></app-profile>
       </ng-container>
 
       <ng-template #notLoggedIn>
-        <a class="list-item me-4" (click)="navigate('/login')">
+        <a class="list-item me-4" (click)="navigate('/auth/login')">
           <i class="fas fa-user me-2"></i>Login
         </a>
-        <a class="list-item" (click)="navigate('/signup')">
+        <a class="list-item" (click)="navigate('/auth/signup')">
           <i class="fa-solid fa-user-plus me-2"></i>Signup
         </a>
       </ng-template>

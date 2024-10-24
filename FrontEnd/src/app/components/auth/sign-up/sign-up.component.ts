@@ -89,7 +89,7 @@ export class SignUpComponent implements OnInit {
           'Check your mail for verification',
           'Signed Up Successfully'
         );
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
       },
       (error) => {
         this.toaster.showError('Something Went Wrong', error.error?.msg);

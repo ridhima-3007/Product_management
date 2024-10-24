@@ -30,7 +30,7 @@ export class VerifyUserComponent implements OnInit {
         .subscribe(
           (response) => {
             this.toasterservice.showSuccess('You can login now', 'Verifed');
-            this.router.navigate(['/login']);
+            this.router.navigate(['/auth/login']);
           },
           (error) => {
             this.toasterservice.showError('Try Again', 'Verification Failed');
