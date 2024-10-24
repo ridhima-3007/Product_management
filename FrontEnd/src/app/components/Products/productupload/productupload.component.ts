@@ -88,9 +88,9 @@ export class ProductuploadComponent implements OnInit {
         this.updateSubcategories(selectedCategory);
       });
 
-    this.route.paramMap.subscribe((params) => {
-      const productId = params.get('id');
-      const isEditing = params.get('isEditing') === 'true';
+    this.route.queryParams.subscribe((params) => {
+      const productId = params['id'];
+      const isEditing = params['isEditing'] === 'true';
       if (isEditing && productId) {
         this.isEditingProduct = true;
         this.product_id = productId;

@@ -39,7 +39,12 @@
   </div>
 
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+    <table
+      mat-table
+      [dataSource]="allData"
+      matSort
+      (matSortChange)="onSort($event)"
+    >
       <ng-container matColumnDef="image">
         <th mat-header-cell *matHeaderCellDef>Cover Image</th>
         <td mat-cell *matCellDef="let prod">
@@ -52,17 +57,19 @@
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="name">Name</th>
         <td mat-cell *matCellDef="let prod">{{ prod.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="price">Price</th>
         <td mat-cell *matCellDef="let prod">{{ prod.price }}</td>
       </ng-container>
 
       <ng-container matColumnDef="discount">
-        <th mat-header-cell *matHeaderCellDef>Discount</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="discount">
+          Discount
+        </th>
         <td mat-cell *matCellDef="let prod">{{ prod.discount }}</td>
       </ng-container>
 
@@ -113,7 +120,7 @@
     <mat-paginator
       [length]="length"
       [pageSize]="pageSize"
-      [pageSizeOptions]="[2, 5, 10]"
+      [pageSizeOptions]="[10, 50, 100]"
       showFirstLastButtons
       (page)="onChangedPage($event)"
     >

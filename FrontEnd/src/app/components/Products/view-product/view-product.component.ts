@@ -63,10 +63,9 @@ export class ViewProductComponent implements OnInit {
   }
 
   editProduct(product: Product) {
-    this.router.navigate([
-      '/uploadProduct',
-      { id: product._id, isEditing: true },
-    ]);
+    this.router.navigate(['/uploadProduct'], {
+      queryParams: { id: product._id, isEditing: true },
+    });
   }
 
   deleteProduct(product) {
@@ -93,7 +92,7 @@ export class ViewProductComponent implements OnInit {
     this.allProductService.deleteProduct(product._id).subscribe(
       (response) => {
         this.toaster.showSuccess('', 'Product has been activated.');
-        this.router.navigate(['/myListings']);
+        this.router.navigate(['/product/myListings']);
       },
       (error) => {
         this.toaster.showError(error.error?.msg, 'Something went wrong');

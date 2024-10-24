@@ -24,7 +24,7 @@ export class MylistingsComponent implements OnInit {
   isActive: string;
   subCategoryName: string;
   productName: string;
-  pageSize: number = 2;
+  pageSize: number = 10;
   pageNumber: number = 1;
   sortBy: string = 'name';
   sortOrder: string = 'asc';
@@ -95,7 +95,6 @@ export class MylistingsComponent implements OnInit {
       .subscribe((data) => {
         this.allData = data.product;
         this.length = data.count;
-        this.dataSource = new MatTableDataSource(this.allData);
       });
   }
 
@@ -155,8 +154,6 @@ export class MylistingsComponent implements OnInit {
     'action',
   ];
 
-  dataSource = new MatTableDataSource(this.allData);
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.searchInput = filterValue;
@@ -168,10 +165,9 @@ export class MylistingsComponent implements OnInit {
   }
 
   editProduct(product: Product) {
-    this.router.navigate([
-      '/uploadProduct',
-      { id: product._id, isEditing: true },
-    ]);
+    this.router.navigate(['/uploadProduct'], {
+      queryParams: { id: product._id, isEditing: true },
+    });
   }
 
   deleteProduct(product: Product) {

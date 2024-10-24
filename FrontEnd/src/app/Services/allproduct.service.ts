@@ -30,13 +30,17 @@ export class AllProductService {
   }
 
   deleteProduct(productId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/myProducts/${productId}`, {
-      withCredentials: true,
-    });
+    return this.http.patch(
+      `${this.apiUrl}/myProducts/${productId}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   updateProduct(data, productId: string): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/myProducts/${productId}`, data, {
+    return this.http.put(`${this.apiUrl}/myProducts/${productId}`, data, {
       withCredentials: true,
     });
   }
@@ -48,8 +52,12 @@ export class AllProductService {
   }
 
   activateProduct(productId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/myProducts/${productId}`, {
-      withCredentials: true,
-    });
+    return this.http.patch<void>(
+      `${this.apiUrl}/myProducts/${productId}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
   }
 }
