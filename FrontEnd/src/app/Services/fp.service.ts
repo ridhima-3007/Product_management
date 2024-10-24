@@ -5,17 +5,22 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-
 export class AuthService {
-  private apiUrl = environment.APIURL;  
+  private apiUrl = environment.APIURL;
 
   constructor(private http: HttpClient) {}
 
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/user/forgotPassword`, { email });
+  forgotPassword(email: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.apiUrl}/user/forgotPassword`,
+      { email },
+      { withCredentials: true }
+    );
   }
 
-  resetPassword(token: string, newPassword: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/user/resetPassword`, { token, newPassword });
+  resetPassword(password: string): Observable<void> {
+    return this.http.post<void>(environment.APIURL + '/user/resetPassword', {
+      password,
+    });
   }
 }

@@ -1,55 +1,129 @@
 <app-navbar></app-navbar>
 
 <div class="product-list">
+  <div class="filter">
+    <mat-form-field class="search-input">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Find Product"
+        #input
+      />
+    </mat-form-field>
+    <div class="select-filters">
+      <select class="form-select" (change)="selectCategory($event)">
+        <option selected>Categories</option>
+        <option *ngFor="let category of categories" [value]="category.name">
+          {{ category.name }}
+        </option>
+      </select>
+      <select class="form-select" (change)="selectSubCategory($event)">
+        <option selected>SubCategories</option>
+        <option *ngFor="let subcategory of subcategories" [value]="subcategory">
+          {{ subcategory }}
+        </option>
+      </select>
+      <select class="form-select" (change)="selectStatus($event)">
+        <option selected>Status</option>
+        <option [value]="true">Active Products</option>
+        <option [value]="false">Inactive Products</option>
+      </select>
+    </div>
+    <img
+      routerLink="/product/uploadProduct"
+      class="add-icon"
+      src="assets/images/plus.png"
+      alt=""
+    />
+  </div>
 
-  <mat-form-field>
-    <mat-label>Search</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Find Product" #input>
-  </mat-form-field>
+  <div class="mat-elevation-z8">
+    <table
+      mat-table
+      [dataSource]="allData"
+      matSort
+      (matSortChange)="onSort($event)"
+    >
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef>Cover Image</th>
+        <td mat-cell *matCellDef="let prod">
+          <img
+            class="prod-img"
+            [src]="getImageUrl(prod.coverImage)"
+            alt="Card image cap"
+          />
+        </td>
+      </ng-container>
 
-  <table mat-table [dataSource]="allData" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="name">Name</th>
+        <td mat-cell *matCellDef="let prod">{{ prod.name }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="image">
-      <th mat-header-cell *matHeaderCellDef> Cover Image </th>
-      <td mat-cell *matCellDef="let prod"> <img class="prod-img" [src]="getImageUrl(prod.coverImage)" alt="Card image cap"> </td>
-    </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="price">Price</th>
+        <td mat-cell *matCellDef="let prod">{{ prod.price }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let prod"> {{prod.name}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef> Price </th>
-      <td mat-cell *matCellDef="let prod"> {{prod.price}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="discount">
-      <th mat-header-cell *matHeaderCellDef> Discount </th>
-      <td mat-cell *matCellDef="let prod"> {{prod.discount}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="quantity">
-      <th mat-header-cell *matHeaderCellDef> Quantity </th>
-      <td mat-cell *matCellDef="let prod"> {{prod.quantity}} </td>
-    </ng-container>
+      <ng-container matColumnDef="discount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="discount">
+          Discount
+        </th>
+        <td mat-cell *matCellDef="let prod">{{ prod.discount }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> Description </th>
-      <td mat-cell *matCellDef="let prod"> {{prod.description.substring(0, 50)}}{{ prod.description.length > 15 ? '...' : '' }} </td>
-    </ng-container>
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+        <td mat-cell *matCellDef="let prod">{{ prod.quantity }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let prod"> <i class="fa-solid fa-pen-to-square me-4" (click)="editProduct(prod)"></i> <i class="fa-solid fa-trash" (click)="deleteProduct(prod)"></i> </td>
-    </ng-container>    
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let prod">{{ prod.description }}</td>
+      </ng-container>
 
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-    </tr>
-  </table>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let prod">
+          <i
+            *ngIf="prod.isActive"
+            class="fa-solid fa-pen-to-square me-2 blue"
+            (click)="editProduct(prod); $event.stopPropagation()"
+          ></i>
+          <i
+            *ngIf="prod.isActive"
+            class="fa-solid fa-trash red"
+            (click)="deleteProduct(prod); $event.stopPropagation()"
+          ></i>
+          <i
+            *ngIf="!prod.isActive"
+            class="fa-solid fa-square-check"
+            (click)="activateProduct(prod); $event.stopPropagation()"
+          ></i>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        (click)="viewProduct(row)"
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [ngClass]="{ 'bg-gray': !row.isActive }"
+      ></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data found</td>
+      </tr>
+    </table>
+
+    <mat-paginator
+      [length]="length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 50, 100]"
+      showFirstLastButtons
+      (page)="onChangedPage($event)"
+    >
+    </mat-paginator>
+  </div>
 </div>
-

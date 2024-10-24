@@ -1,0 +1,87 @@
+.myFilter {
+  margin-left: 2vh;
+  float: left;
+  width: 20%;
+  box-shadow: 1px 1px 1px 1px rgb(199, 193, 193);
+  border: 1px solid gray;
+  position: sticky;
+  border-radius: 5px;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 1.2rem;
+  background-color: rgb(66, 65, 65);
+  color: white;
+  text-align: center;
+  padding: 0.2rem;
+}
+
+.filter {
+  margin-left: 1rem;
+}
+
+.Text {
+  font-size: 1.1rem;
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+ul {
+  margin-left: 1rem;
+  list-style: square;
+  font-weight: 500;
+
+  li {
+    cursor: pointer;
+  }
+}
+
+.myoptions {
+  border-radius: 0;
+}
+
+.showFilters {
+  list-style: none;
+}
+
+.listt {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.mylist {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+  box-shadow: 1px 1px 1px 1px rgb(199, 193, 193);
+  margin-left: -2rem;
+  margin-bottom: 0.5rem;
+  background-color: rgb(236, 232, 232);
+}
+
+.btn {
+  color: red;
+  font-weight: bold;
+}
+
+@media screen and (max-width:800px) {
+  .myFilter{
+    width: 25%;
+  }
+
+  .mylist{
+    width: 26%;
+  }
+}
+
+@media screen and (max-width:600px) {
+  .myFilter{
+    width: 30%;
+  }
+
+  .mylist{
+    width: 32%;
+  }
+}

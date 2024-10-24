@@ -1,0 +1,261 @@
+.myList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2vw;
+  margin-top: 2vh;
+}
+
+.list {
+  margin: 0.5rem;
+}
+
+.card-img-top {
+  height: 15rem;
+  width: 15rem;
+  margin: 1vh auto;
+}
+
+.card {
+  box-shadow: 4px 6px 10px 4px rgba(197, 195, 195, 0.2);
+}
+
+.prodname {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.myimg {
+  width: 14rem;
+}
+
+.des {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.price {
+  text-decoration: line-through;
+}
+
+.discount {
+  color: rgb(19, 110, 19);
+  margin-right: 0.5rem;
+}
+
+.allprice {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.price {
+  color: rgb(114, 109, 109);
+  margin-right: 0.5rem;
+}
+
+
+.sell {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.mybut {
+  width: 70%;
+  background-color: rgb(66, 65, 65);
+  margin-left: 15%;
+  color: #fff;
+  font-weight: 700;
+
+  &:hover {
+    background-color: black;
+  }
+}
+
+h2 {
+  font-size: 1.8rem;
+  text-align: center;
+  color: rgb(102, 99, 99);
+  margin-top: 10%;
+  font-weight: 700;
+}
+
+.cb {
+  cursor: pointer;
+}
+
+.changeModal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.change-card {
+  width: 40rem;
+  margin: 5vh auto;
+}
+
+a {
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.closebtn {
+  background-color: white;
+  border: none;
+  padding: 0 5px;
+  color: red;
+  font-size: 2.5rem;
+  margin-right: 1rem;
+  font-weight: 400;
+}
+
+.title {
+  float: left;
+  margin-top: 2vh;
+  margin-left: 1rem;
+}
+
+.showImg {
+  margin-left: 30%;
+}
+
+.off {
+  color: rgb(19, 110, 19);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.prodprice {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-right: 1rem;
+}
+
+.myprice {
+  font-weight: 700;
+  color: rgb(94, 87, 87);
+  font-size: 1rem;
+  margin-right: 1rem;
+  text-decoration: line-through;
+}
+
+.mydiscount {
+  font-weight: 700;
+  color: rgb(19, 110, 19);
+  font-size: 1rem;
+}
+
+.mydes {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.mytitle {
+  font-weight: 500;
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.mycategory {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+ul {
+  list-style: none;
+}
+
+.imageicon {
+  float: right;
+  margin-top: 8rem;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: rgb(68, 65, 65);
+}
+
+.lessimgicon {
+  margin-top: 8rem;
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: rgb(68, 65, 65);
+}
+
+.sort {
+  align-items: center;
+  display: flex;
+  gap: 2rem;
+  margin-top: 3vh;
+  box-shadow: 1px 2px 1px 1px rgba(197, 195, 195, 0.2);
+
+  .anchor1 {
+    margin-left: 40%;
+  }
+
+  a {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .sort {
+    .anchor1 {
+      margin-left: 15%;
+    }
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .sort {
+    .anchor1 {
+      margin-left: 20%;
+    }
+  }
+}
+
+.pagination {
+  justify-content: center;
+  margin-top: 1rem;
+  border: none;
+
+  .pageno {
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+  }
+
+  .pagebut {
+    font-weight: 700;
+    background-color: rgb(26, 25, 25);
+    padding: -0.5rem;
+    border-radius: 0;
+    margin-bottom: 2rem;
+
+    &:hover {
+      background-color: black;
+      cursor: pointer;
+    }
+  }
+}

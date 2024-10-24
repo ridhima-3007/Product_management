@@ -1,0 +1,68 @@
+<ul class="showFilters">
+  <li class="mylist" *ngIf="selectedPrice">
+    <span class="listt">{{ selectedPrice }}</span
+    ><span class="btn" (click)="removeFilters(selectedPrice, 'PRICE')"
+      >&times;</span
+    >
+  </li>
+  <li class="mylist" *ngIf="selectedSeller">
+    <span class="listt">{{ selectedSeller }}</span
+    ><span class="btn" (click)="removeFilters(selectedSeller, 'SELLER')"
+      >&times;</span
+    >
+  </li>
+  <li class="mylist" *ngIf="selectedDiscount">
+    <span class="listt">{{ selectedDiscount }}</span
+    ><span class="btn" (click)="removeFilters(selectedDiscount, 'DISCOUNT')"
+      >&times;</span
+    >
+  </li>
+</ul>
+
+<div class="myFilter">
+  <h2><span>FILTERS</span></h2>
+
+  <div class="form-group">
+    <label class="Text" for="exampleFormControlSelect1">Price</label>
+    <select
+      class="form-select myoptions"
+      id="exampleFormControlSelect1"
+      [(ngModel)]="selectedPrice"
+      (change)="filter(selectedPrice, 'PRICE')"
+    >
+      <ng-container *ngFor="let price of priceArray">
+        <option>{{ price }}</option>
+      </ng-container>
+    </select>
+  </div>
+  <br />
+
+  <div class="form-group">
+    <label class="Text" for="exampleFormControlSelect1">Seller</label>
+    <select
+      class="form-select myoptions"
+      id="exampleFormControlSelect1"
+      [(ngModel)]="selectedSeller"
+      (change)="filter(selectedSeller, 'SELLER')"
+    >
+      <ng-container *ngFor="let sellerdata of uniqueSellers">
+        <option [value]="sellerdata">{{ sellerdata }}</option>
+      </ng-container>
+    </select>
+  </div>
+  <br />
+
+  <div class="form-group">
+    <label class="Text" for="exampleFormControlSelect1">Discount</label>
+    <select
+      class="form-select myoptions"
+      id="exampleFormControlSelect1"
+      [(ngModel)]="selectedDiscount"
+      (change)="filter(selectedDiscount, 'DISCOUNT')"
+    >
+      <ng-container *ngFor="let discount of discountArray">
+        <option>{{ discount }}</option>
+      </ng-container>
+    </select>
+  </div>
+</div>

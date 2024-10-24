@@ -50,7 +50,7 @@ a {
 .header {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .closebtn {
@@ -58,8 +58,14 @@ a {
     border: none;
     font-size: larger;
     padding: 0 5px;
+    color: red;
+    font-size: 2rem;
+    margin-right: 1rem;
+    font-weight: 700;
 }
 
 .title {
     margin-top: 2vh;
+   margin-left: 1rem;
+   font-weight: 700;
 }

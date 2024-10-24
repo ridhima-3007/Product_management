@@ -1,0 +1,21 @@
+.navbar-bg {
+  background-color: rgb(66, 65, 65);
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+}
+
+.list-item {
+  text-decoration: none;
+  color: white;
+  font-size: 17px;
+}
+
+.title{
+  font-family: "Arima", system-ui;
+}
+
+a{
+  cursor: pointer;
+}

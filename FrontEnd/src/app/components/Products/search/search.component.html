@@ -1,5 +1,15 @@
 <div class="search-box">
-    <form class="d-flex" role="search">
-        <input class="form-control me-2 py-2" type="search" placeholder="Search for Products, Brands and More.." aria-label="Search">  
-    </form>
+  <form class="d-flex" role="search">
+    <i class="fa-solid fa-magnifying-glass searchicon"></i>
+    <input
+      #s
+      class="form-control me-2 py-2 px-4"
+      type="search"
+      placeholder="Search for Products, Brands and More.."
+      aria-label="Search"
+      (keyup.enter)="search(s.value)"
+      [value]="searchTerm"
+    />
+    
+  </form>
 </div>

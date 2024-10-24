@@ -1,12 +1,20 @@
 <nav class="navbar navbar-dark navbar-bg">
-    <div class="container-fluid">
-      <a class="navbar-brand ms-4" href="#">ProductApp</a>
-      <div>
-        <a routerLink="/myListings" class="list-item me-4" *ngIf="isUserLoggedIn()">My Products</a>
-        <app-profile *ngIf="isUserLoggedIn()"></app-profile>
-        <a *ngIf="!isUserLoggedIn()" class="list-item me-4" routerLink="/login"><i class="fas fa-user me-2"></i>Login</a>
-        <a *ngIf="!isUserLoggedIn()" class="list-item" 
-        routerLink="/signup"><i class="fa-solid fa-user-plus me-2"></i>Signup</a>
-      </div>
+  <div class="container-fluid">
+    <a class="navbar-brand ms-4 title" href="#">MyStore</a>
+    <div>
+      <ng-container *ngIf="isUserLoggedIn(); else notLoggedIn">
+        <a routerLink="/product/myListings" class="list-item me-4">My Products</a>
+        <app-profile></app-profile>
+      </ng-container>
+
+      <ng-template #notLoggedIn>
+        <a class="list-item me-4" (click)="navigate('/auth/login')">
+          <i class="fas fa-user me-2"></i>Login
+        </a>
+        <a class="list-item" (click)="navigate('/auth/signup')">
+          <i class="fa-solid fa-user-plus me-2"></i>Signup
+        </a>
+      </ng-template>
     </div>
+  </div>
 </nav>
