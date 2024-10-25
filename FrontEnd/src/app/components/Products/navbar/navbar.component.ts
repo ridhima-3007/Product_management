@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
 import { Router } from '@angular/router';
 @Component({
@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
- 
   isUserLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }

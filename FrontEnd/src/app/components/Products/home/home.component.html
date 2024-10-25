@@ -1,22 +1,24 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
 <app-navbar></app-navbar>
 <app-search (searchingData)="searchMyData($event)"></app-search>
 <app-category-list
   (subcategorySelected)="onSubcategorySelected($event)"
 ></app-category-list>
 
-<div class="sort">
+<!-- <div class="sort">
   <a class="anchor1 sort1" (click)="sortLowToHigh()"
     >Price: Low to high <i class="fa-solid fa-arrow-up uparr"></i
   ></a>
   <a class="anchor2" (click)="sortHighToLow()"
     >Price: High to low <i class="fa-solid fa-arrow-down downarr"></i
   ></a>
-</div>
+</div> -->
 
 <app-sidenav
   [data]="allData"
   (filterProducts)="onFilter($event)"
   (removeFilter)="onRemoveFilter($event)"
+  (Sorting)="Sortt($event)"
 ></app-sidenav>
 
 <div class="myList">
@@ -44,15 +46,14 @@
         <span *ngIf="prod.discount > 0" class="price">{{
           prod.price | currency : "INR"
         }}</span>
-        
+
         <span class="totalprice">{{
-          prod.discountedPrice
-            | currency : "INR"
+          prod.discountedPrice | currency : "INR"
         }}</span>
       </p>
 
       <p class="sell">Sold by: {{ prod.seller }}</p>
-      <a href="#" class="btn btn-primary mybut">Buy</a>
+      <a (click)="$event.stopPropagation();cannotBuy()" class="btn btn-primary mybut">Buy</a>
     </div>
   </div>
 </div>
@@ -92,7 +93,7 @@
         ></i>
       </div>
       <p class="card-text">
-        <span *ngIf="showProduct.discount>0" class="off">
+        <span *ngIf="showProduct.discount > 0" class="off">
           Extra
           {{
             getDiscountedPrice(showProduct.price, showProduct.discount)
@@ -103,8 +104,7 @@
       </p>
       <p>
         <span class="prodprice">{{
-          showProduct.discountedPrice
-            | currency : "INR"
+          showProduct.discountedPrice | currency : "INR"
         }}</span>
         <span *ngIf="showProduct.discount > 0" class="myprice">{{
           showProduct.price | currency : "INR"
@@ -133,24 +133,25 @@
   </div>
 </div>
 
-<div *ngIf="message">
+<div *ngIf="message" class="ndfMessage">
+  <img class="noDataFound" src="assets/images/no-data.png" />
   <h2>{{ message }}</h2>
 </div>
 
-<div class="pagination">
+<div *ngIf="showPagination" class="pagination">
   <button
-    class="btn btn-dark pagebut"
+    class="btn pagebut"
     (click)="onPageChange(currentPage - 1)"
     [disabled]="currentPage === 1"
   >
-    Previous
+    <i class="fa-solid fa-angles-left"></i>
   </button>
   <span class="pageno">Page {{ currentPage }}</span>
   <button
-    class="btn btn-dark pagebut"
+    class="btn pagebut"
     (click)="onPageChange(currentPage + 1)"
     [disabled]="allData.length < pageSize"
   >
-    Next
+    <i class="fa-solid fa-angles-right"></i>
   </button>
 </div>

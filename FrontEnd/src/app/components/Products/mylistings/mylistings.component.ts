@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/Services/category.service';
 import { HttpParams } from '@angular/common/http';
 import { Sort } from '@angular/material/sort';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-mylistings',
@@ -37,10 +38,17 @@ export class MylistingsComponent implements OnInit {
     private allproductsservice: AllProductService,
     private toaster: ToasterService,
     private router: Router,
-    private categoryservice: CategoryService
+    private categoryservice: CategoryService,
+    private spinner:NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
+  
     this.myCategoriesInit();
   }
 

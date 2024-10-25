@@ -3,7 +3,12 @@
     <a class="navbar-brand ms-4 title" href="#">MyStore</a>
     <div>
       <ng-container *ngIf="isUserLoggedIn(); else notLoggedIn">
-        <a routerLink="/product/myListings" class="list-item me-4">My Products</a>
+        <a
+          routerLink="/product/myListings"
+          class="list-item me-4 showMyProducts"
+          >My Products</a
+        >
+
         <app-profile></app-profile>
       </ng-container>
 

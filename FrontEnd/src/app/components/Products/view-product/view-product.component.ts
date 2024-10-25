@@ -6,6 +6,7 @@ import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-view-product',
@@ -21,10 +22,17 @@ export class ViewProductComponent implements OnInit {
     private route: ActivatedRoute,
     private toaster: ToasterService,
     private allProductService: AllProductService,
-    private router: Router
+    private router: Router,
+    private spinner:NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
+  
     this.viewInit();
   }
 

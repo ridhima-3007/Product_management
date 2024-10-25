@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -15,9 +14,13 @@ export class SidenavComponent {
     '30000 and above',
   ];
   discountArray = ['0-20', '20-40', '40-60', '60-80', '80-100'];
+  sort = ['Price:Low to High', 'Price:High to Low'];
   selectedPrice = '';
   selectedSeller = '';
   selectedDiscount = '';
+  selectSort=''
+
+  expandedIndex = 0;
 
   get uniqueSellers() {
     const sellerNames = this.data.map((item) => item.seller);
@@ -30,6 +33,11 @@ export class SidenavComponent {
   }> = new EventEmitter();
   @Output() removeFilter: EventEmitter<{ parameter: string; basedOn: string }> =
     new EventEmitter();
+  @Output() Sorting: EventEmitter<{ parameter: string }> = new EventEmitter();
+
+  SortMyProducts(parameter) {
+    this.Sorting.emit(parameter);
+  }
 
   filter(parameter: string, basedOn: string) {
     this.filterProducts.emit({ parameter, basedOn });
@@ -44,6 +52,9 @@ export class SidenavComponent {
     }
     if (basedOn === 'DISCOUNT') {
       this.selectedDiscount = '';
+    }
+    if (basedOn === 'SORT') {
+      this.selectSort = '';
     }
     this.removeFilter.emit({ parameter, basedOn });
   }

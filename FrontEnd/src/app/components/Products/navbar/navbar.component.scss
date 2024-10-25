@@ -12,10 +12,26 @@
   font-size: 17px;
 }
 
-.title{
+.title {
   font-family: "Arima", system-ui;
 }
 
-a{
+a {
   cursor: pointer;
 }
+
+.showMyProducts {
+  background-color: rgb(247, 242, 242);
+  padding: 0.5rem;
+  border-radius: 5px;
+  color: black;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #fff;
+  }
+}
+
+
+
+

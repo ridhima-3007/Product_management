@@ -17,52 +17,139 @@
       >&times;</span
     >
   </li>
+  <li class="mylist" *ngIf="selectSort">
+    <span class="listt">{{ selectSort }}</span
+    ><span class="btn" (click)="removeFilters(selectSort, 'SORT')"
+      >&times;</span
+    >
+  </li>
 </ul>
 
 <div class="myFilter">
   <h2><span>FILTERS</span></h2>
 
-  <div class="form-group">
-    <label class="Text" for="exampleFormControlSelect1">Price</label>
-    <select
-      class="form-select myoptions"
-      id="exampleFormControlSelect1"
-      [(ngModel)]="selectedPrice"
-      (change)="filter(selectedPrice, 'PRICE')"
+  <cdk-accordion class="example-accordion">
+    <!-- PRICE Filter -->
+    <cdk-accordion-item
+      class="example-accordion-item"
+      #priceAccordion="cdkAccordionItem"
     >
-      <ng-container *ngFor="let price of priceArray">
-        <option>{{ price }}</option>
-      </ng-container>
-    </select>
-  </div>
-  <br />
+      <div
+        class="example-accordion-item-header"
+        (click)="priceAccordion.toggle()"
+      >
+        PRICE
+        <span class="example-accordion-item-description">
+          <i class="fa-solid fa-angle-down"></i>
+        </span>
+      </div>
+      <div *ngIf="priceAccordion.expanded" class="example-accordion-item-body">
+        <div class="myoptions" *ngFor="let price of priceArray">
+          <input
+            class="myRadio"
+            type="radio"
+            [id]="'price-' + price"
+            name="price"
+            [(ngModel)]="selectedPrice"
+            [value]="price"
+            (change)="filter(price, 'PRICE')"
+          />
+          <label [for]="'price-' + price">{{ price }}</label>
+        </div>
+      </div>
+    </cdk-accordion-item>
 
-  <div class="form-group">
-    <label class="Text" for="exampleFormControlSelect1">Seller</label>
-    <select
-      class="form-select myoptions"
-      id="exampleFormControlSelect1"
-      [(ngModel)]="selectedSeller"
-      (change)="filter(selectedSeller, 'SELLER')"
+    <!-- SELLER Filter -->
+    <cdk-accordion-item
+      class="example-accordion-item"
+      #sellerAccordion="cdkAccordionItem"
     >
-      <ng-container *ngFor="let sellerdata of uniqueSellers">
-        <option [value]="sellerdata">{{ sellerdata }}</option>
-      </ng-container>
-    </select>
-  </div>
-  <br />
+      <div
+        class="example-accordion-item-header"
+        (click)="sellerAccordion.toggle()"
+      >
+        SELLER
+        <span class="example-accordion-item-description">
+          <i class="fa-solid fa-angle-down"></i>
+        </span>
+      </div>
+      <div *ngIf="sellerAccordion.expanded" class="example-accordion-item-body">
+        <div class="myoptions" *ngFor="let seller of uniqueSellers">
+          <input
+            class="myRadio"
+            type="radio"
+            [id]="'seller-' + seller"
+            name="seller"
+            [(ngModel)]="selectedSeller"
+            [value]="seller"
+            (change)="filter(seller, 'SELLER')"
+          />
+          <label [for]="'seller-' + seller">{{ seller }}</label>
+        </div>
+      </div>
+    </cdk-accordion-item>
 
-  <div class="form-group">
-    <label class="Text" for="exampleFormControlSelect1">Discount</label>
-    <select
-      class="form-select myoptions"
-      id="exampleFormControlSelect1"
-      [(ngModel)]="selectedDiscount"
-      (change)="filter(selectedDiscount, 'DISCOUNT')"
+    <!-- DISCOUNT Filter -->
+    <cdk-accordion-item
+      class="example-accordion-item"
+      #discountAccordion="cdkAccordionItem"
     >
-      <ng-container *ngFor="let discount of discountArray">
-        <option>{{ discount }}</option>
-      </ng-container>
-    </select>
-  </div>
+      <div
+        class="example-accordion-item-header"
+        (click)="discountAccordion.toggle()"
+      >
+        DISCOUNT
+        <span class="example-accordion-item-description">
+          <i class="fa-solid fa-angle-down"></i>
+        </span>
+      </div>
+      <div
+        *ngIf="discountAccordion.expanded"
+        class="example-accordion-item-body"
+      >
+        <div class="myoptions" *ngFor="let discount of discountArray">
+          <input
+            class="myRadio"
+            type="radio"
+            [id]="'discount-' + discount"
+            name="discount"
+            [(ngModel)]="selectedDiscount"
+            [value]="discount"
+            (change)="filter(discount, 'DISCOUNT')"
+          />
+          <label [for]="'discount-' + discount">{{ discount }}</label>
+        </div>
+      </div>
+    </cdk-accordion-item>
+
+    <!--SORT-->
+    <cdk-accordion-item
+      class="example-accordion-item"
+      #sortAccordion="cdkAccordionItem"
+    >
+      <div
+        class="example-accordion-item-header"
+        (click)="sortAccordion.toggle()"
+      >
+        SORT
+        <span class="example-accordion-item-description">
+          <i class="fa-solid fa-angle-down"></i>
+        </span>
+      </div>
+      <div *ngIf="sortAccordion.expanded" class="example-accordion-item-body">
+        <div class="myoptions" *ngFor="let s of sort">
+          <input
+            class="myRadio"
+            type="radio"
+            [id]="'s-' + s"
+            name="s"
+            [(ngModel)]="selectSort"
+            [value]="s"
+            (change)="SortMyProducts(s)"
+          />
+          <label [for]="'s-' + s">{{ s }}</label>
+        </div>
+      </div>
+    </cdk-accordion-item>
+  </cdk-accordion>
 </div>

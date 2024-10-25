@@ -54,7 +54,6 @@
   margin-right: 0.5rem;
 }
 
-
 .sell {
   font-size: 0.8rem;
   font-weight: 700;
@@ -72,12 +71,20 @@
   }
 }
 
-h2 {
-  font-size: 1.8rem;
+.ndfMessage {
   text-align: center;
-  color: rgb(102, 99, 99);
   margin-top: 10%;
-  font-weight: 700;
+
+  .noDataFound {
+    width: 5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    color: rgb(102, 99, 99);
+    font-weight: 700;
+  }
 }
 
 .cb {
@@ -129,6 +136,7 @@ a {
   float: left;
   margin-top: 2vh;
   margin-left: 1rem;
+  font-size: 2rem;
 }
 
 .showImg {
@@ -248,13 +256,14 @@ ul {
 
   .pagebut {
     font-weight: 700;
-    background-color: rgb(26, 25, 25);
-    padding: -0.5rem;
     border-radius: 0;
     margin-bottom: 2rem;
+    color: black;
+    border: none;
+    font-size: 1.2rem;
 
     &:hover {
-      background-color: black;
+      background-color: rgb(112, 108, 108);
       cursor: pointer;
     }
   }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
 import { Product } from 'src/app/models/product';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +16,9 @@ export class HomeComponent implements OnInit {
   myImagePath = '';
   count = -1;
   show_modal: boolean = false;
+  showPagination = true;
 
-  showProduct :Product
+  showProduct: Product;
 
   activeFilters = {
     category: null,
@@ -35,10 +37,18 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private allproductsservice: AllProductService,
-    private toaster: ToasterService
+    private toaster: ToasterService,
+    private spinner:NgxSpinnerService
   ) {}
 
+
   ngOnInit(): void {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
+  
     this.fetchProducts();
   }
 
@@ -57,8 +67,10 @@ export class HomeComponent implements OnInit {
           this.totalProducts = data.totalProducts;
           if (this.allData.length === 0) {
             this.message = 'NO DATA FOUND';
+            this.showPagination = false;
           } else {
             this.message = '';
+            this.showPagination = true;
           }
         },
         (error) => {
@@ -134,6 +146,9 @@ export class HomeComponent implements OnInit {
       case 'DISCOUNT':
         this.activeFilters.discountRange = null;
         break;
+      case 'SORT':
+        this.sortBy = '';
+        break;
     }
 
     this.fetchProducts();
@@ -144,7 +159,7 @@ export class HomeComponent implements OnInit {
     this.count = -1;
   }
 
-  showNextImages(parameter) {
+  showNextImages(parameter: string[]) {
     if (this.count === -1 || this.count === 0) {
       console.log('count', this.count);
       this.count++;
@@ -153,7 +168,7 @@ export class HomeComponent implements OnInit {
     this.myImagePath = parameter[this.count++];
   }
 
-  showPreviousImages(parameter) {
+  showPreviousImages(parameter: string[]) {
     if (this.count === parameter.length) {
       this.count = this.count - 2;
     }
@@ -165,8 +180,20 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  showFullProduct(parameter) {
+  showFullProduct(parameter: Product) {
     this.myImagePath = parameter.coverImage;
     this.showProduct = { ...this.showFullProduct, ...parameter };
+  }
+
+  Sortt(parameter) {
+    if (parameter === 'Price:Low to High') {
+      this.sortLowToHigh();
+    } else {
+      this.sortHighToLow();
+    }
+  }
+
+  cannotBuy(){
+    this.toaster.showSuccess("Your Request is received successfully","Thankyou for Buying")
   }
 }
