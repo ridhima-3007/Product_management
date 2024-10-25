@@ -1,11 +1,11 @@
 .myFilter {
-  margin-left: 2vh;
   float: left;
   width: 20%;
-  box-shadow: 1px 1px 1px 1px rgb(199, 193, 193);
   border: 1px solid gray;
   position: sticky;
   border-radius: 5px;
+  border: none;
+  position: sticky;
 }
 
 h2 {
@@ -43,6 +43,8 @@ ul {
 
 .showFilters {
   list-style: none;
+  margin-top: 2vh;
+
 }
 
 .listt {
@@ -54,9 +56,8 @@ ul {
 .mylist {
   display: flex;
   justify-content: space-between;
-  width: 20%;
-  box-shadow: 1px 1px 1px 1px rgb(199, 193, 193);
-  margin-left: -2rem;
+  width: 115%;
+  margin-left: -2.5rem;
   margin-bottom: 0.5rem;
   background-color: rgb(236, 232, 232);
 }
@@ -74,6 +75,10 @@ ul {
   .mylist{
     width: 26%;
   }
+
+  .showFilters{
+    width: 25%;
+  }
 }
 
 @media screen and (max-width:600px) {
@@ -83,6 +88,10 @@ ul {
 
   .mylist{
     width: 32%;
+  }
+
+  .showFilters{
+    width: 30%;
   }
 }
 

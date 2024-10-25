@@ -1,13 +1,25 @@
 .search-box {
-  width: 25rem;
-  margin: auto;
-  margin-top: 12vh;
+  width: 18rem;
+  margin-bottom: 2vh;
+  margin-left: -2vh;
 }
 
 .searchicon {
   position: relative;
   left: 1.3rem;
   top: 0.8rem;
+}
+
+@media screen and (max-width:1238px) {
+  .search-box{
+    width: 22%;
+  }
+}
+
+@media screen and (max-width:770px) {
+  .search-box{
+    width: 35%;
+  }
 }
 
 

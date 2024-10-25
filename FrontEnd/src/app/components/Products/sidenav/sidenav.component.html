@@ -1,4 +1,6 @@
-<ul class="showFilters">
+
+
+<!-- <ul class="showFilters">
   <li class="mylist" *ngIf="selectedPrice">
     <span class="listt">{{ selectedPrice }}</span
     ><span class="btn" (click)="removeFilters(selectedPrice, 'PRICE')"
@@ -23,10 +25,9 @@
       >&times;</span
     >
   </li>
-</ul>
+</ul> -->
 
 <div class="myFilter">
-  <h2><span>FILTERS</span></h2>
 
   <cdk-accordion class="example-accordion">
     <!-- PRICE Filter -->
@@ -152,4 +153,34 @@
       </div>
     </cdk-accordion-item>
   </cdk-accordion>
+
+
+  <ul class="showFilters">
+    <li class="mylist" *ngIf="selectedPrice">
+      <span class="listt">{{ selectedPrice }}</span
+      ><span class="btn" (click)="removeFilters(selectedPrice, 'PRICE')"
+        >&times;</span
+      >
+    </li>
+    <li class="mylist" *ngIf="selectedSeller">
+      <span class="listt">{{ selectedSeller }}</span
+      ><span class="btn" (click)="removeFilters(selectedSeller, 'SELLER')"
+        >&times;</span
+      >
+    </li>
+    <li class="mylist" *ngIf="selectedDiscount">
+      <span class="listt">{{ selectedDiscount }}</span
+      ><span class="btn" (click)="removeFilters(selectedDiscount, 'DISCOUNT')"
+        >&times;</span
+      >
+    </li>
+    <li class="mylist" *ngIf="selectSort">
+      <span class="listt">{{ selectSort }}</span
+      ><span class="btn" (click)="removeFilters(selectSort, 'SORT')"
+        >&times;</span
+      >
+    </li>
+  </ul>
+  
 </div>
+

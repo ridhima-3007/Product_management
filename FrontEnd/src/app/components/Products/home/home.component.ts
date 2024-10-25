@@ -1,4 +1,4 @@
-import { Component, OnInit,HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
@@ -12,12 +12,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class HomeComponent implements OnInit {
   allData: Product[] = [];
+  originalData: Product[] = [];
   message = '';
   myImagePath = '';
   count = -1;
   show_modal: boolean = false;
   showPagination = true;
-
+  isScrolled = false;
   showProduct: Product;
 
   activeFilters = {
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit {
   };
 
   currentPage = 1;
-  pageSize = 10;
+  pageSize = 6;
   totalProducts = 0;
   sortBy = '';
   order = 'asc';
@@ -38,9 +39,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private allproductsservice: AllProductService,
     private toaster: ToasterService,
-    private spinner:NgxSpinnerService
+    private spinner: NgxSpinnerService
   ) {}
-
 
   ngOnInit(): void {
     this.spinner.show();
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     setTimeout(() => {
       this.spinner.hide();
     }, 1500);
-  
+
     this.fetchProducts();
   }
 
@@ -63,7 +63,12 @@ export class HomeComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          this.allData = data.Allproducts;
+          if (this.isScrolled) {
+            this.allData = [...this.allData, ...data.Allproducts];
+            this.isScrolled = false;
+          } else {
+            this.allData = data.Allproducts;
+          }
           this.totalProducts = data.totalProducts;
           if (this.allData.length === 0) {
             this.message = 'NO DATA FOUND';
@@ -80,29 +85,34 @@ export class HomeComponent implements OnInit {
   }
 
   onSubcategorySelected(subcategory: string) {
+    this.currentPage=1;
     this.activeFilters.subcategory = subcategory;
     console.log(this.activeFilters);
     this.fetchProducts();
   }
 
   searchMyData(data: string) {
+    this.currentPage=1;
     this.activeFilters.searchTerm = data.toLowerCase();
     this.fetchProducts();
   }
 
   sortLowToHigh() {
+    this.currentPage=1;
     this.sortBy = 'price';
     this.order = 'asc';
     this.fetchProducts();
   }
 
   sortHighToLow() {
+    this.currentPage=1;
     this.sortBy = 'price';
     this.order = 'desc';
     this.fetchProducts();
   }
 
   onPageChange(page: number) {
+    this.currentPage=1;
     this.currentPage = page;
     this.fetchProducts();
   }
@@ -116,6 +126,7 @@ export class HomeComponent implements OnInit {
   }
 
   onFilter(event: { parameter: string; basedOn: string }) {
+    this.currentPage=1;
     const { parameter, basedOn } = event;
 
     switch (basedOn) {
@@ -134,6 +145,7 @@ export class HomeComponent implements OnInit {
   }
 
   onRemoveFilter(event: { parameter: string; basedOn: string }) {
+    this.currentPage=1;
     const { basedOn } = event;
 
     switch (basedOn) {
@@ -186,6 +198,7 @@ export class HomeComponent implements OnInit {
   }
 
   Sortt(parameter) {
+    this.currentPage=1;
     if (parameter === 'Price:Low to High') {
       this.sortLowToHigh();
     } else {
@@ -193,7 +206,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  cannotBuy(){
-    this.toaster.showSuccess("Your Request is received successfully","Thankyou for Buying")
+  cannotBuy() {
+    this.toaster.showSuccess(
+      'Your Request is received successfully',
+      'Thankyou for Buying'
+    );
+  }
+
+  onScroll() {
+    this.isScrolled = true;
+    this.currentPage++;
+    this.fetchProducts();
   }
 }

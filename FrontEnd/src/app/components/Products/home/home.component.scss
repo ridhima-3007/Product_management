@@ -3,7 +3,9 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 2vw;
-  margin-top: 2vh;
+  margin-top: 23.5vh;
+  float: right;
+  width: 80%;
 }
 
 .list {
@@ -26,7 +28,7 @@
 }
 
 .myimg {
-  width: 14rem;
+  width: 15rem;
 }
 
 .des {
@@ -71,6 +73,22 @@
   }
 }
 
+.category {
+  position: fixed;
+  z-index: 90;
+  background-color: #fff;
+  width: 100%;
+}
+
+.filtersearch {
+  position: fixed;
+  top: 150px;
+  z-index: 90;
+  padding: 10px;
+  width: 100%;
+}
+
+
 .ndfMessage {
   text-align: center;
   margin-top: 10%;
@@ -101,6 +119,7 @@
   height: 100%;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
+  z-index: 150;
 }
 
 .change-card {
@@ -140,7 +159,7 @@ a {
 }
 
 .showImg {
-  margin-left: 30%;
+  margin-left: 28%;
 }
 
 .off {
@@ -196,7 +215,7 @@ ul {
 
 .imageicon {
   float: right;
-  margin-top: 8rem;
+  margin-top: -8rem;
   margin-right: 1rem;
   font-size: 1.5rem;
   cursor: pointer;
@@ -211,38 +230,38 @@ ul {
   color: rgb(68, 65, 65);
 }
 
-.sort {
-  align-items: center;
-  display: flex;
-  gap: 2rem;
-  margin-top: 3vh;
-  box-shadow: 1px 2px 1px 1px rgba(197, 195, 195, 0.2);
 
-  .anchor1 {
-    margin-left: 40%;
+@media screen and (max-width: 720px) {
+  .filtersearch{
+    top: 220px;
   }
 
-  a {
-    font-size: 1rem;
-    font-weight: 700;
+  .myList{
+    padding-top: 10vh;
+  }
+
+  .change-card{
+    width: 30rem;
+  }
+
+  .showImg {
+    margin-left: 20%;
+  }
+  
+
+}
+
+@media screen and (max-width: 1238px) {
+  .filtersearch{
+    margin-top: 70px;
+    width: 80%;
+  }
+
+  .myList{
+    margin-top: 36vh;
   }
 }
 
-@media screen and (max-width: 600px) {
-  .sort {
-    .anchor1 {
-      margin-left: 15%;
-    }
-  }
-}
-
-@media screen and (max-width: 780px) {
-  .sort {
-    .anchor1 {
-      margin-left: 20%;
-    }
-  }
-}
 
 .pagination {
   justify-content: center;

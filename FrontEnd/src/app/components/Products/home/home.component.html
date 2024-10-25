@@ -1,27 +1,30 @@
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
-<app-navbar></app-navbar>
-<app-search (searchingData)="searchMyData($event)"></app-search>
+<app-navbar id="top"></app-navbar>
+
+<div class="category">
 <app-category-list
   (subcategorySelected)="onSubcategorySelected($event)"
 ></app-category-list>
+</div>
 
-<!-- <div class="sort">
-  <a class="anchor1 sort1" (click)="sortLowToHigh()"
-    >Price: Low to high <i class="fa-solid fa-arrow-up uparr"></i
-  ></a>
-  <a class="anchor2" (click)="sortHighToLow()"
-    >Price: High to low <i class="fa-solid fa-arrow-down downarr"></i
-  ></a>
-</div> -->
+<div class="filtersearch">
+  <app-search (searchingData)="searchMyData($event)"></app-search>
 
-<app-sidenav
-  [data]="allData"
-  (filterProducts)="onFilter($event)"
-  (removeFilter)="onRemoveFilter($event)"
-  (Sorting)="Sortt($event)"
-></app-sidenav>
+  <app-sidenav
+    [data]="allData"
+    (filterProducts)="onFilter($event)"
+    (removeFilter)="onRemoveFilter($event)"
+    (Sorting)="Sortt($event)"
+  ></app-sidenav>
+</div>
 
-<div class="myList">
+<div
+  class="myList"
+  infinite-scroll
+  [infiniteScrollDistance]="0.5"
+  [infiniteScrollThrottle]="500"
+  (scrolled)="onScroll()"
+>
   <div *ngFor="let prod of allData" class="card list" style="width: 18rem">
     <img
       class="card-img-top myimg"
@@ -53,8 +56,16 @@
       </p>
 
       <p class="sell">Sold by: {{ prod.seller }}</p>
-      <a (click)="$event.stopPropagation();cannotBuy()" class="btn btn-primary mybut">Buy</a>
+      <a
+        (click)="$event.stopPropagation(); cannotBuy()"
+        class="btn btn-primary mybut"
+        >Buy</a
+      >
     </div>
+  </div>
+  <div *ngIf="message" class="ndfMessage">
+    <img class="noDataFound" src="assets/images/no-data.png" />
+    <h2>{{ message }}</h2>
   </div>
 </div>
 
@@ -91,7 +102,7 @@
           class="fa-solid fa-greater-than imageicon"
           (click)="showNextImages(showProduct.images)"
         ></i>
-      </div>
+      </div><br>
       <p class="card-text">
         <span *ngIf="showProduct.discount > 0" class="off">
           Extra
@@ -133,12 +144,9 @@
   </div>
 </div>
 
-<div *ngIf="message" class="ndfMessage">
-  <img class="noDataFound" src="assets/images/no-data.png" />
-  <h2>{{ message }}</h2>
-</div>
 
-<div *ngIf="showPagination" class="pagination">
+
+<!-- <div *ngIf="showPagination" class="pagination">
   <button
     class="btn pagebut"
     (click)="onPageChange(currentPage - 1)"
@@ -154,4 +162,4 @@
   >
     <i class="fa-solid fa-angles-right"></i>
   </button>
-</div>
+</div> -->

@@ -17,6 +17,7 @@ import { ChangePasswordComponent } from '../auth/change-password/change-password
 import { SharedModule } from 'src/app/Modules/shared.module';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SharedModule,
     CdkAccordionModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
+    InfiniteScrollModule,
   ],
   exports: [
     CategoryListComponent,

@@ -5,9 +5,16 @@ import { authModule } from './components/auth/auth.module';
 import { ProductModule } from './components/Products/product.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CredentialsInterceptor } from './credentials.interceptor';
+import { AppRoutingModule } from './app-routing.module';
+
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserAnimationsModule, authModule, ProductModule],
+  imports: [
+    BrowserAnimationsModule,
+    authModule,
+    ProductModule,
+    AppRoutingModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
