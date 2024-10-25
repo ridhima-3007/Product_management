@@ -10,6 +10,7 @@ import { CategoryService } from 'src/app/Services/category.service';
 import { HttpParams } from '@angular/common/http';
 import { Sort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-mylistings',
@@ -38,7 +39,8 @@ export class MylistingsComponent implements OnInit {
     private toaster: ToasterService,
     private router: Router,
     private categoryservice: CategoryService,
-    private spinner:NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
@@ -47,8 +49,28 @@ export class MylistingsComponent implements OnInit {
     setTimeout(() => {
       this.spinner.hide();
     }, 1500);
-  
+    this.toggleColumns();
+
     this.myCategoriesInit();
+  }
+
+  toggleColumns() {
+    this.breakpointObserver
+      .observe([Breakpoints.Small, Breakpoints.XSmall])
+      .subscribe((result) => {
+        if (result.matches) {
+          this.columnsDisplayed = [
+            'image',
+            'name',
+            'price',
+            'discount',
+            'quantity',
+            'action',
+          ];
+        } else {
+          this.columnsDisplayed = this.displayedColumns;
+        }
+      });
   }
 
   myCategoriesInit() {
@@ -174,6 +196,7 @@ export class MylistingsComponent implements OnInit {
     'description',
     'action',
   ];
+  columnsDisplayed = this.displayedColumns;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
