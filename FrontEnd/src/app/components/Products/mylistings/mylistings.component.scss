@@ -21,6 +21,7 @@ table {
 .filter {
   display: flex;
   gap: 10px;
+  justify-content: end;
 }
 
 .add-icon {
@@ -82,10 +83,10 @@ tr {
 
 .select-filters {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
 
   select {
-    width: 10rem;
+    width: 7rem;
     height: 4rem;
   }
 }

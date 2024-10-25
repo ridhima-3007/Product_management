@@ -10,55 +10,58 @@
 
           <div class="input-boxes">
             <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-              <div class="drop">
-                <label class="text1" for="category">Category</label><br /><br />
-                <select
-                  id="category"
-                  formControlName="category"
-                  class="form-control options"
-                >
-                  <option value="" disabled>Select Category</option>
-                  <option
-                    *ngFor="let category of categories"
-                    [value]="category.name"
+              <div class="cat-subCat">
+                <div class="drop">
+                  <label class="text1" for="category">Category</label
+                  ><br /><br />
+                  <select
+                    id="category"
+                    formControlName="category"
+                    class="form-control options"
                   >
-                    {{ category.name }}
-                  </option>
-                </select>
-                <div
-                  *ngIf="
-                    productForm.get('category').invalid &&
-                    productForm.get('category').touched
-                  "
-                >
-                  <small>{{ getErrors("category") }}</small>
+                    <option value="" disabled>Select Category</option>
+                    <option
+                      *ngFor="let category of categories"
+                      [value]="category.name"
+                    >
+                      {{ category.name }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      productForm.get('category').invalid &&
+                      productForm.get('category').touched
+                    "
+                  >
+                    <small>{{ getErrors("category") }}</small>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Subcategory -->
-              <div class="drop">
-                <label class="text1" for="subcategory">Subcategory</label
-                ><br /><br />
-                <select
-                  id="subcategory"
-                  formControlName="subcategory"
-                  class="form-control options"
-                >
-                  <option value="" disabled>Select Subcategory</option>
-                  <option
-                    *ngFor="let subcategory of subcategories"
-                    [value]="subcategory"
+                <!-- Subcategory -->
+                <div class="drop">
+                  <label class="text1" for="subcategory">Subcategory</label
+                  ><br /><br />
+                  <select
+                    id="subcategory"
+                    formControlName="subcategory"
+                    class="form-control options"
                   >
-                    {{ subcategory }}
-                  </option>
-                </select>
-                <div
-                  *ngIf="
-                    productForm.get('subcategory').invalid &&
-                    productForm.get('subcategory').touched
-                  "
-                >
-                  <small>{{ getErrors("subcategory") }}</small>
+                    <option value="" disabled>Select Subcategory</option>
+                    <option
+                      *ngFor="let subcategory of subcategories"
+                      [value]="subcategory"
+                    >
+                      {{ subcategory }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      productForm.get('subcategory').invalid &&
+                      productForm.get('subcategory').touched
+                    "
+                  >
+                    <small>{{ getErrors("subcategory") }}</small>
+                  </div>
                 </div>
               </div>
 
@@ -151,30 +154,29 @@
 
               <br />
 
-              <div class="text-center">
+              <div class="cover-preview">
+                <div class="img-upload">
+                  <label for="coverImage" class="text"
+                    >Cover Image (Max size:5MB)</label
+                  >
+
+                  <div class="upload-images">
+                    <label class="drop-container">
+                      <input
+                        id="coverImage"
+                        type="file"
+                        (change)="onCoverFileSelected($event)"
+                        formControlName="coverImage"
+                      />
+                    </label>
+                  </div>
+                </div>
                 <img
                   class="coverImg"
                   *ngIf="isEditingProduct && coverImage"
                   [src]="getImageUrl()"
                   alt=""
                 />
-              </div>
-
-              <br />
-
-              <label for="coverImage" class="text"
-                ><span *ngIf="isEditingProduct">Select New</span> Cover Image
-                (Max size:5MB)</label
-              >
-              <div class="upload-images">
-                <label class="drop-container">
-                  <input
-                    id="coverImage"
-                    type="file"
-                    (change)="onCoverFileSelected($event)"
-                    formControlName="coverImage"
-                  />
-                </label>
               </div>
               <div
                 *ngIf="

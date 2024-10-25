@@ -9,7 +9,7 @@
 }
 
 .body {
-  background-color: rgb(196, 215, 233);
+  background-color: rgb(246, 247, 248);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -40,7 +40,7 @@
         color: #333;
         margin-bottom: 20px;
         text-align: center;
-        background-color: #333;
+        background-color: rgb(66, 65, 65);
         color: #fff;
         margin: -2.5rem;
         padding: 1.5rem;
@@ -87,7 +87,7 @@
       .button input {
         width: 100%;
         height: 45px;
-        background: rgb(88, 100, 99);
+        background-color: rgb(66, 65, 65);
         color: #fff;
         border: none;
         border-radius: 6px;
@@ -95,7 +95,7 @@
         transition: background 0.3s ease;
 
         &:hover {
-          background: #151516;
+          background: rgb(35, 37, 37);
         }
       }
     }
@@ -113,14 +113,18 @@
     }
 
     .upload-images {
-      background-color: #31343b;
       border-radius: 7px;
+      border: 1px dashed gray;
       text-align: center;
       font-size: 1.125rem;
-      max-width: 500px;
-      margin-left: 10%;
+      max-width: 400px;
+      margin-left: 2vh;
       margin-bottom: 2vh;
       margin-top: 2vh;
+
+      &:hover {
+        background-color: lightgray;
+      }
     }
 
     .coverImg {
@@ -138,6 +142,7 @@
 
     .drop {
       padding: 0.5rem;
+      width: 50%;
     }
 
     .text1 {
@@ -146,22 +151,11 @@
 
     .drop-container {
       position: relative;
-      display: flex;
-      gap: 10px;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       padding: 10px;
-      margin-top: 1rem;
-      margin-bottom: 0.4rem;
       border-radius: 4px;
-      color: #fff;
+      color: black;
       cursor: pointer;
       transition: background 0.2s ease-in-out, border 0.2s ease-in-out;
-
-      &:hover {
-        background: #5c5d63;
-      }
 
       .drop-title {
         color: #fff;
@@ -203,6 +197,24 @@ small {
   font-size: 0.875rem;
 }
 
+.cat-subCat {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: col;
+}
+
+.cover-preview {
+  display: flex;
+  .img-upload {
+    width: 100%;
+  }
+}
+
 @media (max-width: 680px) {
   .container {
     flex-direction: column;
@@ -214,7 +226,10 @@ small {
 
     .forms {
       width: 100%;
-      padding: 20px;
     }
+  }
+
+  .cover-preview {
+    flex-direction: column;
   }
 }
