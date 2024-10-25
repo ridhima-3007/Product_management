@@ -75,4 +75,9 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  showPassword(myPassword) {
+    if (myPassword.type == 'password') myPassword.type = 'text';
+    else myPassword.type = 'password';
+  }
 }

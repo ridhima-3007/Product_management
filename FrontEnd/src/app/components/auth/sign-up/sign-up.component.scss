@@ -162,6 +162,12 @@
   }
 }
 
+.view {
+  position: relative;
+  color: #7d2ae8;
+  right: 0.5rem;
+}
+
 @media (max-width: 680px) {
   .container {
     flex-direction: column;

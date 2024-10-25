@@ -77,12 +77,17 @@
               <div class="input-box">
                 <i class="fa-solid fa-lock"></i>
                 <input
+                  #myPassword
                   class="ms-2"
                   type="password"
                   placeholder="Enter your password"
                   name="password"
                   formControlName="password"
                 />
+                <i
+                  (click)="showPassword(myPassword)"
+                  class="fa-solid fa-eye view"
+                ></i>
               </div>
               <div
                 *ngIf="

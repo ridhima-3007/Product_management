@@ -89,3 +89,29 @@ tr {
     height: 4rem;
   }
 }
+
+.no-data {
+  margin-left: 30vw;
+  margin-top: 3vh;
+  text-align: center;
+  img {
+    width: 6rem;
+  }
+  p {
+    font-size: larger;
+  }
+}
+
+.resizable {
+  transition: transform 0.2s ease;
+  outline: 2px solid transparent;
+}
+
+.resizable:focus,
+.resizable:active {
+  transform: scale(1.1) !important;
+}
+
+.resizable:not(:focus):not(:active) {
+  transform: scale(1) !important;
+}

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
-import { MatTableDataSource } from '@angular/material/table';
 import { ToasterService } from 'src/app/sharedServices/toastr.service';
 import Swal from 'sweetalert2';
 import { PageEvent } from '@angular/material/paginator';
@@ -22,7 +21,7 @@ export class MylistingsComponent implements OnInit {
   categories: Category[] = [];
   subcategories: string[] = [];
   categoryName: string;
-  isActive: string;
+  isActive: string = 'true';
   subCategoryName: string;
   productName: string;
   pageSize: number = 10;
@@ -64,7 +63,8 @@ export class MylistingsComponent implements OnInit {
       .set('pageNumber', this.pageNumber.toString())
       .set('pageSize', this.pageSize.toString())
       .set('sortBy', this.sortBy)
-      .set('sortOrder', this.sortOrder);
+      .set('sortOrder', this.sortOrder)
+      .set('isActive', this.isActive);
 
     if (this.categoryName) {
       this.searchParams = this.searchParams.set(
@@ -105,6 +105,14 @@ export class MylistingsComponent implements OnInit {
       });
   }
 
+  getAllProducts() {
+    this.categoryName = '';
+    this.subCategoryName = '';
+    this.productName = '';
+    this.searchInput = '';
+    this.getProducts();
+  }
+
   onChangedPage(pageData: PageEvent) {
     this.pageNumber = pageData.pageIndex + 1;
     this.pageSize = pageData.pageSize;
@@ -112,17 +120,23 @@ export class MylistingsComponent implements OnInit {
   }
 
   selectCategory(event) {
-    this.categoryName = (event.target as HTMLSelectElement).value;
-    this.getProducts();
-    const category = this.categories.find(
-      (cat) => cat.name === this.categoryName
-    );
-
-    if (category) {
+    const cat = (event.target as HTMLSelectElement).value;
+    if (cat == 'all') {
+      this.getAllProducts();
       this.subcategories = [];
-      this.subcategories = category.subcategories;
     } else {
-      this.subcategories = [];
+      this.categoryName = cat;
+      this.getProducts();
+      const category = this.categories.find(
+        (cat) => cat.name === this.categoryName
+      );
+
+      if (category) {
+        this.subcategories = [];
+        this.subcategories = category.subcategories;
+      } else {
+        this.subcategories = [];
+      }
     }
   }
 
