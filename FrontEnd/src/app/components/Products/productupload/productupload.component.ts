@@ -7,7 +7,7 @@ import { ToasterService } from 'src/app/sharedServices/toastr.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { AllProductService } from 'src/app/Services/allproduct.service';
-import { Product,Response } from 'src/app/models/product';
+import { Product, Response } from 'src/app/models/product';
 
 @Component({
   selector: 'app-productform',
@@ -32,6 +32,7 @@ export class ProductuploadComponent implements OnInit {
   maxFileSize = 5 * 1024 * 1024;
   isEditingProduct: boolean = false;
   product_id: string;
+  coverImage: string;
 
   constructor(
     private fb: FormBuilder,
@@ -115,11 +116,16 @@ export class ProductuploadComponent implements OnInit {
 
         this.selectedCoverFile = null;
         this.selectedFiles = [];
+        this.coverImage = product.coverImage;
       },
       (error) => {
         this.toasterservice.showError(error.error?.msg, 'Something went wrong');
       }
     );
+  }
+
+  getImageUrl(): string {
+    return environment.APIURL + `/${this.coverImage}`;
   }
 
   updateSubcategories(selectedCategory: string): void {
@@ -150,6 +156,7 @@ export class ProductuploadComponent implements OnInit {
   }
 
   onCoverFileSelected(event: any): void {
+    this.coverImage = '';
     const fileInput = event.target as HTMLInputElement;
     const files = fileInput.files;
 
@@ -227,7 +234,7 @@ export class ProductuploadComponent implements OnInit {
 
     if (this.isEditingProduct) {
       this.allProductService.updateProduct(formData, this.product_id).subscribe(
-        (response:Response) => {
+        (response: Response) => {
           this.toasterservice.showSuccess('View Your product', response.msg);
           this.router.navigate(['/product/myListings']);
         },

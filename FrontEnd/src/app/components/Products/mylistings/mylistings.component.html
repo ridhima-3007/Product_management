@@ -13,7 +13,7 @@
     </mat-form-field>
     <div class="select-filters">
       <select class="form-select" (change)="selectCategory($event)">
-        <option selected>Categories</option>
+        <option selected value="all">All</option>
         <option *ngFor="let category of categories" [value]="category.name">
           {{ category.name }}
         </option>
@@ -25,14 +25,13 @@
         </option>
       </select>
       <select class="form-select" (change)="selectStatus($event)">
-        <option selected>Status</option>
-        <option [value]="true">Active Products</option>
+        <option selected [value]="true">Active Products</option>
         <option [value]="false">Inactive Products</option>
       </select>
     </div>
     <img
       routerLink="/product/uploadProduct"
-      class="add-icon"
+      class="add-icon resizable"
       src="assets/images/plus.png"
       alt=""
     />
@@ -113,11 +112,17 @@
       ></tr>
 
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No data found</td>
+        <td class="mat-cell" colspan="4">
+          <div class="no-data">
+            <img src="assets/images/no-data.png" />
+            <p>No data found</p>
+          </div>
+        </td>
       </tr>
     </table>
 
     <mat-paginator
+      *ngIf="allData.length > 0"
       [length]="length"
       [pageSize]="pageSize"
       [pageSizeOptions]="[10, 50, 100]"

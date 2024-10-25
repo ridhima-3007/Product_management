@@ -44,10 +44,9 @@
         <span *ngIf="prod.discount > 0" class="price">{{
           prod.price | currency : "INR"
         }}</span>
-        
+
         <span class="totalprice">{{
-          prod.discountedPrice
-            | currency : "INR"
+          prod.discountedPrice | currency : "INR"
         }}</span>
       </p>
 
@@ -92,7 +91,7 @@
         ></i>
       </div>
       <p class="card-text">
-        <span *ngIf="showProduct.discount>0" class="off">
+        <span *ngIf="showProduct.discount > 0" class="off">
           Extra
           {{
             getDiscountedPrice(showProduct.price, showProduct.discount)
@@ -103,8 +102,7 @@
       </p>
       <p>
         <span class="prodprice">{{
-          showProduct.discountedPrice
-            | currency : "INR"
+          showProduct.discountedPrice | currency : "INR"
         }}</span>
         <span *ngIf="showProduct.discount > 0" class="myprice">{{
           showProduct.price | currency : "INR"
