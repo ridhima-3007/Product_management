@@ -1,0 +1,117 @@
+.display-product {
+  margin-top: 14vh;
+  display: flex;
+
+  .additional-images {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2vw;
+    overflow-y: auto;
+    height: 60vh;
+    overflow-x: hidden;
+
+    .add-image {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+
+  .container {
+    display: flex;
+
+    .cover-image {
+      box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1),
+        0 4px 15px 0 rgba(0, 0, 0, 0.19);
+      margin-left: 4vw;
+      width: 20rem;
+      height: 20rem;
+      padding: 2vh;
+    }
+
+    .buttons {
+      margin-top: 4vh;
+      margin-left: 4vw;
+      display: flex;
+      justify-content: center;
+      gap: 4vh;
+
+      .btn {
+        width: 6rem;
+        height: 3rem;
+      }
+    }
+
+    .info {
+      margin-left: 4vw;
+      margin-top: 4vh;
+
+      .title {
+        font-size: 40px;
+        margin-bottom: 4vh;
+      }
+
+      .green {
+        color: green;
+      }
+
+      .price {
+        font-size: 25px;
+      }
+
+      .offer {
+        display: flex;
+        gap: 1vh;
+
+        .gray {
+          color: gray;
+        }
+
+        .original-price {
+          text-decoration: line-through;
+          font-size: 20px;
+          margin: 0;
+        }
+
+        .discount {
+          font-size: 15px;
+        }
+      }
+
+      .description {
+        font-size: 16px;
+        width: 90%;
+        margin-top: 2vh;
+      }
+
+      .category {
+        display: flex;
+        gap: 2vw;
+        font-size: 17px;
+
+        span {
+          color: rgb(92, 91, 91);
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info {
+    width: 90%;
+  }
+  .additional-images {
+    width: 6rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .additional-images {
+    width: 8rem;
+  }
+}

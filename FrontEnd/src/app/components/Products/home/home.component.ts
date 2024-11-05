@@ -1,31 +1,221 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AllProductService } from 'src/app/Services/allproduct.service';
 import { environment } from 'src/environments/environment';
+import { ToasterService } from 'src/app/sharedServices/toastr.service';
+import { Product } from 'src/app/models/product';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  allData: Product[] = [];
+  originalData: Product[] = [];
+  message = '';
+  myImagePath = '';
+  count = -1;
+  show_modal: boolean = false;
+  showPagination = true;
+  isScrolled = false;
+  showProduct: Product;
 
-  allData:any[]=[];
-  
-  constructor(private allproductsservice:AllProductService){
-   this.allproductsservice.getProducts().subscribe(
-    (data)=>{
-      this.allData=data;
-      console.log(data);
-    },
-    (error)=>{
-      console.log(error);
-    }
-   )
+  activeFilters = {
+    category: null,
+    subcategory: null,
+    seller: null,
+    priceRange: null,
+    discountRange: null,
+    searchTerm: null,
+  };
+
+  currentPage = 1;
+  pageSize = 6;
+  totalProducts = 0;
+  sortBy = '';
+  order = 'asc';
+
+  constructor(
+    private allproductsservice: AllProductService,
+    private toaster: ToasterService,
+    private spinner: NgxSpinnerService
+  ) {}
+
+  ngOnInit(): void {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
+
+    this.fetchProducts();
+  }
+
+  fetchProducts() {
+    this.allproductsservice
+      .getProducts(
+        this.currentPage,
+        this.pageSize,
+        this.activeFilters,
+        this.sortBy,
+        this.order
+      )
+      .subscribe(
+        (data) => {
+          if (this.isScrolled) {
+            this.allData = [...this.allData, ...data.Allproducts];
+            this.isScrolled = false;
+          } else {
+            this.allData = data.Allproducts;
+          }
+          this.totalProducts = data.totalProducts;
+          if (this.allData.length === 0) {
+            this.message = 'NO DATA FOUND';
+            this.showPagination = false;
+          } else {
+            this.message = '';
+            this.showPagination = true;
+          }
+        },
+        (error) => {
+          this.toaster.showError('Error Occured', error.error?.msg);
+        }
+      );
+  }
+
+  onSubcategorySelected(subcategory: string) {
+    this.currentPage=1;
+    this.activeFilters.subcategory = subcategory;
+    console.log(this.activeFilters);
+    this.fetchProducts();
+  }
+
+  searchMyData(data: string) {
+    this.currentPage=1;
+    this.activeFilters.searchTerm = data.toLowerCase();
+    this.fetchProducts();
+  }
+
+  sortLowToHigh() {
+    this.currentPage=1;
+    this.sortBy = 'price';
+    this.order = 'asc';
+    this.fetchProducts();
+  }
+
+  sortHighToLow() {
+    this.currentPage=1;
+    this.sortBy = 'price';
+    this.order = 'desc';
+    this.fetchProducts();
+  }
+
+  onPageChange(page: number) {
+    this.currentPage=1;
+    this.currentPage = page;
+    this.fetchProducts();
   }
 
   getImageUrl(imagePath: string): string {
-    return environment.APIURL+`/${imagePath}`;
+    return environment.APIURL + `/${imagePath}`;
   }
-  
 
+  getDiscountedPrice(price: number, discount: number): number {
+    return Math.floor((price * discount) / 100);
+  }
+
+  onFilter(event: { parameter: string; basedOn: string }) {
+    this.currentPage=1;
+    const { parameter, basedOn } = event;
+
+    switch (basedOn) {
+      case 'PRICE':
+        this.activeFilters.priceRange = parameter;
+        break;
+      case 'SELLER':
+        this.activeFilters.seller = parameter;
+        break;
+      case 'DISCOUNT':
+        this.activeFilters.discountRange = parameter;
+        break;
+    }
+
+    this.fetchProducts();
+  }
+
+  onRemoveFilter(event: { parameter: string; basedOn: string }) {
+    this.currentPage=1;
+    const { basedOn } = event;
+
+    switch (basedOn) {
+      case 'PRICE':
+        this.activeFilters.priceRange = null;
+        break;
+      case 'SELLER':
+        this.activeFilters.seller = null;
+        break;
+      case 'DISCOUNT':
+        this.activeFilters.discountRange = null;
+        break;
+      case 'SORT':
+        this.sortBy = '';
+        break;
+    }
+
+    this.fetchProducts();
+  }
+
+  displayChangePasswordModal() {
+    this.show_modal = !this.show_modal;
+    this.count = -1;
+  }
+
+  showNextImages(parameter: string[]) {
+    if (this.count === -1 || this.count === 0) {
+      console.log('count', this.count);
+      this.count++;
+    }
+    console.log(this.count);
+    this.myImagePath = parameter[this.count++];
+  }
+
+  showPreviousImages(parameter: string[]) {
+    if (this.count === parameter.length) {
+      this.count = this.count - 2;
+    }
+
+    console.log(this.count);
+    this.myImagePath = parameter[this.count--];
+    if (this.count === -1) {
+      this.count++;
+    }
+  }
+
+  showFullProduct(parameter: Product) {
+    this.myImagePath = parameter.coverImage;
+    this.showProduct = { ...this.showFullProduct, ...parameter };
+  }
+
+  Sortt(parameter) {
+    this.currentPage=1;
+    if (parameter === 'Price:Low to High') {
+      this.sortLowToHigh();
+    } else {
+      this.sortHighToLow();
+    }
+  }
+
+  cannotBuy() {
+    this.toaster.showSuccess(
+      'Your Request is received successfully',
+      'Thankyou for Buying'
+    );
+  }
+
+  onScroll() {
+    this.isScrolled = true;
+    this.currentPage++;
+    this.fetchProducts();
+  }
 }

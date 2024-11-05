@@ -1,8 +1,30 @@
-<app-navbar></app-navbar>
-<app-search></app-search>
-<app-category-list></app-category-list>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<app-navbar id="top"></app-navbar>
 
-<div class="myList">
+<div class="category">
+<app-category-list
+  (subcategorySelected)="onSubcategorySelected($event)"
+></app-category-list>
+</div>
+
+<div class="filtersearch">
+  <app-search (searchingData)="searchMyData($event)"></app-search>
+
+  <app-sidenav
+    [data]="allData"
+    (filterProducts)="onFilter($event)"
+    (removeFilter)="onRemoveFilter($event)"
+    (Sorting)="Sortt($event)"
+  ></app-sidenav>
+</div>
+
+<div
+  class="myList"
+  infinite-scroll
+  [infiniteScrollDistance]="0.5"
+  [infiniteScrollThrottle]="500"
+  (scrolled)="onScroll()"
+>
   <div *ngFor="let prod of allData" class="card list" style="width: 18rem">
     <img
       class="card-img-top myimg"
@@ -10,19 +32,134 @@
       alt="Card image cap"
     />
     <hr class="my-1" />
-    <div class="card-body">
+    <div
+      class="card-body cb"
+      (click)="displayChangePasswordModal(); showFullProduct(prod)"
+    >
       <p class="card-title prodname">{{ prod.name }}</p>
       <p class="card-text des">{{ prod.description }}</p>
 
       <p class="card-text allprice">
-        <span style="color: rgb(19, 110, 19) ;"><i class="fa-solid fa-arrow-down"></i></span
-        ><span *ngIf="prod.discount > 0" class="discount">{{ prod.discount }}%</span
-        ><span *ngIf="prod.discount > 0" class="price">{{ prod.price }}</span
-        ><span *ngIf="prod.discount > 0" class="totalprice">{{ prod.price - (prod.price * (prod.discount/100)) }}</span>
+        <span *ngIf="prod.discount > 0" style="color: rgb(19, 110, 19)"
+          ><i class="fa-solid fa-arrow-down"></i
+        ></span>
+        <span *ngIf="prod.discount > 0" class="discount"
+          >{{ prod.discount }}%</span
+        >
+        <span *ngIf="prod.discount > 0" class="price">{{
+          prod.price | currency : "INR"
+        }}</span>
+
+        <span class="totalprice">{{
+          prod.discountedPrice | currency : "INR"
+        }}</span>
       </p>
 
-      <p class="sell">Sold by: {{prod.seller}}</p>
-      <a href="#" class="btn btn-primary mybut">Buy</a>
+      <p class="sell">Sold by: {{ prod.seller }}</p>
+      <a
+        (click)="$event.stopPropagation(); cannotBuy()"
+        class="btn btn-primary mybut"
+        >Buy</a
+      >
+    </div>
+  </div>
+  <div *ngIf="message" class="ndfMessage">
+    <img class="noDataFound" src="assets/images/no-data.png" />
+    <h2>{{ message }}</h2>
+  </div>
+</div>
+
+<!--modal-->
+<div *ngIf="show_modal" class="changeModal">
+  <div class="card change-card">
+    <div class="header">
+      <h2 class="title">{{ showProduct.name }}</h2>
+      <button
+        type="button"
+        class="closebtn"
+        (click)="displayChangePasswordModal()"
+      >
+        &times;
+      </button>
+    </div>
+    <hr class="mt-0" />
+    <div class="body px-2 py-2">
+      <div>
+        <i
+          *ngIf="count > -1 && showProduct.images.length > 0"
+          class="fa-solid fa-less-than lessimgicon"
+          (click)="showPreviousImages(showProduct.images)"
+        ></i>
+        <img
+          class="card-img-top showImg"
+          [src]="getImageUrl(myImagePath)"
+          alt="Card image cap"
+        />
+        <i
+          *ngIf="
+            count < showProduct.images.length && showProduct.images.length > 0
+          "
+          class="fa-solid fa-greater-than imageicon"
+          (click)="showNextImages(showProduct.images)"
+        ></i>
+      </div><br>
+      <p class="card-text">
+        <span *ngIf="showProduct.discount > 0" class="off">
+          Extra
+          {{
+            getDiscountedPrice(showProduct.price, showProduct.discount)
+              | currency : "INR"
+          }}
+          Off
+        </span>
+      </p>
+      <p>
+        <span class="prodprice">{{
+          showProduct.discountedPrice | currency : "INR"
+        }}</span>
+        <span *ngIf="showProduct.discount > 0" class="myprice">{{
+          showProduct.price | currency : "INR"
+        }}</span>
+        <span *ngIf="showProduct.discount > 0" class="mydiscount"
+          >{{ showProduct.discount }}% Off</span
+        >
+      </p>
+      <hr />
+      <h3>Description</h3>
+      <p class="card-text mydes">{{ showProduct.description }}</p>
+      <hr />
+      <p>
+        <span class="mycategory"
+          >Category:
+          <span class="mytitle">{{ showProduct.category }}</span></span
+        >
+      </p>
+      <p>
+        <span class="mycategory"
+          >Subcategory:
+          <span class="mytitle">{{ showProduct.subcategory }}</span></span
+        >
+      </p>
     </div>
   </div>
 </div>
+
+
+
+<!-- <div *ngIf="showPagination" class="pagination">
+  <button
+    class="btn pagebut"
+    (click)="onPageChange(currentPage - 1)"
+    [disabled]="currentPage === 1"
+  >
+    <i class="fa-solid fa-angles-left"></i>
+  </button>
+  <span class="pageno">Page {{ currentPage }}</span>
+  <button
+    class="btn pagebut"
+    (click)="onPageChange(currentPage + 1)"
+    [disabled]="allData.length < pageSize"
+  >
+    <i class="fa-solid fa-angles-right"></i>
+  </button>
+</div> -->

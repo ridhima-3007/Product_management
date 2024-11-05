@@ -1,0 +1,118 @@
+.product-list {
+  width: 90%;
+  margin: auto;
+  margin-top: 14vh;
+}
+
+.prod-img {
+  width: 30px;
+  height: 30px;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.filter {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+}
+
+.add-icon {
+  margin-top: 2vh;
+  margin-left: 1vw;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.bg-gray {
+  background-color: lightgray;
+}
+
+.purple {
+  color: rgb(66, 65, 65);
+}
+
+.mat-mdc-header-row {
+  background-color: rgb(66, 65, 65);
+  color: white;
+}
+
+td {
+  font-size: 16px;
+
+  .mat-column-description {
+    max-width: 20vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+tr {
+  cursor: pointer;
+}
+.search-input {
+  width: 20vw;
+}
+
+.mat-column-description {
+  max-width: 20vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: white;
+}
+
+.select-filters {
+  display: flex;
+  gap: 1rem;
+
+  select {
+    width: 7rem;
+    height: 4rem;
+  }
+}
+
+.no-data {
+  margin-left: 30vw;
+  margin-top: 3vh;
+  text-align: center;
+  img {
+    width: 6rem;
+  }
+  p {
+    font-size: larger;
+  }
+}
+
+.resizable {
+  transition: transform 0.2s ease;
+  outline: 2px solid transparent;
+}
+
+.resizable:focus,
+.resizable:active {
+  transform: scale(1.1) !important;
+}
+
+.resizable:not(:focus):not(:active) {
+  transform: scale(1) !important;
+}
